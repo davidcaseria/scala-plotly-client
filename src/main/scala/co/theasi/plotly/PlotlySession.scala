@@ -49,9 +49,18 @@ trait Session {
   }
 
   private def processPlotlyResponse(response: HttpResponse[String]) {
-    val JString(err) = parse(response.body) \ "error"
+    val parsedBody = parse(response.body)
+    val JString(err) = parsedBody \ "error"
     if (err != "") {
       throw new PlotlyException(err)
+    }
+    val JString(warning) = parsedBody \ "warning"
+    if (warning != "") {
+      throw new PlotlyException(warning)
+    }
+    val JString(message) = parsedBody \ "message"
+    if (message != "") {
+      throw new PlotlyException(message)
     }
   }
 

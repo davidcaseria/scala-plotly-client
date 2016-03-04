@@ -15,4 +15,16 @@ class PlotWriterSpec extends FlatSpec with Matchers {
       "hello-scala")(testSession)
   }
 
+  it should "raise an exception if the authentication is wrong" in {
+    val badSession = new Session {
+      val credentials = Credentials("PlotlyImageTest", "not-a-key")
+      val plotlyUrl = "https://plot.ly/clientresp"
+    }
+    intercept[PlotlyException]  {
+      plot(
+        Vector(1.0, 2.0, 3.0), Vector(1.0, 5.0, 10.0),
+        "hello-scala")(badSession)
+    }
+  }
+
 }
