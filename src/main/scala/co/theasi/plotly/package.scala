@@ -3,9 +3,18 @@ package co.theasi
 import co.theasi.plotly.PlotWriter
 
 package object plotly {
-  def plot(x: Iterable[Double], y: Iterable[Double], fileName: String) =
-    PlotWriter.plot(x, y, fileName)
+  implicit val session = new DefaultSession
 
-  def plotAsync(x: Iterable[Double], y: Iterable[Double], fileName: String) =
+  def plot(
+      x: Iterable[Double],
+      y: Iterable[Double],
+      fileName: String)(
+      implicit session: Session) = PlotWriter.plot(x, y, fileName)
+
+  def plotAsync(
+      x: Iterable[Double],
+      y: Iterable[Double],
+      fileName: String)(
+      implicit session: Session) =
     PlotWriter.plotAsync(x, y, fileName)
 }
