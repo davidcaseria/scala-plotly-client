@@ -9,7 +9,7 @@ object PlotWriter {
       y: Iterable[Double],
       fileName: String)(
       implicit  session: Session)
-  {
+  : Response = {
     val args = s""" [ [${x.mkString(",")}], [${y.mkString(",")}] ] """
     val origin = "plot"
     val kwargs = s""" { "filename": "$fileName" } """
@@ -21,7 +21,7 @@ object PlotWriter {
       y: Iterable[Double],
       fileName: String)(
       implicit session: Session)
-  : Future[Unit] = {
+  : Future[Response] = {
     val args = s""" [ [${x.mkString(",")}], [${y.mkString(",")}] ] """
     val origin = "plot"
     val kwargs = s""" { "filename": "$fileName" } """

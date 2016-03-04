@@ -16,7 +16,7 @@ trait Session {
       origin: String,
       args: String,
       kwargs: String
-  ): Future[Unit] = {
+  ): Future[Response] = {
     val response = Future {
       request(origin, args, kwargs).asString
     }
@@ -27,7 +27,7 @@ trait Session {
       origin: String,
       args: String,
       kwargs: String
-  ) {
+  ): Response = {
     val response = request(origin, args, kwargs).asString
     processPlotlyResponse(response)
   }
@@ -48,7 +48,7 @@ trait Session {
     request
   }
 
-  private def processPlotlyResponse(response: HttpResponse[String]) {
+  private def processPlotlyResponse(response: HttpResponse[String]): Response = {
     val parsedBody = parse(response.body)
     val JString(err) = parsedBody \ "error"
     if (err != "") {
@@ -62,6 +62,8 @@ trait Session {
     if (message != "") {
       throw new PlotlyException(message)
     }
+    val JString(url) = parsedBody \ "url"
+    Response(url)
   }
 
 }
