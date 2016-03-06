@@ -11,6 +11,7 @@ import org.json4s.native.JsonMethods.parse
 trait Writer {
   val credentials: Credentials
   val plotlyUrl: String
+  private def plotlyEndpoint = plotlyUrl + "clientresp"
 
   def plot[X: Writable, Y: Writable](
       x: Iterable[X],
@@ -37,7 +38,7 @@ trait Writer {
       args: String,
       kwargs: String
     ): HttpRequest = {
-    val request = Http(plotlyUrl).postForm(Seq(
+    val request = Http(plotlyEndpoint).postForm(Seq(
       "un" -> credentials.username,
       "key" -> credentials.key,
       "origin" -> origin,

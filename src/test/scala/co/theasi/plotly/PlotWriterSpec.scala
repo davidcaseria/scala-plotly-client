@@ -8,7 +8,7 @@ class PlotWriterSpec extends FlatSpec with Matchers {
 
   val writer = new Writer {
     val credentials = Credentials("PlotlyImageTest", "786r5mecv0")
-    val plotlyUrl = "https://plot.ly/clientresp"
+    val plotlyUrl = "https://plot.ly/"
   }
 
   // dummy data
