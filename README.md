@@ -30,6 +30,22 @@ scala> val x = Vector(1.0, 2.0, 3.0)
 scala> val y = Vector(1.0, 4.0, 9.0)
 
 scala> plot(x, y, "hello-plotly")
+Response(https://plot.ly/~pbugnion/238)
 ```
 
 This will create a graph called `hello-plotly` in your account!
+
+## Using custom credentials
+
+Sometimes, creating a `~/.plotly/.credentials` file isn't practical. In that case, you can pass credentials to Plotly programatically by defining a custom writer:
+
+```
+import co.theasi.plotly
+
+val writer = new Writer {
+  val credentials = Credentials("my-username", "my-key")
+  val plotlyUrl = "https://plot.ly"
+}
+
+writer.plot(Vector(1.0, 2.0, 3.0), Vector(1.0, 5.0, 10.0))
+```
