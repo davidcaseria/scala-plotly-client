@@ -8,22 +8,22 @@ import scalaj.http.{ Http, HttpRequest, HttpResponse }
 import org.json4s.JString
 import org.json4s.native.JsonMethods.parse
 
-trait Session {
+trait Writer {
   val credentials: Credentials
   val plotlyUrl: String
 
-  def sendToPlotlyAsync(
-      origin: String,
-      args: String,
-      kwargs: String
-  ): Future[Response] = {
-    val response = Future {
-      request(origin, args, kwargs).asString
-    }
-    response.map { processPlotlyResponse _ }
+  def plot[X: Writable, Y: Writable](
+      x: Iterable[X],
+      y: Iterable[Y],
+      fileName: String)
+  : Response = {
+    val args = s""" [ [${x.mkString(",")}], [${y.mkString(",")}] ] """
+    val origin = "plot"
+    val kwargs = s""" { "filename": "$fileName" } """
+    sendToPlotly(origin, args, kwargs)
   }
 
-  def sendToPlotly(
+  private def sendToPlotly(
       origin: String,
       args: String,
       kwargs: String
@@ -66,9 +66,4 @@ trait Session {
     Response(url)
   }
 
-}
-
-class DefaultSession extends Session {
-  val credentials = Credentials.read
-  val plotlyUrl = "https://plot.ly/clientresp"
 }

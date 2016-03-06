@@ -6,7 +6,7 @@ import scalaj.http.{ Http, HttpOptions }
 
 class PlotWriterSpec extends FlatSpec with Matchers {
 
-  implicit val testSession = new Session {
+  val writer = new Writer {
     val credentials = Credentials("PlotlyImageTest", "786r5mecv0")
     val plotlyUrl = "https://plot.ly/clientresp"
   }
@@ -17,23 +17,33 @@ class PlotWriterSpec extends FlatSpec with Matchers {
   val defaultName = "hello-scala"
 
   "plot" should "send a plot request to Plotly" in {
-    val response = plot(
-      defaultX, defaultY, defaultName)(testSession)
+    val response = writer.plot(
+      defaultX, defaultY, defaultName)
   }
 
   it should "raise an exception if the authentication is wrong" in {
-    val badSession = new Session {
+    val badWriter = new Writer {
       val credentials = Credentials("PlotlyImageTest", "not-a-key")
       val plotlyUrl = "https://plot.ly/clientresp"
     }
     intercept[PlotlyException]  {
-      plot(
-        defaultX, defaultY, defaultName)(badSession)
+      badWriter.plot(
+        defaultX, defaultY, defaultName)
     }
   }
 
   it should "respond with a valid URL" in {
-    val response = plot(defaultX, defaultY, defaultName)(testSession)
+    val response = writer.plot(defaultX, defaultY, defaultName)
+
+    // Try and hit the url returned in the response
+    val request = Http(response.url)
+      .option(HttpOptions.followRedirects(true))
+    request.asString.code shouldEqual 200
+  }
+
+  it should "work with integer x-values" in {
+    val x = defaultX.map { _.toInt }
+    val response = writer.plot(x, defaultY, defaultName)
 
     // Try and hit the url returned in the response
     val request = Http(response.url)
