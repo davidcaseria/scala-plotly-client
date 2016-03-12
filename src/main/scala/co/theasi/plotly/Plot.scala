@@ -6,9 +6,12 @@ import org.json4s.JsonDSL._
 
 import scalaj.http._
 
+import scala.util.{ Try, Success, Failure }
+
 case class Plot(
   val fileName: String,
-  val series: List[Series2D[PType, PType]] = List.empty
+  val series: List[Series2D[PType, PType]] = List.empty,
+  fileOptions: FileOptions = FileOptions()
 ) {
 
   def withScatter[X: Writable, Y: Writable](
@@ -25,11 +28,20 @@ case class Plot(
       case (s, index) =>
         List(s"x-$index" -> s.xs, s"y-$index" -> s.ys)
     }.toMap
-    Grid(fileName+"-grid", columns)
+    Grid(fileName+"-grid", columns, fileOptions)
   }
 
   def draw(implicit api: Api) {
+    if (fileOptions.overwrite) {
+      Try { DrawnPlot.fromFileName(fileName)(api) } match {
+        case Success(plot) => // exists already -> delete
+          api.despatchAndInterpret(api.delete(s"plots/${plot.fileId}"))
+        case Failure(PlotlyException("Not found.")) => // good to go
+        case Failure(e) => throw e // some other error -> re-throw
+      }
+    }
     val drawnGrid = grid.draw(api)
+    println(drawnGrid)
     val seriesAsJson = series.zipWithIndex.map { case (series, index) =>
       val xName = s"x-$index"
       val yName = s"y-$index"
@@ -44,14 +56,8 @@ case class Plot(
       ("filename" -> fileName) ~
       ("world_readable" -> true)
     )
-    println(compact(render(body)))
     val request = api.post("plots", compact(render(body)))
-    println(request)
-    val response = request.asString
-    println(response)
-    val responseAsJson = parse(response.body)
-    val JString(newFileName) = (responseAsJson \ "file" \ "filename")
-    val JString(fileId) = (responseAsJson \ "file" \ "fid")
-    DrawnPlot(fileId, newFileName)
+    val responseAsJson = api.despatchAndInterpret(request)
+    DrawnPlot.fromResponse(responseAsJson \ "file")
   }
 }
