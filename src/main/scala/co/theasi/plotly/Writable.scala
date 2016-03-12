@@ -1,11 +1,14 @@
 package co.theasi.plotly
 
 trait Writable[T] {
-  def toPlotlyString(x: T): String = x.toString
+  def toPType(x: T): PType
 }
 
 trait WritableImplicits {
-  implicit object WritableFloat extends Writable[Float]
-  implicit object WritableDouble extends Writable[Double]
-  implicit object WritableInt extends Writable[Int]
+  implicit object WritableFloat extends Writable[Float] {
+    def toPType(x: Float) = PDouble(x.toDouble)
+  }
+  implicit object WritableDouble extends Writable[Double] {
+    def toPType(x: Double) = PDouble(x)
+  }
 }
