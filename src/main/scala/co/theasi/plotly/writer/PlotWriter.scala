@@ -1,4 +1,4 @@
-package co.theasi.plotly
+package co.theasi.plotly.writer
 
 import org.json4s._
 import org.json4s.native.JsonMethods._
@@ -7,6 +7,8 @@ import org.json4s.JsonDSL._
 import scalaj.http._
 
 import scala.util.{ Try, Success, Failure }
+
+import co.theasi.plotly.{Plot, Grid}
 
 object PlotWriter {
 

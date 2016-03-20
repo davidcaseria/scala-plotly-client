@@ -1,4 +1,4 @@
-package co.theasi.plotly
+package co.theasi.plotly.writer
 
 import org.json4s._
 import org.json4s.native.JsonMethods._

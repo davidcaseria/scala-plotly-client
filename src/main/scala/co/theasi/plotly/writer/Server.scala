@@ -1,4 +1,4 @@
-package co.theasi.plotly
+package co.theasi.plotly.writer
 
 case object ServerWithDefaultCredentials extends Server {
   override lazy val credentials = Credentials.read
