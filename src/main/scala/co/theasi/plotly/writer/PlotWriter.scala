@@ -32,7 +32,6 @@ object PlotWriter {
     val request = Api.post("plots", compact(render(body)))
     val responseAsJson = Api.despatchAndInterpret(request)
     PlotFile.fromResponse(responseAsJson \ "file")
-
   }
 
   private def drawGrid(
@@ -61,7 +60,7 @@ object PlotWriter {
   }
 
   private def deleteIfExists(fileName: String)(implicit server: Server) {
-    Try { GridFile.fromFileName(fileName) } match {
+    Try { PlotFile.fromFileName(fileName) } match {
       case Success(plot) => // exists already -> delete
         Api.despatchAndInterpret(Api.delete(s"plots/${plot.fileId}"))
       case Failure(PlotlyException("Not found.")) => // good to go
