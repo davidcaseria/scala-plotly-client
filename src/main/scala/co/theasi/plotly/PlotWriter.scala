@@ -29,7 +29,7 @@ object PlotWriter {
     )
     val request = Api.post("plots", compact(render(body)))
     val responseAsJson = Api.despatchAndInterpret(request)
-    DrawnPlot.fromResponse(responseAsJson \ "file")
+    PlotFile.fromResponse(responseAsJson \ "file")
 
   }
 
@@ -38,7 +38,7 @@ object PlotWriter {
       fileName: String,
       fileOptions: FileOptions)
       (implicit server: Server)
-  : DrawnGrid = {
+  : GridFile = {
     val columns = plot.series.zipWithIndex.flatMap {
       case (s, index) =>
         List(s"x-$index" -> s.xs, s"y-$index" -> s.ys)
@@ -47,7 +47,7 @@ object PlotWriter {
     GridWriter.draw(grid, fileName+"-grid", fileOptions)
   }
 
-  private def srcsFromDrawnGrid(drawnGrid: DrawnGrid, index: Int)
+  private def srcsFromDrawnGrid(drawnGrid: GridFile, index: Int)
   : List[String] = {
     val xName = s"x-$index"
     val yName = s"y-$index"
@@ -59,7 +59,7 @@ object PlotWriter {
   }
 
   private def deleteIfExists(fileName: String)(implicit server: Server) {
-    Try { DrawnPlot.fromFileName(fileName) } match {
+    Try { GridFile.fromFileName(fileName) } match {
       case Success(plot) => // exists already -> delete
         Api.despatchAndInterpret(Api.delete(s"plots/${plot.fileId}"))
       case Failure(PlotlyException("Not found.")) => // good to go

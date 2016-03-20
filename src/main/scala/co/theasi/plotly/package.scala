@@ -8,7 +8,7 @@ package object plotly extends WritableImplicits {
       plot: Plot,
       fileName: String)
       (implicit server: Server)
-  : DrawnPlot = {
+  : PlotFile = {
     draw(plot, fileName, FileOptions())
   }
 
@@ -17,7 +17,7 @@ package object plotly extends WritableImplicits {
       fileName: String,
       fileOptions: FileOptions)
       (implicit server: Server)
-  : DrawnPlot = {
+  : PlotFile = {
     PlotWriter.draw(plot, fileName, fileOptions)
   }
 
@@ -25,7 +25,7 @@ package object plotly extends WritableImplicits {
       grid: Grid,
       fileName: String)
       (implicit server: Server)
-  : DrawnGrid = {
+  : GridFile = {
     draw(grid, fileName, FileOptions())
   }
 
@@ -34,7 +34,7 @@ package object plotly extends WritableImplicits {
       fileName: String,
       fileOptions: FileOptions)
       (implicit server: Server)
-  : DrawnGrid = {
+  : GridFile = {
     GridWriter.draw(grid, fileName, fileOptions)
   }
 

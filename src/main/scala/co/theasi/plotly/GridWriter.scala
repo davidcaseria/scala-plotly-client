@@ -12,12 +12,12 @@ object GridWriter {
       grid: Grid,
       fileName: String,
       fileOptions: FileOptions = FileOptions()
-  )(implicit server: Server): DrawnGrid = {
+  )(implicit server: Server): GridFile = {
     if(fileOptions.overwrite) { deleteIfExists(fileName) }
     val request = Api.post("grids",
       compact(render(gridAsJson(grid, fileName))))
     val parsedResponse = Api.despatchAndInterpret(request)
-    DrawnGrid.fromResponse(parsedResponse \ "file")
+    GridFile.fromResponse(parsedResponse \ "file")
   }
 
   private def gridAsJson(grid: Grid, fileName: String): JObject = {
@@ -35,7 +35,7 @@ object GridWriter {
   }
 
   private def deleteIfExists(fileName: String)(implicit server: Server) {
-    Try { DrawnGrid.fromFileName(fileName) } match {
+    Try { GridFile.fromFileName(fileName) } match {
       case Success(grid) => // exists already -> delete
         Api.despatchAndInterpret(Api.delete(s"grids/${grid.fileId}"))
       case Failure(PlotlyException("Not found.")) => // good to go

@@ -4,21 +4,21 @@ import org.json4s._
 import org.json4s.native.JsonMethods._
 import org.json4s.JsonDSL._
 
-case class DrawnGrid(
+case class GridFile(
     fileId: String,
     fileName: String = "",
     columnUids: Map[String, String] = Map.empty)
 
 
-object DrawnGrid {
+object GridFile {
   def fromFileName(fileName: String)(implicit server: Server)
-  : DrawnGrid = {
+  : GridFile = {
     val request = Api.get("grids/lookup", Seq("path" -> fileName))
     val response = Api.despatchAndInterpret(request)
     fromResponse(response)
   }
 
-  def fromResponse(response: JValue): DrawnGrid = {
+  def fromResponse(response: JValue): GridFile = {
     val JString(fid) = (response \ "fid")
     val JString(fileName) = (response \ "filename")
     val JArray(columns) = (response \ "cols")
@@ -27,6 +27,6 @@ object DrawnGrid {
       val JString(uid) = (col \ "uid")
       name -> uid
     }.toMap
-    new DrawnGrid(fid, fileName, columUids)
+    new GridFile(fid, fileName, columUids)
   }
 }
