@@ -20,7 +20,16 @@ case class Plot(
   ): Plot = {
     val xsAsPType = xs.map { implicitly[Writable[X]].toPType }
     val ysAsPType = ys.map { implicitly[Writable[Y]].toPType }
-    copy(series = Scatter(xsAsPType, ysAsPType) :: series)
+    copy(series = Scatter(xsAsPType, ysAsPType, ScatterOptions()) :: series)
+  }
+
+  def withBar[X: Writable, Y: Writable](
+      xs: Iterable[X],
+      ys: Iterable[Y]
+  ): Plot = {
+    val xsAsPType = xs.map { implicitly[Writable[X]].toPType }
+    val ysAsPType = ys.map { implicitly[Writable[Y]].toPType }
+    copy(series = Bar(xsAsPType, ysAsPType, BarOptions()) :: series)
   }
 
   def grid: Grid = {
@@ -41,15 +50,9 @@ case class Plot(
       }
     }
     val drawnGrid = grid.draw(api)
-    println(drawnGrid)
     val seriesAsJson = series.zipWithIndex.map { case (series, index) =>
-      val xName = s"x-$index"
-      val yName = s"y-$index"
-      val xuid = drawnGrid.columnUids(xName)
-      val yuid = drawnGrid.columnUids(yName)
-      val xsrc = s"${drawnGrid.fileId}:$xuid"
-      val ysrc = s"${drawnGrid.fileId}:$yuid"
-      ("xsrc" -> xsrc) ~ ("ysrc" -> ysrc)
+      val srcs = srcsFromDrawnGrid(drawnGrid, index)
+      SeriesWriter.toJson(srcs, series.options)
     }
     val body = (
       ("figure" -> ("data" -> seriesAsJson)) ~
@@ -59,5 +62,16 @@ case class Plot(
     val request = api.post("plots", compact(render(body)))
     val responseAsJson = api.despatchAndInterpret(request)
     DrawnPlot.fromResponse(responseAsJson \ "file")
+  }
+
+  private def srcsFromDrawnGrid(drawnGrid: DrawnGrid, index: Int)
+  : List[String] = {
+    val xName = s"x-$index"
+    val yName = s"y-$index"
+    val xuid = drawnGrid.columnUids(xName)
+    val yuid = drawnGrid.columnUids(yName)
+    val xsrc = s"${drawnGrid.fileId}:$xuid"
+    val ysrc = s"${drawnGrid.fileId}:$yuid"
+    List(xsrc, ysrc)
   }
 }
