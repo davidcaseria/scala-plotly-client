@@ -6,18 +6,11 @@ import org.json4s._
 import org.json4s.native.JsonMethods._
 import org.json4s.JsonDSL._
 
-trait ApiWithDefaultCredentials extends Api {
-  override lazy val credentials = Credentials.read
-}
+object Api {
 
-trait Api {
-
-  def credentials: Credentials
-  def url = "https://api.plot.ly/v2/"
-
-  def get(endPoint: String): HttpRequest = {
-    val request = Http(url + endPoint.stripPrefix("/"))
-      .auth(credentials.username, credentials.key)
+  def get(endPoint: String)(implicit server: Server): HttpRequest = {
+    val request = Http(server.url + endPoint.stripPrefix("/"))
+      .auth(server.credentials.username, server.credentials.key)
       .headers(Seq(
         "Plotly-Client-Platform" -> "scala",
         "Accept" -> "application/json"
@@ -25,13 +18,21 @@ trait Api {
     request
   }
 
-  def get(endPoint: String, params: Seq[(String, String)]): HttpRequest = {
+  def get(
+      endPoint: String,
+      params: Seq[(String, String)])
+      (implicit server: Server)
+  : HttpRequest = {
     get(endPoint).params(params)
   }
 
-  def post(endPoint: String, body: String): HttpRequest = {
-    val request = Http(url + endPoint.stripPrefix("/"))
-      .auth(credentials.username, credentials.key)
+  def post(
+      endPoint: String,
+      body: String)
+      (implicit server: Server)
+  : HttpRequest = {
+    val request = Http(server.url + endPoint.stripPrefix("/"))
+      .auth(server.credentials.username, server.credentials.key)
       .headers(Seq(
         "Plotly-Client-Platform" -> "scala",
         "Accept" -> "application/json",
@@ -41,11 +42,14 @@ trait Api {
     request
   }
 
-  def delete(endPoint: String): HttpRequest = {
+  def delete(endPoint: String)(implicit server: Server): HttpRequest = {
     get(endPoint).method("DELETE")
   }
 
-  def despatchAndInterpret(request: HttpRequest): JValue = {
+  def despatchAndInterpret(
+      request: HttpRequest)
+      (implicit server: Server)
+  : JValue = {
     val response = request.asString
     if (!response.is2xx) {
       val responseBody = parse(response.body)

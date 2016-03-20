@@ -11,9 +11,10 @@ case class DrawnGrid(
 
 
 object DrawnGrid {
-  def fromFileName(fileName: String)(implicit api: Api): DrawnGrid = {
-    val request = api.get("grids/lookup", Seq("path" -> fileName))
-    val response = api.despatchAndInterpret(request)
+  def fromFileName(fileName: String)(implicit server: Server)
+  : DrawnGrid = {
+    val request = Api.get("grids/lookup", Seq("path" -> fileName))
+    val response = Api.despatchAndInterpret(request)
     fromResponse(response)
   }
 

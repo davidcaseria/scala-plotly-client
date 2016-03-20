@@ -11,9 +11,10 @@ case class DrawnPlot(
 
 object DrawnPlot {
 
-  def fromFileName(fileName: String)(implicit api: Api): DrawnPlot = {
-    val request = api.get("plots/lookup", Seq("path" -> fileName))
-    val response = api.despatchAndInterpret(request)
+  def fromFileName(fileName: String)(implicit server: Server)
+  : DrawnPlot = {
+    val request = Api.get("plots/lookup", Seq("path" -> fileName))
+    val response = Api.despatchAndInterpret(request)
     fromResponse(response)
   }
 
