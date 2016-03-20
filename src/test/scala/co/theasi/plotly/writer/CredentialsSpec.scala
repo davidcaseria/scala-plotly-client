@@ -1,4 +1,4 @@
-package co.theasi.plotly
+package co.theasi.plotly.writer
 
 import org.scalatest._
 
