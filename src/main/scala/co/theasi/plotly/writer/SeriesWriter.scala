@@ -4,7 +4,7 @@ import org.json4s._
 import org.json4s.native.JsonMethods._
 import org.json4s.JsonDSL._
 
-import co.theasi.plotly.{SeriesOptions, ScatterOptions, BarOptions}
+import co.theasi.plotly.{SeriesOptions, ScatterOptions, BarOptions, BoxOptions}
 
 object SeriesWriter {
   def toJson(srcs: List[String], options: SeriesOptions)
@@ -12,6 +12,7 @@ object SeriesWriter {
     options match {
       case o: ScatterOptions => scatterToJson(srcs, o)
       case o: BarOptions => barToJson(srcs, o)
+      case o: BoxOptions => boxToJson(srcs, o)
     }
   }
 
@@ -25,5 +26,11 @@ object SeriesWriter {
   : JValue = {
     val List(xsrc, ysrc) = srcs
     ("xsrc" -> xsrc) ~ ("ysrc" -> ysrc) ~ ("type" -> "bar")
+  }
+
+  private def boxToJson(srcs: List[String], options: BoxOptions)
+  : JValue = {
+    val List(xsrc) = srcs
+    ("ysrc" -> xsrc) ~ ("type" -> "box")
   }
 }

@@ -6,10 +6,11 @@ import org.json4s.native.JsonMethods._
 import co.theasi.plotly._
 
 object SeriesReader {
-  def fromJson(json: JObject): Series2D[PType, PType] = {
+  def fromJson(json: JObject): Series = {
     val seriesType = json \ "type"
     seriesType match {
       case JString("bar") => barFromJson(json)
+      case JString("box") => boxFromJson(json)
       case JNothing => scatterFromJson(json)
       case _ => throw new UnexpectedServerResponse(
         s"Unrecognized series type: $seriesType")
@@ -21,9 +22,19 @@ object SeriesReader {
     Bar(xs, ys, BarOptions())
   }
 
+  private def boxFromJson(json: JObject): Box[PType] = {
+    val xs = yFromJson(json)
+    Box(xs, BoxOptions())
+  }
+
   private def scatterFromJson(json: JObject): Scatter[PType, PType] = {
     val (xs, ys) = xyFromJson(json)
     Scatter(xs, ys, ScatterOptions())
+  }
+
+  private def yFromJson(json: JObject): List[PType] = {
+    val JArray(xDataAsJson) = json \ "y"
+    columnFromJson(xDataAsJson)
   }
 
   private def xyFromJson(json: JObject): (List[PType], List[PType]) = {
