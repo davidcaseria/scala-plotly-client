@@ -2,6 +2,7 @@ package co.theasi
 
 package object plotly
 extends WritableImplicits
+with ReadableImplicits
 with writer.ServerWriterWithDefaultCredentials {
 
   sealed trait PType
