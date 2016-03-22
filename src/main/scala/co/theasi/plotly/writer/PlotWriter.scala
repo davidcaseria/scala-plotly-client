@@ -19,6 +19,17 @@ object PlotWriter {
   )(implicit server: Server) = {
     if (fileOptions.overwrite) { deleteIfExists(fileName) }
     val drawnGrid = drawGrid(plot, fileName, fileOptions)
+    val body = plotAsJson(plot, drawnGrid, fileName)
+    val request = Api.post("plots", compact(render(body)))
+    val responseAsJson = Api.despatchAndInterpret(request)
+    PlotFile.fromResponse(responseAsJson \ "file")
+  }
+
+  def plotAsJson(
+      plot: Plot,
+      drawnGrid: GridFile,
+      fileName: String
+  ): JObject = {
     val seriesAsJson = plot.series.zipWithIndex.map {
       case (series, index) =>
         val srcs = srcsFromDrawnGrid(drawnGrid, series, index)
@@ -31,9 +42,7 @@ object PlotWriter {
       ) ~
       ("filename" -> fileName) ~
       ("world_readable" -> true)
-    val request = Api.post("plots", compact(render(body)))
-    val responseAsJson = Api.despatchAndInterpret(request)
-    PlotFile.fromResponse(responseAsJson \ "file")
+    body
   }
 
   private def drawGrid(
