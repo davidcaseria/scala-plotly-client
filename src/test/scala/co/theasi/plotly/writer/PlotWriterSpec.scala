@@ -58,4 +58,21 @@ class PlotWriterSpec extends FlatSpec with Matchers {
     checkTestX2(series \ "x")
     checkTestY1(series \ "y")
   }
+
+  it should "draw a scatter plot with set mode" in {
+    val options0 = ScatterOptions(mode = Set(ScatterMode.Line))
+    val options1 = ScatterOptions(mode = Set(ScatterMode.Marker, ScatterMode.Line))
+    val p = Plot()
+      .withScatter(testX1, testY1, options0)
+      .withScatter(testX1, testY1, options1)
+    val plotFile = PlotWriter.draw(p, "test-125")
+
+    val jsonResponse = getJsonForPlotFile(plotFile)
+    val series0 = (jsonResponse \ "data")(0)
+    val JString(mode0) = series0 \ "mode"
+    mode0 should (equal("lines+markers") or equal("markers+lines"))
+    val series1 = (jsonResponse \ "data")(1)
+    val JString(mode1) = series1 \ "mode"
+    mode1 shouldEqual "lines"
+  }
 }
