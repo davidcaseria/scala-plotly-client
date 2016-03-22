@@ -19,7 +19,8 @@ object SeriesWriter {
   private def scatterToJson(srcs: List[String], options: ScatterOptions)
   : JValue = {
     val List(xsrc, ysrc) = srcs
-    ("xsrc" -> xsrc) ~ ("ysrc" -> ysrc)
+    val optionsAsJson = OptionsWriter.scatterOptionsToJson(options)
+    ("xsrc" -> xsrc) ~ ("ysrc" -> ysrc) ~ optionsAsJson
   }
 
   private def barToJson(srcs: List[String], options: BarOptions)

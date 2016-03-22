@@ -7,11 +7,12 @@ case class Plot(
 
   def withScatter[X: Writable, Y: Writable](
       xs: Iterable[X],
-      ys: Iterable[Y]
+      ys: Iterable[Y],
+      options: ScatterOptions = ScatterOptions()
   ): Plot = {
     val xsAsPType = xs.map { implicitly[Writable[X]].toPType }
     val ysAsPType = ys.map { implicitly[Writable[Y]].toPType }
-    copy(series = Scatter(xsAsPType, ysAsPType, ScatterOptions()) :: series)
+    copy(series = Scatter(xsAsPType, ysAsPType, options) :: series)
   }
 
   def withBar[X: Writable, Y: Writable](
