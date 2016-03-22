@@ -11,7 +11,7 @@ object OptionsWriter {
   def scatterOptionsToJson(options: ScatterOptions): JObject = {
     val xAxis = axisToJson(options.xAxis, "x")
     val yAxis = axisToJson(options.yAxis, "y")
-    ("xaxis" -> xAxis) ~ ("yaxis" -> yAxis)
+    ("xaxis" -> xAxis) ~ ("yaxis" -> yAxis) ~ ("name" -> options.name)
   }
 
   private def axisToJson(axis: Int, root: String): String =

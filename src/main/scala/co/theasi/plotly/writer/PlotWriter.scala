@@ -31,7 +31,6 @@ object PlotWriter {
       ) ~
       ("filename" -> fileName) ~
       ("world_readable" -> true)
-    println(compact(render(body)))
     val request = Api.post("plots", compact(render(body)))
     val responseAsJson = Api.despatchAndInterpret(request)
     PlotFile.fromResponse(responseAsJson \ "file")

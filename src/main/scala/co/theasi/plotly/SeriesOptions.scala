@@ -1,6 +1,7 @@
 package co.theasi.plotly
 
 sealed trait SeriesOptions {
+  val name: String
   val xAxis: Int
   val yAxis: Int
 }
