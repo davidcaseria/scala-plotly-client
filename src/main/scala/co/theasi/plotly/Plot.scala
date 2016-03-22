@@ -1,7 +1,8 @@
 package co.theasi.plotly
 
 case class Plot(
-    val series: List[Series] = List.empty
+    val series: List[Series] = List.empty,
+    val layout: Layout = Layout()
 ) {
 
   def withScatter[X: Writable, Y: Writable](

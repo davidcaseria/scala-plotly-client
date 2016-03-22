@@ -24,11 +24,14 @@ object PlotWriter {
         val srcs = srcsFromDrawnGrid(drawnGrid, series, index)
         SeriesWriter.toJson(srcs, series.options)
     }
-    val body = (
-      ("figure" -> ("data" -> seriesAsJson)) ~
+    val layoutAsJson = LayoutWriter.toJson(plot.layout)
+    val body =
+      ("figure" ->
+        ("data" -> seriesAsJson) ~ ("layout" -> layoutAsJson)
+      ) ~
       ("filename" -> fileName) ~
       ("world_readable" -> true)
-    )
+    println(compact(render(body)))
     val request = Api.post("plots", compact(render(body)))
     val responseAsJson = Api.despatchAndInterpret(request)
     PlotFile.fromResponse(responseAsJson \ "file")
