@@ -1,7 +1,7 @@
 package co.theasi.plotly
 
 case class Plot(
-    val series: List[Series] = List.empty,
+    val series: Vector[Series] = Vector.empty,
     val layout: Layout = Layout()
 ) {
 
@@ -12,7 +12,7 @@ case class Plot(
   ): Plot = {
     val xsAsPType = xs.map { implicitly[Writable[X]].toPType }
     val ysAsPType = ys.map { implicitly[Writable[Y]].toPType }
-    copy(series = Scatter(xsAsPType, ysAsPType, options) :: series)
+    copy(series = series :+ Scatter(xsAsPType, ysAsPType, options))
   }
 
   def withBar[X: Writable, Y: Writable](
@@ -21,14 +21,14 @@ case class Plot(
   ): Plot = {
     val xsAsPType = xs.map { implicitly[Writable[X]].toPType }
     val ysAsPType = ys.map { implicitly[Writable[Y]].toPType }
-    copy(series = Bar(xsAsPType, ysAsPType, BarOptions()) :: series)
+    copy(series = series :+ Bar(xsAsPType, ysAsPType, BarOptions()))
   }
 
   def withBox[X: Writable](
     xs: Iterable[X]
   ): Plot = {
     val xsAsPType = xs.map { implicitly[Writable[X]].toPType }
-    copy(series = Box(xsAsPType, BoxOptions()) :: series)
+    copy(series = series :+ Box(xsAsPType, BoxOptions()))
   }
 
 }

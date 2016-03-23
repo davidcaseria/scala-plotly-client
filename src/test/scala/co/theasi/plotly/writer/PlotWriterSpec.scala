@@ -72,9 +72,9 @@ class PlotWriterSpec extends FlatSpec with Matchers {
     val jsonResponse = getJsonForPlotFile(plotFile)
     val series0 = (jsonResponse \ "data")(0)
     val JString(mode0) = series0 \ "mode"
-    mode0 should (equal("lines+markers") or equal("markers+lines"))
+    mode0 shouldEqual "lines"
     val series1 = (jsonResponse \ "data")(1)
     val JString(mode1) = series1 \ "mode"
-    mode1 shouldEqual "lines"
+    mode1 should (equal("lines+markers") or equal("markers+lines"))
   }
 }

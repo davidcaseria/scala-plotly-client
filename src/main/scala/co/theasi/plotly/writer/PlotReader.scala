@@ -19,7 +19,7 @@ object PlotReader {
       case series: JObject => SeriesReader.fromJson(series)
       case r => throw new UnexpectedServerResponse(
         s"Bad response from server for Plot object: $r")
-    }
+    }.toVector
     new Plot(plotSeries)
   }
 }
