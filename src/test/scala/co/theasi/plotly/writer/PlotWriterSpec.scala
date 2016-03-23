@@ -60,8 +60,10 @@ class PlotWriterSpec extends FlatSpec with Matchers {
   }
 
   it should "draw a scatter plot with set mode" in {
-    val options0 = ScatterOptions(mode = Set(ScatterMode.Line))
-    val options1 = ScatterOptions(mode = Set(ScatterMode.Marker, ScatterMode.Line))
+    val options0 = ScatterOptions(
+      mode = Set(ScatterMode.Line))
+    val options1 = ScatterOptions(
+      mode = Set(ScatterMode.Marker, ScatterMode.Line))
     val p = Plot()
       .withScatter(testX1, testY1, options0)
       .withScatter(testX1, testY1, options1)
