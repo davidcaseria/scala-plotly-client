@@ -1,32 +1,64 @@
 package co.theasi.plotly
 
-sealed trait SeriesOptions {
-  val name: String
-  val xAxis: Int
-  val yAxis: Int
+trait SeriesOptions[T <: SeriesOptions[T]] {
+  val name: Option[String]
+  val xAxis: Option[Int]
+  val yAxis: Option[Int]
+
+  def name(newName: String): T
+  def xAxis(newXAxis: Int): T
+  def yAxis(newYAxis: Int): T
 }
 
 case class BoxOptions(
-  name: String = "",
-  xAxis: Int = 0,
-  yAxis: Int = 0
-)
-extends SeriesOptions
+  name: Option[String] = None,
+  xAxis: Option[Int] = None,
+  yAxis: Option[Int] = None
+) extends SeriesOptions[BoxOptions] {
+  def name(newName: String) = copy(name = Some(newName))
+  def xAxis(newXAxis: Int) = copy(xAxis = Some(newXAxis))
+  def yAxis(newYAxis: Int): BoxOptions = copy(yAxis = Some(newYAxis))
+}
+
 
 case class ScatterOptions(
-  name: String = "",
-  xAxis: Int = 0,
-  yAxis: Int = 0,
-  mode: Set[ScatterMode.Value] = Set.empty
-)
-extends SeriesOptions
+  name: Option[String],
+  xAxis: Option[Int],
+  yAxis: Option[Int],
+  mode: Seq[ScatterMode.Value]
+) extends SeriesOptions[ScatterOptions] {
+
+  def name(newName: String) = copy(name = Some(newName))
+  def xAxis(newXAxis: Int) = copy(xAxis = Some(newXAxis))
+  def yAxis(newYAxis: Int): ScatterOptions = copy(yAxis = Some(newYAxis))
+
+  def mode(newMode: ScatterMode.Value): ScatterOptions =
+    modes(Seq(newMode))
+  def modes(newModes: Iterable[ScatterMode.Value]): ScatterOptions =
+    copy(mode = newModes.toSeq)
+
+}
+
+object ScatterOptions {
+  def apply(): ScatterOptions = ScatterOptions(
+    name = None,
+    xAxis = None,
+    yAxis = None,
+    mode = Seq.empty
+  )
+}
 
 case class BarOptions(
-  name: String = "",
-  xAxis: Int = 0,
-  yAxis: Int = 0
-)
-extends SeriesOptions
+  name: Option[String] = None,
+  xAxis: Option[Int] = None,
+  yAxis: Option[Int] = None
+) extends SeriesOptions[BarOptions] {
+
+  def name(newName: String) = copy(name = Some(newName))
+  def xAxis(newXAxis: Int) = copy(xAxis = Some(newXAxis))
+  def yAxis(newYAxis: Int): BarOptions = copy(yAxis = Some(newYAxis))
+
+}
 
 object ScatterMode extends Enumeration {
   val Marker = Value("markers")

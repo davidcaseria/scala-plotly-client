@@ -18,9 +18,12 @@ object OptionsWriter {
     ("mode" -> scatterModeToJson(options.mode))
   }
 
-  private def axisToJson(axis: Int, root: String): String =
-    if (axis == 0) { root } else { root + (axis + 1).toString }
+  private def axisToJson(axis: Option[Int], root: String): Option[String] =
+    axis.map {
+      case 0 => root
+      case i => root + (i+1).toString
+    }
 
-  private def scatterModeToJson(mode: Set[ScatterMode.Value]): String =
+  private def scatterModeToJson(mode: Seq[ScatterMode.Value]): String =
     if (mode.isEmpty) { "none" } else { mode.map { _.toString.toLowerCase }.mkString("+") }
 }
