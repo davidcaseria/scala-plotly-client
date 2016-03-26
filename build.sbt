@@ -18,6 +18,8 @@ initialCommands := """
 
 publishMavenStyle := true
 
+parallelExecution in Test := false
+
 // Publishing not enabled yet.
 publishTo <<= version { (v: String) =>
   val nexus = "https://oss.sonatype.org/"
