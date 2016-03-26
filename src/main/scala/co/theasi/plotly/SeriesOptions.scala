@@ -32,9 +32,9 @@ case class ScatterOptions(
   def xAxis(newXAxis: Int) = copy(xAxis = Some(newXAxis))
   def yAxis(newYAxis: Int): ScatterOptions = copy(yAxis = Some(newYAxis))
 
-  def mode(newMode: ScatterMode.Value): ScatterOptions =
-    modes(Seq(newMode))
-  def modes(newModes: Iterable[ScatterMode.Value]): ScatterOptions =
+  def mode(newMode: ScatterMode.Value, rest: ScatterMode.Value*)
+  : ScatterOptions = mode(newMode +: rest)
+  def mode(newModes: Iterable[ScatterMode.Value]): ScatterOptions =
     copy(mode = newModes.toSeq)
 
 }
