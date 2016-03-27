@@ -32,8 +32,10 @@ object PlotWriter {
   ): JObject = {
     val seriesAsJson = plot.series.zipWithIndex.map {
       case (series, index) =>
-        val (srcs, newSeries) = srcsFromDrawnGrid(drawnGrid, series, index)
-        SeriesWriter.toJson(srcs, newSeries.options)
+        val srcs = srcsFromDrawnGrid(drawnGrid, series, index)
+        val newOptions = updateOptionsFromDrawnGrid(
+          drawnGrid, series.options, index)
+        SeriesWriter.toJson(srcs, newOptions)
     }
     val layoutAsJson = LayoutWriter.toJson(plot.layout)
     val body =
@@ -42,7 +44,6 @@ object PlotWriter {
       ) ~
       ("filename" -> fileName) ~
       ("world_readable" -> true)
-    println(compact(render(body)))
     body
   }
 
@@ -90,7 +91,7 @@ object PlotWriter {
       drawnGrid: GridFile,
       series: Series,
       index: Int
-  ): (List[String], Series) = {
+  ): List[String] = {
     val srcs = series match {
       case s: Series2D[_, _] =>
         val xName = s"x-$index"
@@ -106,21 +107,27 @@ object PlotWriter {
         val xsrc = s"${drawnGrid.fileId}:$xuid"
         List(xsrc)
     }
+    srcs
+  }
 
-    val newSeries = series match {
-      case s: Scatter[_, _] =>
-        val newOptions = s.options.text match {
-          case Some(IterableText(values)) =>
+  private def updateOptionsFromDrawnGrid(
+      drawnGrid: GridFile,
+      options: SeriesOptions[_],
+      index: Int
+  ): SeriesOptions[_] = {
+    options match {
+      case o: ScatterOptions =>
+        val newText = o.text.map {
+          case IterableText(values) =>
             val textName = s"text-$index"
             val textUid = drawnGrid.columnUids(textName)
             val textSrc = s"${drawnGrid.fileId}:$textUid"
-            s.options.textSrc(textSrc)
-          case _ => s.options
+            SrcText(textSrc)
+          case t => t
         }
-        s.options(newOptions)
+        o.copy(text = newText)
       case s => s
     }
-    (srcs, newSeries)
   }
 
   private def deleteIfExists(fileName: String)(implicit server: Server) {
