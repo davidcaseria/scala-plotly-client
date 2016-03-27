@@ -4,6 +4,8 @@ sealed trait Series {
   type OptionType <: SeriesOptions[OptionType]
   val options: OptionType
 
+  def options(newOptions: OptionType): Series
+
   def xsAs[T : Readable]: Iterable[T] = {
     this match {
       case s: Series1D[_] =>
@@ -35,6 +37,9 @@ case class Box[X <: PType](
     override val options: BoxOptions)
 extends Series1D[X] {
   type OptionType = BoxOptions
+
+  override def options(newOptions: BoxOptions): Box[X] =
+    copy(options = newOptions)
 }
 
 sealed abstract class Series2D[
@@ -52,11 +57,21 @@ case class Scatter[
     val xs: Iterable[X],
     val ys: Iterable[Y],
     override val options: ScatterOptions)
-extends Series2D[X, Y] { type OptionType = ScatterOptions }
+extends Series2D[X, Y] {
+  type OptionType = ScatterOptions
+
+  override def options(newOptions: ScatterOptions): Scatter[X, Y] =
+    copy(options = newOptions)
+}
 
 
 case class Bar[X <: PType, Y <: PType](
     val xs: Iterable[X],
     val ys: Iterable[Y],
     override val options: BarOptions)
-extends Series2D[X, Y] { type OptionType = BarOptions }
+extends Series2D[X, Y] {
+  type OptionType = BarOptions
+
+  override def options(newOptions: BarOptions): Bar[X, Y] =
+    copy(options = newOptions)
+}

@@ -5,6 +5,7 @@ case class ScatterOptions(
   xAxis: Option[Int],
   yAxis: Option[Int],
   mode: Seq[ScatterMode.Value],
+  text: Option[TextValue],
   marker: MarkerOptions
 ) extends SeriesOptions[ScatterOptions] {
 
@@ -17,6 +18,15 @@ case class ScatterOptions(
   def mode(newModes: Iterable[ScatterMode.Value]): ScatterOptions =
     copy(mode = newModes.toSeq)
 
+  def text(newText: String): ScatterOptions =
+    copy(text = Some(StringText(newText)))
+  def text[T: Writable](newText: Iterable[T]): ScatterOptions = {
+    val textAsPType = newText.map { implicitly[Writable[T]].toPType }
+    copy(text = Some(IterableText(textAsPType)))
+  }
+  def textSrc(src: String): ScatterOptions =
+    copy(text = Some(SrcText(src)))
+
   def marker(newMarker: MarkerOptions): ScatterOptions =
     copy(marker = newMarker)
 
@@ -28,6 +38,7 @@ object ScatterOptions {
     xAxis = None,
     yAxis = None,
     mode = Seq.empty,
+    text = None,
     marker = MarkerOptions()
   )
 }

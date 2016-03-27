@@ -8,7 +8,7 @@ import scalaj.http._
 
 import scala.util.{Try, Success, Failure}
 
-import co.theasi.plotly.{Plot, Grid, PType, Series, Series2D, Series1D}
+import co.theasi.plotly._
 
 object PlotWriter {
 
@@ -32,8 +32,8 @@ object PlotWriter {
   ): JObject = {
     val seriesAsJson = plot.series.zipWithIndex.map {
       case (series, index) =>
-        val srcs = srcsFromDrawnGrid(drawnGrid, series, index)
-        SeriesWriter.toJson(srcs, series.options)
+        val (srcs, newSeries) = srcsFromDrawnGrid(drawnGrid, series, index)
+        SeriesWriter.toJson(srcs, newSeries.options)
     }
     val layoutAsJson = LayoutWriter.toJson(plot.layout)
     val body =
@@ -42,6 +42,7 @@ object PlotWriter {
       ) ~
       ("filename" -> fileName) ~
       ("world_readable" -> true)
+    println(compact(render(body)))
     body
   }
 
@@ -62,20 +63,35 @@ object PlotWriter {
       series: Series,
       index: Int
   ): List[(String, Iterable[PType])] = {
-    series match {
+
+    val dataColumns = series match {
       case s: Series2D[_, _] =>
         List(s"x-$index" -> s.xs, s"y-$index" -> s.ys)
       case s: Series1D[_] =>
         List(s"x-$index" -> s.xs)
     }
+
+    val optionColumns = series match {
+      case s: Scatter[_, _] => scatterOptionsToColumns(s.options, index)
+      case _ => List.empty[(String, Iterable[PType])]
+    }
+
+    dataColumns ++ optionColumns
   }
+
+  def scatterOptionsToColumns(options: ScatterOptions, index: Int)
+  : List[(String, Iterable[PType])] =
+    options.text match {
+      case Some(IterableText(values)) => List(s"text-$index" -> values)
+      case _ => List.empty
+    }
 
   private def srcsFromDrawnGrid(
       drawnGrid: GridFile,
       series: Series,
       index: Int
-  ): List[String] = {
-    series match {
+  ): (List[String], Series) = {
+    val srcs = series match {
       case s: Series2D[_, _] =>
         val xName = s"x-$index"
         val yName = s"y-$index"
@@ -90,6 +106,21 @@ object PlotWriter {
         val xsrc = s"${drawnGrid.fileId}:$xuid"
         List(xsrc)
     }
+
+    val newSeries = series match {
+      case s: Scatter[_, _] =>
+        val newOptions = s.options.text match {
+          case Some(IterableText(values)) =>
+            val textName = s"text-$index"
+            val textUid = drawnGrid.columnUids(textName)
+            val textSrc = s"${drawnGrid.fileId}:$textUid"
+            s.options.textSrc(textSrc)
+          case _ => s.options
+        }
+        s.options(newOptions)
+      case s => s
+    }
+    (srcs, newSeries)
   }
 
   private def deleteIfExists(fileName: String)(implicit server: Server) {
