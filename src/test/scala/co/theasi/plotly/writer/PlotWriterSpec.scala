@@ -7,6 +7,7 @@ import org.scalatest._
 
 import co.theasi.plotly._
 
+@Slow
 class PlotWriterSpec extends FlatSpec with Matchers {
 
   implicit val testServer = new Server {
