@@ -76,4 +76,26 @@ class PlotWriterSpec extends FlatSpec with Matchers {
     val JString(mode1) = series1 \ "mode"
     mode1 should (equal("lines+markers") or equal("markers+lines"))
   }
+
+  it should "draw a scatter plot with marker options" in {
+    val options0 = ScatterOptions().marker(
+      MarkerOptions()
+        .size(22)
+        .color(5, 10, 15, 0.5)
+        .lineWidth(6)
+        .lineColor(1, 2, 3, 0.1)
+    )
+    val p = Plot().withScatter(testX1, testY1, options0)
+    val plotFile = PlotWriter.draw(p, "test-126")
+
+    val jsonResponse = getJsonForPlotFile(plotFile)
+    val series0 = (jsonResponse \ "data")(0)
+    val marker = (series0 \ "marker")
+    val JString(color) = (marker \ "color")
+    color.replace(" ", "") shouldEqual "rgba(5,10,15,0.5)"
+    (marker \ "size") shouldEqual JInt(22)
+    (marker \ "line" \ "width") shouldEqual JInt(6)
+    val JString(lineColor) = (marker \ "line" \ "color")
+    lineColor.replace(" ", "") shouldEqual "rgba(1,2,3,0.1)"
+  }
 }
