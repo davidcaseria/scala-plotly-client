@@ -11,4 +11,7 @@ trait WritableImplicits {
   implicit object WritableInt extends Writable[Int] {
     def toPType(x: Int) = PInt(x)
   }
+  implicit object WritableString extends Writable[String] {
+    def toPType(x: String) = PString(x)
+  }
 }
