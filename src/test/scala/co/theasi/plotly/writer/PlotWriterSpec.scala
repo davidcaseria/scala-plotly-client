@@ -17,6 +17,7 @@ class PlotWriterSpec extends FlatSpec with Matchers {
   val testX1 = Vector(1.0, 2.0, 3.0)
   val testX2 = Vector(1, 2, 3)
   val testY1 = Vector(4.0, 5.0, 7.0)
+  val testText1 = Vector("A", "B", "C")
 
   def checkTestX1(arr: JValue) = {
     val JArray(response) = arr
@@ -31,6 +32,11 @@ class PlotWriterSpec extends FlatSpec with Matchers {
   def checkTestY1(arr: JValue) = {
     val JArray(response) = arr
     response.toVector shouldEqual testY1.map { JDouble }
+  }
+
+  def checkTestText1(arr: JValue) = {
+    val JArray(response) = arr
+    response.toVector shouldEqual testText1.map { JString }
   }
 
   def getJsonForPlotFile(plotFile: PlotFile): JValue = {
@@ -98,5 +104,21 @@ class PlotWriterSpec extends FlatSpec with Matchers {
     (marker \ "line" \ "width") shouldEqual JInt(6)
     val JString(lineColor) = (marker \ "line" \ "color")
     lineColor.replace(" ", "") shouldEqual "rgba(1,2,3,0.1)"
+  }
+
+  it should "draw a scatter plot with text options" in {
+    val options0 = ScatterOptions().text(testText1)
+    val options1 = ScatterOptions().text("hello")
+
+    val p = Plot()
+      .withScatter(testX1, testY1, options0)
+      .withScatter(testX1, testY1, options1)
+
+    val plotFile = PlotWriter.draw(p, "test-127")
+    val jsonResponse = getJsonForPlotFile(plotFile)
+    val series0 = (jsonResponse \ "data")(0)
+    checkTestText1(series0 \ "text")
+    val series1 = (jsonResponse \ "data")(1)
+    (series1 \ "text") shouldEqual JString("hello")
   }
 }
