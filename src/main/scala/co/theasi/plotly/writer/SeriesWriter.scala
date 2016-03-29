@@ -7,7 +7,7 @@ import org.json4s.JsonDSL._
 import co.theasi.plotly.{SeriesOptions, ScatterOptions, BarOptions, BoxOptions}
 
 object SeriesWriter {
-  def toJson(srcs: List[String], options: SeriesOptions)
+  def toJson(srcs: List[String], options: SeriesOptions[_])
   : JValue = {
     options match {
       case o: ScatterOptions => scatterToJson(srcs, o)

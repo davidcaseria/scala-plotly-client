@@ -1,28 +1,34 @@
 package co.theasi.plotly
 
-sealed trait SeriesOptions {
-  val name: String
-  val xAxis: Int
-  val yAxis: Int
+trait SeriesOptions[T <: SeriesOptions[T]] {
+  val name: Option[String]
+  val xAxis: Option[Int]
+  val yAxis: Option[Int]
+
+  def name(newName: String): T
+  def xAxis(newXAxis: Int): T
+  def yAxis(newYAxis: Int): T
 }
 
 case class BoxOptions(
-  name: String = "",
-  xAxis: Int = 0,
-  yAxis: Int = 0
-)
-extends SeriesOptions
+  name: Option[String] = None,
+  xAxis: Option[Int] = None,
+  yAxis: Option[Int] = None
+) extends SeriesOptions[BoxOptions] {
+  def name(newName: String) = copy(name = Some(newName))
+  def xAxis(newXAxis: Int) = copy(xAxis = Some(newXAxis))
+  def yAxis(newYAxis: Int): BoxOptions = copy(yAxis = Some(newYAxis))
+}
 
-case class ScatterOptions(
-  name: String = "",
-  xAxis: Int = 0,
-  yAxis: Int = 0
-)
-extends SeriesOptions
 
 case class BarOptions(
-  name: String = "",
-  xAxis: Int = 0,
-  yAxis: Int = 0
-)
-extends SeriesOptions
+  name: Option[String] = None,
+  xAxis: Option[Int] = None,
+  yAxis: Option[Int] = None
+) extends SeriesOptions[BarOptions] {
+
+  def name(newName: String) = copy(name = Some(newName))
+  def xAxis(newXAxis: Int) = copy(xAxis = Some(newXAxis))
+  def yAxis(newYAxis: Int): BarOptions = copy(yAxis = Some(newYAxis))
+
+}
