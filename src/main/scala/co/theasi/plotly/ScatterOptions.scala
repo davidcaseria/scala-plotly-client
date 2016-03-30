@@ -12,6 +12,8 @@ case class ScatterOptions(
   def name(newName: String) = copy(name = Some(newName))
   def xAxis(newXAxis: Int) = copy(xAxis = Some(newXAxis))
   def yAxis(newYAxis: Int): ScatterOptions = copy(yAxis = Some(newYAxis))
+  def onSubplot(subplotRef: Int): ScatterOptions =
+    copy(xAxis = Some(subplotRef), yAxis = Some(subplotRef))
 
   def mode(newMode: ScatterMode.Value, rest: ScatterMode.Value*)
   : ScatterOptions = mode(newMode +: rest)

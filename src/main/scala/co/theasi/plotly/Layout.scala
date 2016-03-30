@@ -8,12 +8,10 @@ case class Layout(
 case class SubplotsRef(
   val subplots: Vector[Vector[Int]]
 ) {
-  def axisRef(row: Int, column: Int): Int = subplots(row)(column)
+  def apply(row: Int, column: Int): Int = subplots(row)(column)
   def rowRef(row: Int): Vector[Int] =
     subplots(row)
-    //subplots.map { column => column(row) }
   def columnRef(column: Int): Vector[Int] =
-    //subplots(column)
     subplots.map { row => row(column) }
 }
 
