@@ -5,7 +5,7 @@ import org.scalatest._
 class LayoutSpec extends FlatSpec with Matchers with Inside {
 
   "Layout.subplots" should "create subplots in a row" in {
-    val l = Layout.subplots(1, 2)
+    val (l, subplots) = Layout.subplots(1, 2)
     val hspace = Layout.DefaultHorizontalSpacing / 2.0
     val vspace = Layout.DefaultVerticalSpacing / 1.0
     l.xAxes.size shouldEqual 2
@@ -16,7 +16,7 @@ class LayoutSpec extends FlatSpec with Matchers with Inside {
   }
 
   it should "create subplots in a column" in {
-    val l = Layout.subplots(2, 1)
+    val (l, subplots) = Layout.subplots(2, 1)
     val hspace = Layout.DefaultHorizontalSpacing / 1.0
     val vspace = Layout.DefaultVerticalSpacing / 2.0
     l.xAxes.size shouldEqual 2
@@ -32,7 +32,7 @@ class LayoutSpec extends FlatSpec with Matchers with Inside {
   }
 
   it should "create subplots in a grid" in {
-    val l = Layout.subplots(4, 5) // 4 rows, 5 columns
+    val (l, subplots) = Layout.subplots(4, 5) // 4 rows, 5 columns
     val hspace = Layout.DefaultHorizontalSpacing / 4.0
     val vspace = Layout.DefaultVerticalSpacing / 5.0
 
@@ -40,16 +40,17 @@ class LayoutSpec extends FlatSpec with Matchers with Inside {
     l.yAxes.size shouldEqual 20
 
     // Check xAxes span each row
-    (0 until 20 by 5).foreach { rowStart =>
-      l.xAxes(rowStart).domain._1 shouldEqual 0.0
-      l.xAxes(rowStart+4).domain._2 shouldEqual 1.0
+    (0 until 4).foreach { irow =>
+      val row = subplots.rowRef(irow)
+      l.xAxes(row(0)).domain._1 shouldEqual 0.0
+      l.xAxes(row(4)).domain._2 shouldEqual 1.0
     }
 
     // Check yAxes span each column
     (0 until 5).foreach { icol =>
-      val yAxisIndices = (icol until 20 by 5).toVector
-      l.yAxes(yAxisIndices(0)).domain._2 shouldEqual 1.0 +- 1e-5
-      l.yAxes(yAxisIndices(3)).domain._1 shouldEqual 0.0 +- 1e-5
+      val col = subplots.columnRef(icol)
+      l.yAxes(col(0)).domain._2 shouldEqual 1.0 +- 1e-5
+      l.yAxes(col(3)).domain._1 shouldEqual 0.0 +- 1e-5
     }
 
     def size(ax: Axis) = ax.domain._2 - ax.domain._1

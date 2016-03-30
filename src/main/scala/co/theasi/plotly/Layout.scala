@@ -5,12 +5,24 @@ case class Layout(
   val yAxes: Vector[Axis] = Vector.empty
 )
 
+case class SubplotsRef(
+  val subplots: Vector[Vector[Int]]
+) {
+  def axisRef(row: Int, column: Int): Int = subplots(row)(column)
+  def rowRef(row: Int): Vector[Int] =
+    subplots(row)
+    //subplots.map { column => column(row) }
+  def columnRef(column: Int): Vector[Int] =
+    //subplots(column)
+    subplots.map { row => row(column) }
+}
+
 object Layout {
 
   val DefaultHorizontalSpacing = 0.2
   val DefaultVerticalSpacing = 0.3
 
-  def subplots(rows: Int, columns: Int): Layout = {
+  def subplots(rows: Int, columns: Int): (Layout, SubplotsRef) = {
 
     // Spacing between plots
     val horizontalSpacing = DefaultHorizontalSpacing / columns.toDouble
@@ -43,7 +55,19 @@ object Layout {
     val xAxes = axisPairs.map { _._1 }.toVector
     val yAxes = axisPairs.map { _._2 }.toVector
 
-    Layout(xAxes, yAxes)
+    // build SubplotsRef grid
+    var counter = 0
+    val grid = (0 until rows).map { xAxisRef =>
+      (0 until columns).map { yAxisRef =>
+        val oldCounter = counter
+        counter += 1
+        oldCounter
+      }.toVector
+    }.toVector
+    val subplotsRef = SubplotsRef(grid)
+
+
+    (Layout(xAxes, yAxes), subplotsRef)
   }
 
 }
