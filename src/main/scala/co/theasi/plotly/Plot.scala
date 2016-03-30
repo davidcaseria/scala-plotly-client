@@ -5,6 +5,8 @@ case class Plot(
     val layout: Layout = Layout()
 ) {
 
+  def layout(newLayout: Layout): Plot = copy(layout = newLayout)
+
   def withScatter[X: Writable, Y: Writable](
       xs: Iterable[X],
       ys: Iterable[Y],
