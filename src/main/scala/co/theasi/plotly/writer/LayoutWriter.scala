@@ -13,12 +13,12 @@ object LayoutWriter {
     xAxesAsJson ~ yAxesAsJson
   }
 
-  private def axesAsJson(axes: List[Axis]): JObject =
+  private def axesAsJson(axes: Vector[Axis]): JObject =
     axes.zipWithIndex.map { case (axis, index) =>
       val label = "xaxis" + (if(index == 0) "" else (index+1).toString)
       val obj = axisAsJson(axis)
       label -> obj
-    }
+    }.toList
 
   private def axisAsJson(axis: Axis): JObject = {
     val (start, end) = axis.domain
