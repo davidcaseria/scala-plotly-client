@@ -56,6 +56,12 @@ object Layout {
     val yAxes = axisPairs.map { _._2 }.toVector
 
     // build SubplotsRef grid
+    val subplotsRef = buildSubplotsRef(rows, columns)
+
+    (Layout(xAxes, yAxes), subplotsRef)
+  }
+
+  private def buildSubplotsRef(rows: Int, columns: Int): SubplotsRef = {
     var counter = 0
     val grid = (0 until rows).map { xAxisRef =>
       (0 until columns).map { yAxisRef =>
@@ -64,10 +70,7 @@ object Layout {
         oldCounter
       }.toVector
     }.toVector
-    val subplotsRef = SubplotsRef(grid)
-
-
-    (Layout(xAxes, yAxes), subplotsRef)
+    SubplotsRef(grid)
   }
 
 }
