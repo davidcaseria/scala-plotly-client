@@ -30,6 +30,8 @@ object Layout {
 
     // plot width
     val width = (1.0 - horizontalSpacing * (columns - 1))/columns.toDouble
+
+    // plot height
     val height = (1.0 - verticalSpacing * (rows - 1))/rows.toDouble
 
     val xDomains = (0 until columns).map { icol =>
@@ -44,9 +46,12 @@ object Layout {
       (bottom, top)
     }
 
+    // Axis prototypes: each x prototype needs to be matched
+    // with each y prototype to form a graph.
     val xAxesProto = xDomains.map { domain => Axis(domain) }
     val yAxesProto = yDomains.map { domain => Axis(domain) }
 
+    // Cartesian product of xAxesProto and yAxesProto
     val axisPairs = for {
       yAxis <- yAxesProto
       xAxis <- xAxesProto
