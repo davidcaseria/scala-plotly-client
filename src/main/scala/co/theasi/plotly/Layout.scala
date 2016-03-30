@@ -44,19 +44,18 @@ object Layout {
       (bottom, top)
     }
 
-    // Axis prototypes: each x prototype needs to be matched
-    // with each y prototype to form a graph.
-    val xAxesProto = xDomains.map { domain => Axis(domain) }
-    val yAxesProto = yDomains.map { domain => Axis(domain) }
-
     // Cartesian product of xAxesProto and yAxesProto
-    val axisPairs = for {
-      yAxis <- yAxesProto
-      xAxis <- xAxesProto
-    } yield (xAxis, yAxis)
+    val domainPairs = for {
+      yDomain <- yDomains
+      xDomain <- xDomains
+    } yield (xDomain, yDomain)
 
-    val xAxes = axisPairs.map { _._1 }.toVector
-    val yAxes = axisPairs.map { _._2 }.toVector
+    val xAxes = domainPairs.zipWithIndex.map {
+      case (domainPair, index) => Axis(domainPair._1, index)
+    }.toVector
+    val yAxes = domainPairs.zipWithIndex.map {
+      case (domainPair, index) => Axis(domainPair._2, index)
+    }.toVector
 
     // build SubplotsRef grid
     val subplotsRef = buildSubplotsRef(rows, columns)

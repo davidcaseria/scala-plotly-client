@@ -1,5 +1,6 @@
 package co.theasi.plotly
 
 case class Axis(
-  domain: (Double, Double)
+  domain: (Double, Double),
+  anchor: Int
 )
