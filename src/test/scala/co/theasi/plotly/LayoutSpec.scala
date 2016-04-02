@@ -64,5 +64,26 @@ class LayoutSpec extends FlatSpec with Matchers with Inside {
 
   }
 
+  "Layout" should "default to a single axis pair" in {
+    val l = Layout()
+    l.xAxes.size shouldEqual 1
+    l.yAxes.size shouldEqual 1
+    l.xAxes(0).domain shouldEqual (0.0, 1.0)
+    l.yAxes(0).domain shouldEqual (0.0, 1.0)
+    l.xAxes(0).anchor shouldEqual 0
+    l.yAxes(0).anchor shouldEqual 0
+  }
+
+  it should "allow adding x-axis options" in {
+    val l = Layout().withXAxisOptions(AxisOptions().title("hello"))
+    l.xAxes(0).options.title shouldEqual Some("hello")
+  }
+
+  it should "allow adding y-axis options" in {
+    val l = Layout().withYAxisOptions(AxisOptions().title("hello"))
+    l.yAxes(0).options.title shouldEqual Some("hello")
+  }
+
+
 
 }

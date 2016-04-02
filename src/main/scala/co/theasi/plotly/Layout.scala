@@ -1,9 +1,50 @@
 package co.theasi.plotly
 
-case class Layout(
-  val xAxes: Vector[Axis] = Vector.empty,
-  val yAxes: Vector[Axis] = Vector.empty
-)
+case class Layout(xAxes: Vector[Axis], yAxes: Vector[Axis]) {
+  def withXAxisOptions(axisRef: Int, newOptions: AxisOptions): Layout = {
+    val newXAxis = xAxes(axisRef).copy(options = newOptions)
+    val newXAxes = xAxes.updated(axisRef, newXAxis)
+    copy(xAxes = newXAxes)
+  }
+
+  def withXAxisOptions(newOptions: AxisOptions): Layout = {
+    if(xAxes.size > 1) {
+      throw new IllegalStateException(
+        "Use the form withXAxisOptions(axisRef, newOptions) if there are more than one x-axes")
+    }
+    withXAxisOptions(0, newOptions)
+  }
+
+  def updateXAxisOptions(
+      axisRef: Int,
+      updater: AxisOptions => AxisOptions
+  ): Layout = {
+    val newOptions = updater(xAxes(axisRef).options)
+    withXAxisOptions(axisRef, newOptions)
+  }
+
+  def withYAxisOptions(axisRef: Int, newOptions: AxisOptions): Layout = {
+    val newYAxis = yAxes(axisRef).copy(options = newOptions)
+    val newYAxes = yAxes.updated(axisRef, newYAxis)
+    copy(yAxes = newYAxes)
+  }
+
+  def withYAxisOptions(newOptions: AxisOptions): Layout = {
+    if(yAxes.size > 1) {
+      throw new IllegalStateException(
+        "Use the form withYAxisOptions(axisRef, newOptions) if there are more than one y-axes")
+    }
+    withYAxisOptions(0, newOptions)
+  }
+
+  def updateYAxisOptions(
+      axisRef: Int,
+      updater: AxisOptions => AxisOptions
+  ): Layout = {
+    val newOptions = updater(yAxes(axisRef).options)
+    withYAxisOptions(axisRef, newOptions)
+  }
+}
 
 case class SubplotsRef(
   val subplots: Vector[Vector[Int]]
@@ -19,6 +60,11 @@ object Layout {
 
   val DefaultHorizontalSpacing = 0.2
   val DefaultVerticalSpacing = 0.3
+
+  def apply(): Layout = {
+    val ax = Axis((0.0, 1.0), 0)
+    Layout(Vector(ax), Vector(ax))
+  }
 
   def subplots(rows: Int, columns: Int): (Layout, SubplotsRef) = {
 
