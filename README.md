@@ -1,6 +1,16 @@
 
 # Plotly client
 
+## Installation
+
+To add the plotly client to your code, add the following lines to your `build.sbt`:
+
+```
+resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
+
+libraryDependencies += "co.theasi" %% "plotly" % "0.1-SNAPSHOT"
+```
+
 ## Authentication
 
 To create a graph on Plotly, start by opening an account with the web UI. Then create an API key by clicking on your username in the top right hand corner of the screen and selecting *SETTINGS > API KEYS*. Create the file `~/.plotly/.credentials` in your home directory. The file should look like:
@@ -29,23 +39,32 @@ scala> val x = Vector(1.0, 2.0, 3.0)
 
 scala> val y = Vector(1.0, 4.0, 9.0)
 
-scala> plot(x, y, "hello-plotly")
-Response(https://plot.ly/~pbugnion/238)
+scala> val p = Plot().withScatter(x, y)
+
+scala> draw(p, "hello-plotly")
+PlotFile = PlotFile(pbugnion:264,hello-plotly)
 ```
 
 This will create a graph called `hello-plotly` in your account!
 
 ## Using custom credentials
 
-Sometimes, creating a `~/.plotly/.credentials` file isn't practical. In that case, you can pass credentials to Plotly programatically by defining a custom writer:
+Sometimes, creating a `~/.plotly/.credentials` file isn't practical. In that case, you can pass credentials to Plotly programatically by defining a custom server.
 
 ```
 import co.theasi.plotly
 
-val writer = new Writer {
-  val credentials = Credentials("my-username", "my-key")
-  val plotlyUrl = "https://plot.ly"
+implicit val server = new writer.Server {
+  val credentials = writer.Credentials("<username> "<api_key>")
+  val url = "https://api.plot.ly/v2/"
 }
+```
 
-writer.plot(Vector(1.0, 2.0, 3.0), Vector(1.0, 5.0, 10.0))
+You can then use Plotly commands normally:
+
+```
+scala> val p = Plot().withScatter(Vector(1, 2, 3), Vector(1, 4, 9))
+
+scala> draw(p, "custom-credentials")
+PlotFile = PlotFile(pbugnion:268,custom-credentials)
 ```
