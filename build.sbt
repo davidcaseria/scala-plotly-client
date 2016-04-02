@@ -1,10 +1,12 @@
-name := "plotly-client"
+name := "plotly"
 
 version := "0.1-SNAPSHOT"
 
+organization := "co.theasi"
+
 scalaVersion := "2.11.7"
 
-crossScalaVersions := Seq("2.11.7", "2.10.4")
+crossScalaVersions := Seq("2.11.7", "2.10.6")
 
 libraryDependencies ++= Seq(
   "org.scalaj" %% "scalaj-http" % "2.2.1",
