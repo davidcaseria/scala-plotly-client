@@ -36,7 +36,7 @@ logBuffered in Test := false
 
 
 // Documentation
-site.includeScaladoc()
+enablePlugins(SiteScaladocPlugin)
 
 ghpages.settings
 
