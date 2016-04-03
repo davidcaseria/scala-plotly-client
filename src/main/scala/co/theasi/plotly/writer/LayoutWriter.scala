@@ -4,7 +4,7 @@ import org.json4s._
 import org.json4s.native.JsonMethods._
 import org.json4s.JsonDSL._
 
-import co.theasi.plotly.{Layout, Axis}
+import co.theasi.plotly.{Layout, Axis, AxisOptions}
 
 object LayoutWriter {
   def toJson(layout: Layout): JObject = {
@@ -28,6 +28,17 @@ object LayoutWriter {
     val (start, end) = axis.domain
     val anchorString = anchorRadix + (
       if(axis.anchor == 0) "" else (axis.anchor+1).toString)
-    (("domain" -> List(start, end)) ~ ("anchor" -> anchorString))
+    (
+      ("domain" -> List(start, end)) ~
+      ("anchor" -> anchorString) ~
+      axisOptionsAsJson(axis.options)
+    )
   }
+
+  private def axisOptionsAsJson(options: AxisOptions): JObject = (
+    ("title" -> options.title) ~
+    ("ticklen" -> options.tickLength) ~
+    ("gridwidth" -> options.gridWidth) ~
+    ("zeroline" -> options.zeroLine)
+  )
 }
