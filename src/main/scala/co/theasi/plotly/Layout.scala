@@ -1,90 +1,116 @@
 package co.theasi.plotly
 
-case class Layout(xAxes: Vector[Axis], yAxes: Vector[Axis]) {
-  def withXAxisOptions(axisRef: Int, newOptions: AxisOptions): Layout = {
+sealed trait Layout {
+  val xAxes: Vector[Axis]
+  val yAxes: Vector[Axis]
+
+  protected def xAxisOptionsImpl(
+      axisRef: Int,
+      newOptions: AxisOptions)
+  : Vector[Axis] = {
     val newXAxis = xAxes(axisRef).copy(options = newOptions)
-    val newXAxes = xAxes.updated(axisRef, newXAxis)
-    copy(xAxes = newXAxes)
+    xAxes.updated(axisRef, newXAxis)
   }
 
-  def withXAxisOptions(newOptions: AxisOptions): Layout = {
-    if(xAxes.size > 1) {
-      throw new IllegalStateException(
-        "Use the form withXAxisOptions(axisRef, newOptions) if there are more than one x-axes")
-    }
-    withXAxisOptions(0, newOptions)
-  }
-
-  def updateXAxisOptions(
+  protected def yAxisOptionsImpl(
       axisRef: Int,
-      updater: AxisOptions => AxisOptions
-  ): Layout = {
-    val newOptions = updater(xAxes(axisRef).options)
-    withXAxisOptions(axisRef, newOptions)
-  }
-
-  def withYAxisOptions(axisRef: Int, newOptions: AxisOptions): Layout = {
+      newOptions: AxisOptions)
+  : Vector[Axis] = {
     val newYAxis = yAxes(axisRef).copy(options = newOptions)
-    val newYAxes = yAxes.updated(axisRef, newYAxis)
-    copy(yAxes = newYAxes)
+    yAxes.updated(axisRef, newYAxis)
+  }
+}
+
+
+case class SingleAxisLayout(xAxis: Axis, yAxis: Axis)
+extends Layout {
+  val xAxes = Vector(xAxis)
+  val yAxes = Vector(yAxis)
+
+  def xAxisOptions(newOptions: AxisOptions): SingleAxisLayout = {
+    copy(xAxis = xAxis.copy(options = newOptions))
   }
 
-  def withYAxisOptions(newOptions: AxisOptions): Layout = {
-    if(yAxes.size > 1) {
-      throw new IllegalStateException(
-        "Use the form withYAxisOptions(axisRef, newOptions) if there are more than one y-axes")
+  def yAxisOptions(newOptions: AxisOptions): SingleAxisLayout = {
+    copy(yAxis = yAxis.copy(options = newOptions))
+  }
+}
+
+
+object SingleAxisLayout {
+  def apply(): SingleAxisLayout =
+    SingleAxisLayout(Axis(), Axis())
+}
+
+
+case class GridLayout(
+    xAxes: Vector[Axis],
+    yAxes: Vector[Axis],
+    numberRows: Int,
+    numberColumns: Int)
+extends Layout {
+
+  def xAxisOptions(row: Int, column: Int, newOptions: AxisOptions) = {
+    checkRowColumn(row, column)
+    val axisRef = rowColumnToRef(row, column)
+    copy(xAxes = xAxisOptionsImpl(axisRef, newOptions))
+  }
+
+  def yAxisOptions(row: Int, column: Int, newOptions: AxisOptions) = {
+    checkRowColumn(row, column)
+    val axisRef = rowColumnToRef(row, column)
+    copy(yAxes = yAxisOptionsImpl(axisRef, newOptions))
+  }
+
+  private def rowColumnToRef(row: Int, column: Int): Int =
+    row*numberColumns + column
+
+  private def checkRowColumn(row: Int, column: Int) {
+    checkRow(row)
+    checkColumn(column)
+  }
+
+  private def checkRow(row: Int) {
+    if (row >= numberRows) {
+      throw new IllegalArgumentException(s"Row index $row out of bounds.")
     }
-    withYAxisOptions(0, newOptions)
   }
 
-  def updateYAxisOptions(
-      axisRef: Int,
-      updater: AxisOptions => AxisOptions
-  ): Layout = {
-    val newOptions = updater(yAxes(axisRef).options)
-    withYAxisOptions(axisRef, newOptions)
+  private def checkColumn(column: Int) {
+    if (column >= numberColumns) {
+      throw new IllegalArgumentException(s"Column index $column out of bounds.")
+    }
   }
+
 }
 
-case class SubplotsRef(
-  val subplots: Vector[Vector[Int]]
-) {
-  def apply(row: Int, column: Int): Int = subplots(row)(column)
-  def rowRef(row: Int): Vector[Int] =
-    subplots(row)
-  def columnRef(column: Int): Vector[Int] =
-    subplots.map { row => row(column) }
-}
 
-object Layout {
+object GridLayout {
 
   val DefaultHorizontalSpacing = 0.2
   val DefaultVerticalSpacing = 0.3
 
-  def apply(): Layout = {
-    val ax = Axis((0.0, 1.0), 0)
-    Layout(Vector(ax), Vector(ax))
-  }
-
-  def subplots(rows: Int, columns: Int): (Layout, SubplotsRef) = {
+  def apply(numberRows: Int, numberColumns: Int): GridLayout = {
 
     // Spacing between plots
-    val horizontalSpacing = DefaultHorizontalSpacing / columns.toDouble
-    val verticalSpacing = DefaultVerticalSpacing / rows.toDouble
+    val horizontalSpacing = DefaultHorizontalSpacing / numberColumns.toDouble
+    val verticalSpacing = DefaultVerticalSpacing / numberRows.toDouble
 
     // plot width
-    val width = (1.0 - horizontalSpacing * (columns - 1))/columns.toDouble
+    val width =
+      (1.0 - horizontalSpacing * (numberColumns - 1))/numberColumns.toDouble
 
     // plot height
-    val height = (1.0 - verticalSpacing * (rows - 1))/rows.toDouble
+    val height =
+      (1.0 - verticalSpacing * (numberRows - 1))/numberRows.toDouble
 
-    val xDomains = (0 until columns).map { icol =>
+    val xDomains = (0 until numberColumns).map { icol =>
       val start = icol * (width + horizontalSpacing)
       val end = start + width
       (start, end)
     }
 
-    val yDomains = (0 until rows).map { irow =>
+    val yDomains = (0 until numberRows).map { irow =>
       val top = 1.0 - (irow * (height + verticalSpacing))
       val bottom = top - height
       (bottom, top)
@@ -103,22 +129,10 @@ object Layout {
       case (domainPair, index) => Axis(domainPair._2, index)
     }.toVector
 
-    // build SubplotsRef grid
-    val subplotsRef = buildSubplotsRef(rows, columns)
-
-    (Layout(xAxes, yAxes), subplotsRef)
+    GridLayout(xAxes, yAxes, numberRows, numberColumns)
   }
-
-  private def buildSubplotsRef(rows: Int, columns: Int): SubplotsRef = {
-    var counter = 0
-    val grid = (0 until rows).map { xAxisRef =>
-      (0 until columns).map { yAxisRef =>
-        val oldCounter = counter
-        counter += 1
-        oldCounter
-      }.toVector
-    }.toVector
-    SubplotsRef(grid)
-  }
-
 }
+
+
+case class FlexibleLayout(xAxes: Vector[Axis], yAxes: Vector[Axis])
+extends Layout {}

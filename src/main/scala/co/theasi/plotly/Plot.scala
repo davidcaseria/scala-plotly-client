@@ -2,7 +2,7 @@ package co.theasi.plotly
 
 case class Plot(
     val series: Vector[Series] = Vector.empty,
-    val layout: Layout = Layout()
+    val layout: Layout = SingleAxisLayout()
 ) {
 
   def layout(newLayout: Layout): Plot = copy(layout = newLayout)
