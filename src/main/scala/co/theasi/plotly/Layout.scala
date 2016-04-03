@@ -50,19 +50,25 @@ case class GridLayout(
     numberColumns: Int)
 extends Layout {
 
+  def xAxis(row: Int, column: Int) = xAxes(ref(row, column))
+  def yAxis(row: Int, column: Int) = yAxes(ref(row, column))
+
   def xAxisOptions(row: Int, column: Int, newOptions: AxisOptions) = {
-    checkRowColumn(row, column)
-    val axisRef = rowColumnToRef(row, column)
+    val axisRef = ref(row, column)
     copy(xAxes = xAxisOptionsImpl(axisRef, newOptions))
   }
 
   def yAxisOptions(row: Int, column: Int, newOptions: AxisOptions) = {
-    checkRowColumn(row, column)
-    val axisRef = rowColumnToRef(row, column)
+    val axisRef = ref(row, column)
     copy(yAxes = yAxisOptionsImpl(axisRef, newOptions))
   }
 
-  private def rowColumnToRef(row: Int, column: Int): Int =
+  def ref(row: Int, column: Int): Int = {
+    checkRowColumn(row, column)
+    rowColumnToRefImpl(row, column)
+  }
+
+  private def rowColumnToRefImpl(row: Int, column: Int): Int =
     row*numberColumns + column
 
   private def checkRowColumn(row: Int, column: Int) {

@@ -5,11 +5,11 @@ import org.json4s.native.JsonMethods._
 
 import org.scalatest._
 
-import co.theasi.plotly.Layout
+import co.theasi.plotly.GridLayout
 
 class LayoutWriterSpec extends FlatSpec with Matchers {
   "Layout.toJson" should "serialize axis domains" in {
-    val (layout, subplotsRef) = Layout.subplots(1, 2)
+    val layout = GridLayout(1, 2)
     val x0Domain = layout.xAxes(0).domain
     val x1Domain = layout.xAxes(1).domain
     val jobj = LayoutWriter.toJson(layout)
@@ -30,7 +30,7 @@ class LayoutWriterSpec extends FlatSpec with Matchers {
   }
 
   it should "serialize axis options" in {
-    val (layout, subplotsRef) = Layout.subplots(1, 2)
+    val layout = GridLayout(1, 2)
     val jobj = LayoutWriter.toJson(layout)
     (jobj \ "xaxis" \ "anchor") shouldEqual JString("y")
     (jobj \ "xaxis2" \ "anchor") shouldEqual JString("y2")
