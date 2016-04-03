@@ -20,11 +20,7 @@ initialCommands := """
 
 publishMavenStyle := true
 
-parallelExecution in Test := false
-
-logBuffered in Test := false
-
-// Publishing not enabled yet.
+// Publishing
 publishTo <<= version { (v: String) =>
   val nexus = "https://oss.sonatype.org/"
   if (v.trim.endsWith("SNAPSHOT"))
@@ -32,3 +28,16 @@ publishTo <<= version { (v: String) =>
   else
     Some("releases"  at nexus + "service/local/staging/deploy/maven2")
 }
+
+// Testing
+parallelExecution in Test := false
+
+logBuffered in Test := false
+
+
+// Documentation
+site.includeScaladoc()
+
+ghpages.settings
+
+git.remoteRepo := "git@github.com:the-asi/scala-plotly-client.git"
