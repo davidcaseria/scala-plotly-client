@@ -10,7 +10,7 @@ trait ServerWriter {
   implicit val server: Server
 
   def draw(
-      plot: Plot,
+      plot: Plot[_],
       fileName: String)
       (implicit server: Server)
   : PlotFile = {
@@ -18,7 +18,7 @@ trait ServerWriter {
   }
 
   def draw(
-      plot: Plot,
+      plot: Plot[_],
       fileName: String,
       fileOptions: FileOptions)
       (implicit server: Server)

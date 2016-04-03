@@ -1,17 +1,18 @@
 package co.theasi.plotly
 
-case class Plot(
+case class Plot[A <: Layout[A]](
     val series: Vector[Series] = Vector.empty,
-    val layout: Layout = SingleAxisLayout()
+    val layout: Layout[A] = SingleAxisLayout()
 ) {
 
-  def layout(newLayout: Layout): Plot = copy(layout = newLayout)
+  def layout[B <: Layout[B]](newLayout: Layout[B]): Plot[B] =
+    copy(layout = newLayout)
 
   def withScatter[X: Writable, Y: Writable](
       xs: Iterable[X],
       ys: Iterable[Y],
       options: ScatterOptions = ScatterOptions()
-  ): Plot = {
+  ): Plot[A] = {
     val xsAsPType = xs.map { implicitly[Writable[X]].toPType }
     val ysAsPType = ys.map { implicitly[Writable[Y]].toPType }
     copy(series = series :+ Scatter(xsAsPType, ysAsPType, options))
@@ -20,7 +21,7 @@ case class Plot(
   def withBar[X: Writable, Y: Writable](
       xs: Iterable[X],
       ys: Iterable[Y]
-  ): Plot = {
+  ): Plot[A] = {
     val xsAsPType = xs.map { implicitly[Writable[X]].toPType }
     val ysAsPType = ys.map { implicitly[Writable[Y]].toPType }
     copy(series = series :+ Bar(xsAsPType, ysAsPType, BarOptions()))
@@ -28,7 +29,7 @@ case class Plot(
 
   def withBox[X: Writable](
     xs: Iterable[X]
-  ): Plot = {
+  ): Plot[A] = {
     val xsAsPType = xs.map { implicitly[Writable[X]].toPType }
     copy(series = series :+ Box(xsAsPType, BoxOptions()))
   }
