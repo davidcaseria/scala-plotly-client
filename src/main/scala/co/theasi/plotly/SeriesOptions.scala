@@ -9,7 +9,7 @@ trait SeriesOptions[T <: SeriesOptions[T]] {
   def xAxis(newXAxis: Int): T
   def yAxis(newYAxis: Int): T
 
-  def onSubplot(subplotRef: Int): T
+  def onAxes(axesRef: (Int, Int)): T
 }
 
 case class BoxOptions(
@@ -20,8 +20,10 @@ case class BoxOptions(
   def name(newName: String) = copy(name = Some(newName))
   def xAxis(newXAxis: Int) = copy(xAxis = Some(newXAxis))
   def yAxis(newYAxis: Int): BoxOptions = copy(yAxis = Some(newYAxis))
-  def onSubplot(subplotRef: Int): BoxOptions =
-    copy(xAxis = Some(subplotRef), yAxis = Some(subplotRef))
+  def onAxes(axesRef: (Int, Int)): BoxOptions = {
+    val (xAxisRef, yAxisRef) = axesRef
+    copy(xAxis = Some(xAxisRef), yAxis = Some(yAxisRef))
+  }
 }
 
 
@@ -34,7 +36,9 @@ case class BarOptions(
   def name(newName: String) = copy(name = Some(newName))
   def xAxis(newXAxis: Int) = copy(xAxis = Some(newXAxis))
   def yAxis(newYAxis: Int): BarOptions = copy(yAxis = Some(newYAxis))
-  def onSubplot(subplotRef: Int): BarOptions =
-    copy(xAxis = Some(subplotRef), yAxis = Some(subplotRef))
+  def onAxes(axesRef: (Int, Int)): BarOptions = {
+    val (xAxisRef, yAxisRef) = axesRef
+    copy(xAxis = Some(xAxisRef), yAxis = Some(yAxisRef))
+  }
 
 }

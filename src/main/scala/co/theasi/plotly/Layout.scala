@@ -50,26 +50,28 @@ case class GridLayout(
     numberColumns: Int)
 extends Layout {
 
-  def xAxis(row: Int, column: Int) = xAxes(ref(row, column))
-  def yAxis(row: Int, column: Int) = yAxes(ref(row, column))
+  def xAxis(row: Int, column: Int) = xAxes(ref(row, column)._1)
+  def yAxis(row: Int, column: Int) = yAxes(ref(row, column)._2)
 
   def xAxisOptions(row: Int, column: Int, newOptions: AxisOptions) = {
-    val axisRef = ref(row, column)
+    val axisRef = ref(row, column)._1
     copy(xAxes = xAxisOptionsImpl(axisRef, newOptions))
   }
 
   def yAxisOptions(row: Int, column: Int, newOptions: AxisOptions) = {
-    val axisRef = ref(row, column)
+    val axisRef = ref(row, column)._2
     copy(yAxes = yAxisOptionsImpl(axisRef, newOptions))
   }
 
-  def ref(row: Int, column: Int): Int = {
+  def ref(row: Int, column: Int): (Int, Int) = {
     checkRowColumn(row, column)
     rowColumnToRefImpl(row, column)
   }
 
-  private def rowColumnToRefImpl(row: Int, column: Int): Int =
-    row*numberColumns + column
+  private def rowColumnToRefImpl(row: Int, column: Int): (Int, Int) = {
+    val value = row*numberColumns + column
+    (value, value)
+  }
 
   private def checkRowColumn(row: Int, column: Int) {
     checkRow(row)
