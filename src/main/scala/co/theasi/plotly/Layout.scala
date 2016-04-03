@@ -1,39 +1,21 @@
 package co.theasi.plotly
 
 sealed trait Layout {
-  val xAxes: Vector[Axis]
-  val yAxes: Vector[Axis]
-
-  protected def xAxisOptionsImpl(
-      axisRef: Int,
-      newOptions: AxisOptions)
-  : Vector[Axis] = {
-    val newXAxis = xAxes(axisRef).copy(options = newOptions)
-    xAxes.updated(axisRef, newXAxis)
-  }
-
-  protected def yAxisOptionsImpl(
-      axisRef: Int,
-      newOptions: AxisOptions)
-  : Vector[Axis] = {
-    val newYAxis = yAxes(axisRef).copy(options = newOptions)
-    yAxes.updated(axisRef, newYAxis)
-  }
+  def xAxes: Vector[Axis]
+  def yAxes: Vector[Axis]
 }
 
 
 case class SingleAxisLayout(xAxis: Axis, yAxis: Axis)
 extends Layout {
-  val xAxes = Vector(xAxis)
-  val yAxes = Vector(yAxis)
+  def xAxes = Vector(xAxis)
+  def yAxes = Vector(yAxis)
 
-  def xAxisOptions(newOptions: AxisOptions): SingleAxisLayout = {
+  def xAxisOptions(newOptions: AxisOptions): SingleAxisLayout =
     copy(xAxis = xAxis.copy(options = newOptions))
-  }
 
-  def yAxisOptions(newOptions: AxisOptions): SingleAxisLayout = {
+  def yAxisOptions(newOptions: AxisOptions): SingleAxisLayout =
     copy(yAxis = yAxis.copy(options = newOptions))
-  }
 }
 
 
@@ -53,14 +35,17 @@ extends Layout {
   def xAxis(row: Int, column: Int) = xAxes(ref(row, column)._1)
   def yAxis(row: Int, column: Int) = yAxes(ref(row, column)._2)
 
-  def xAxisOptions(row: Int, column: Int, newOptions: AxisOptions) = {
+  def xAxisOptions(row: Int, column: Int, newOptions: AxisOptions)
+  : GridLayout = {
     val axisRef = ref(row, column)._1
-    copy(xAxes = xAxisOptionsImpl(axisRef, newOptions))
+    val newAxis = xAxes(axisRef).copy(options = newOptions)
+    copy(xAxes = xAxes.updated(axisRef, newAxis))
   }
 
   def yAxisOptions(row: Int, column: Int, newOptions: AxisOptions) = {
     val axisRef = ref(row, column)._2
-    copy(yAxes = yAxisOptionsImpl(axisRef, newOptions))
+    val newAxis = yAxes(axisRef).copy(options = newOptions)
+    copy(yAxes = yAxes.updated(axisRef, newAxis))
   }
 
   def ref(row: Int, column: Int): (Int, Int) = {
@@ -141,6 +126,27 @@ object GridLayout {
   }
 }
 
+
+case class RowLayout(private val impl: GridLayout) extends Layout {
+  // The implementation is just a wrapper around a GridLayout with
+  // a single row.
+  def xAxes = impl.xAxes
+  def yAxes = impl.yAxes
+
+  def ref(subplot: Int): (Int, Int) = impl.ref(0, subplot)
+
+  def xAxisOptions(subplot: Int, newOptions: AxisOptions): RowLayout =
+    copy(impl.xAxisOptions(0, subplot, newOptions))
+
+  def yAxisOptions(subplot: Int, newOptions: AxisOptions): RowLayout =
+    copy(impl.yAxisOptions(0, subplot, newOptions))
+}
+
+
+object RowLayout {
+  def apply(numberPlots: Int): RowLayout =
+    RowLayout(GridLayout(1, numberPlots))
+}
 
 case class FlexibleLayout(xAxes: Vector[Axis], yAxes: Vector[Axis])
 extends Layout {}

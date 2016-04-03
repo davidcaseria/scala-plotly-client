@@ -4,6 +4,8 @@ import org.scalatest._
 
 class LayoutSpec extends FlatSpec with Matchers with Inside {
 
+  def size(ax: Axis) = ax.domain._2 - ax.domain._1
+
   "GridLayout" should "create subplots in a row" in {
     val l = GridLayout(1, 2)
     val hspace = GridLayout.DefaultHorizontalSpacing / 2.0
@@ -51,8 +53,6 @@ class LayoutSpec extends FlatSpec with Matchers with Inside {
       l.yAxis(3, icol).domain._1 shouldEqual 0.0 +- 1e-5
     }
 
-    def size(ax: Axis) = ax.domain._2 - ax.domain._1
-
     // Check xAxes all have same width
     val width = size(l.xAxes(0))
     l.xAxes.foreach { ax => size(ax) shouldEqual width +- 1e-5 }
@@ -82,6 +82,35 @@ class LayoutSpec extends FlatSpec with Matchers with Inside {
     l.yAxes(0).options.title shouldEqual Some("hello")
   }
 
+  "RowLayout" should "put subplots in a row" in {
+    val l = RowLayout(3)
+    l.yAxes.foreach { axis => axis.domain shouldEqual (0.0, 1.0) }
 
+    l.xAxes(0).domain._1 shouldEqual 0.0
+    l.xAxes(2).domain._2 shouldEqual 1.0
+
+    val width = size(l.xAxes(0))
+    l.xAxes.foreach { axis => size(axis) shouldEqual width +- 1e-5 }
+  }
+
+  it should "allow setting x-axis options" in {
+    val l = RowLayout(3)
+      .xAxisOptions(1, AxisOptions().title("hello"))
+      .xAxisOptions(2, AxisOptions().title("hello2"))
+
+    l.xAxes(0).options.title shouldEqual None
+    l.xAxes(1).options.title shouldEqual Some("hello")
+    l.xAxes(2).options.title shouldEqual Some("hello2")
+  }
+
+  it should "allow setting y-axis options" in {
+    val l = RowLayout(3)
+      .yAxisOptions(1, AxisOptions().title("hello"))
+      .yAxisOptions(2, AxisOptions().title("hello2"))
+
+    l.yAxes(0).options.title shouldEqual None
+    l.yAxes(1).options.title shouldEqual Some("hello")
+    l.yAxes(2).options.title shouldEqual Some("hello2")
+  }
 
 }
