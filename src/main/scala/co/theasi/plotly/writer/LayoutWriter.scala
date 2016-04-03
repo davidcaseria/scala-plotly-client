@@ -4,14 +4,18 @@ import org.json4s._
 import org.json4s.native.JsonMethods._
 import org.json4s.JsonDSL._
 
-import co.theasi.plotly.{Layout, Axis, AxisOptions}
+import co.theasi.plotly.{Layout, Axis, AxisOptions, LayoutOptions}
 
 object LayoutWriter {
   def toJson(layout: Layout[_]): JObject = {
     val xAxesAsJson = axesAsJson(layout.xAxes, "xaxis", "y")
     val yAxesAsJson = axesAsJson(layout.yAxes, "yaxis", "x")
-    xAxesAsJson ~ yAxesAsJson
+    xAxesAsJson ~ yAxesAsJson ~ layoutOptionsAsJson(layout.options)
   }
+
+  private def layoutOptionsAsJson(options: LayoutOptions): JObject = (
+    "title" -> options.title
+  )
 
   private def axesAsJson(
       axes: Vector[Axis],
