@@ -11,6 +11,12 @@ resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repos
 libraryDependencies += "co.theasi" %% "plotly" % "0.1-SNAPSHOT"
 ```
 
+## Documentation
+
+Tutorials will be included as part of the [Plotly API documentation](https://plot.ly/api/) when the interface stabilises.
+
+API documentation, in the form of Scaladocs, is currently available [here](http://the-asi.github.io/scala-plotly-client/latest/api/#co.theasi.plotly.package).
+
 ## Authentication
 
 To create a graph on Plotly, start by opening an account with the web UI. Then create an API key by clicking on your username in the top right hand corner of the screen and selecting *SETTINGS > API KEYS*. Create the file `~/.plotly/.credentials` in your home directory. The file should look like:
