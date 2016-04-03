@@ -35,6 +35,7 @@ object OptionsWriter {
   private def markerOptionsToJson(options: MarkerOptions): JObject = {
     ("color" -> options.color.map(colorToJson)) ~
     ("size" -> options.size) ~
+    ("symbol" -> options.symbol) ~
     ("line" ->
       (
         ("color" -> options.lineColor.map(colorToJson)) ~
