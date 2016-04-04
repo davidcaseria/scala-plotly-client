@@ -42,7 +42,15 @@ object LayoutWriter {
   private def axisOptionsAsJson(options: AxisOptions): JObject = (
     ("title" -> options.title) ~
     ("ticklen" -> options.tickLength) ~
+    ("zeroline" -> options.zeroLine) ~
     ("gridwidth" -> options.gridWidth) ~
-    ("zeroline" -> options.zeroLine)
+    ("showgrid" -> options.grid) ~
+    ("showline" -> options.line) ~
+    ("linecolor" -> options.lineColor.map(ColorWriter.toJson _)) ~
+    ("titlefont" -> FontWriter.toJson(options.titleFont)) ~
+    ("tickfont" -> FontWriter.toJson(options.tickFont)) ~
+    ("autotick" -> options.autoTick) ~
+    ("dtick" -> options.tickSpacing) ~
+    ("tickcolor" -> options.tickColor.map(ColorWriter.toJson _))
   )
 }

@@ -4,7 +4,15 @@ case class AxisOptions(
   title: Option[String],
   tickLength: Option[Int],
   zeroLine: Option[Boolean],
-  gridWidth: Option[Int]
+  gridWidth: Option[Int],
+  grid: Option[Boolean],
+  line: Option[Boolean],
+  lineColor: Option[Color],
+  titleFont: Font,
+  tickFont: Font,
+  autoTick: Option[Boolean],
+  tickSpacing: Option[Double],
+  tickColor: Option[Color]
 ) {
   def title(newTitle: String): AxisOptions = copy(title = Some(newTitle))
 
@@ -16,6 +24,46 @@ case class AxisOptions(
 
   def gridWidth(newGridWidth: Int): AxisOptions =
     copy(gridWidth = Some(newGridWidth))
+
+  def withGrid: AxisOptions = copy(grid = Some(true))
+  def noGrid: AxisOptions = copy(grid = Some(false))
+
+  def withLine: AxisOptions = copy(line = Some(true))
+  def noLine: AxisOptions = copy(line = Some(false))
+
+  def lineColor(newColor: Color): AxisOptions =
+    copy(lineColor = Some(newColor))
+  def lineColor(r: Int, g: Int, b: Int, a: Double): AxisOptions =
+    lineColor(Color.rgba(r, g, b, a))
+  def lineColor(r: Int, g: Int, b: Int): AxisOptions =
+    lineColor(Color.rgb(r, g, b))
+
+  def titleColor(newColor: Color): AxisOptions =
+    copy(titleFont = titleFont.copy(color=Some(newColor)))
+  def titleColor(r: Int, g: Int, b: Int, a: Double): AxisOptions =
+    titleColor(Color.rgba(r, g, b, a))
+  def titleColor(r: Int, g: Int, b: Int): AxisOptions =
+    titleColor(Color.rgb(r, g, b))
+
+  def tickFontColor(newColor: Color): AxisOptions =
+    copy(tickFont = tickFont.copy(color=Some(newColor)))
+  def tickFontColor(r: Int, g: Int, b: Int, a: Double): AxisOptions =
+    tickFontColor(Color.rgba(r, g, b, a))
+  def tickFontColor(r: Int, g: Int, b: Int): AxisOptions =
+    tickFontColor(Color.rgb(r, g, b))
+
+  def withAutoTick: AxisOptions = copy(autoTick = Some(true))
+  def noAutoTick: AxisOptions = copy(autoTick = Some(false))
+
+  def tickSpacing(newTickSpacing: Double): AxisOptions =
+    copy(tickSpacing = Some(newTickSpacing))
+
+  def tickColor(newColor: Color): AxisOptions =
+    copy(tickColor = Some(newColor))
+  def tickColor(r: Int, g: Int, b: Int, a: Double): AxisOptions =
+    tickColor(Color.rgba(r, g, b, a))
+  def tickColor(r: Int, g: Int, b: Int): AxisOptions =
+    tickColor(Color.rgb(r, g, b))
 }
 
 object AxisOptions {
@@ -23,6 +71,14 @@ object AxisOptions {
     title = None,
     tickLength = None,
     zeroLine = None,
-    gridWidth = None
+    gridWidth = None,
+    grid = None,
+    line = None,
+    lineColor = None,
+    titleFont = Font(),
+    tickFont = Font(),
+    autoTick = None,
+    tickSpacing = None,
+    tickColor = None
   )
 }
