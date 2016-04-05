@@ -34,6 +34,12 @@ case class ScatterOptions(
   def marker(newMarker: MarkerOptions): ScatterOptions =
     copy(marker = newMarker)
 
+  def updatedMarker(updater: MarkerOptions => MarkerOptions)
+  : ScatterOptions = {
+    val newMarker = updater(marker)
+    marker(newMarker)
+  }
+
 }
 
 object ScatterOptions {
