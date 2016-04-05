@@ -9,6 +9,9 @@ sealed trait Layout[A <: Layout[A]] {
 
   def title(newTitle: String): A =
     newOptions(options.copy(title = Some(newTitle)))
+
+  def legend(newLegend: LegendOptions): A =
+    newOptions(options.copy(legendOptions = newLegend))
 }
 
 
