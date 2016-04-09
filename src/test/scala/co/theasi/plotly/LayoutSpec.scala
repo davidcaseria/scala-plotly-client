@@ -120,4 +120,20 @@ class LayoutSpec extends FlatSpec with Matchers with Inside {
     l1 shouldEqual l2
   }
 
+  it should "allow setting paper background color" in {
+    val l = SingleAxisLayout()
+    val l1 = l.paperBackgroundColor(10, 20, 30)
+    val l2 = l.paperBackgroundColor(Color.rgb(10, 20, 30))
+    l1 shouldEqual l2
+    l.options.paperBackgroundColor shouldEqual None
+  }
+
+  it should "allow setting plot background color" in {
+    val l = SingleAxisLayout()
+    val l1 = l.plotBackgroundColor(10, 20, 30)
+    val l2 = l.plotBackgroundColor(Color.rgb(10, 20, 30))
+    l1 shouldEqual l2
+    l.options.plotBackgroundColor shouldEqual None
+  }
+
 }

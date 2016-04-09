@@ -23,7 +23,7 @@ sealed trait Layout[A <: Layout[A]] {
 
   private def margins(newMargins: Margins): A =
     newOptions(options.copy(margins = newMargins))
-    
+
   /** Set layout margins */
   def margins(top: Int, right: Int, bottom: Int, left: Int): A =
     margins(Margins(Some(top), Some(right), Some(bottom), Some(left)))
@@ -47,6 +47,43 @@ sealed trait Layout[A <: Layout[A]] {
     val newMargin = options.margins.copy(bottom = Some(newBottomMargin))
     margins(newMargin)
   }
+
+  /** Set the plot width (in px) */
+  def width(newWidth: Int): A = newOptions(options.copy(width = Some(newWidth)))
+
+  /** Set the plot height (in px) */
+  def height(newHeight: Int): A =
+    newOptions(options.copy(height = Some(newHeight)))
+
+  /** Set the paper's background color
+    *
+    * {{{
+    * val layout = SingleAxisLayout().paperBackgroundColor(Color.rgb(0, 255, 0))
+    * }}}
+    */
+  def paperBackgroundColor(newColor: Color): A =
+    newOptions(options.copy(paperBackgroundColor = Some(newColor)))
+  /** Set the paper's background color with (red, green, blue, alpha) */
+  def paperBackgroundColor(r: Int, g: Int, b: Int, a: Double): A =
+    paperBackgroundColor(Color.rgba(r, g, b, a))
+  /** Set the paper's background color. */
+  def paperBackgroundColor(r: Int, g: Int, b: Int): A =
+    paperBackgroundColor(Color.rgb(r, g, b))
+
+  /** Set the plot's background color
+    *
+    * {{{
+    * val layout = SingleAxisLayout().plotBackgroundColor(Color.rgb(0, 255, 0))
+    * }}}
+    */
+  def plotBackgroundColor(newColor: Color): A =
+    newOptions(options.copy(plotBackgroundColor = Some(newColor)))
+  /** Set the plot's background color with (red, green, blue, alpha) */
+  def plotBackgroundColor(r: Int, g: Int, b: Int, a: Double): A =
+    plotBackgroundColor(Color.rgba(r, g, b, a))
+  /** Set the plot's background color */
+  def plotBackgroundColor(r: Int, g: Int, b: Int): A =
+    plotBackgroundColor(Color.rgb(r, g, b))
 
 }
 
