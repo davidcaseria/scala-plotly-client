@@ -91,6 +91,7 @@ class PlotWriterSpec extends FlatSpec with Matchers {
         .color(5, 10, 15, 0.5)
         .lineWidth(6)
         .lineColor(1, 2, 3, 0.1)
+        .symbol("circle")
     )
     val p = Plot().withScatter(testX1, testY1, options0)
     val plotFile = PlotWriter.draw(p, "test-126")
@@ -102,6 +103,7 @@ class PlotWriterSpec extends FlatSpec with Matchers {
     color.replace(" ", "") shouldEqual "rgba(5,10,15,0.5)"
     (marker \ "size") shouldEqual JInt(22)
     (marker \ "line" \ "width") shouldEqual JInt(6)
+    (marker \ "symbol") shouldEqual JString("circle")
     val JString(lineColor) = (marker \ "line" \ "color")
     lineColor.replace(" ", "") shouldEqual "rgba(1,2,3,0.1)"
   }

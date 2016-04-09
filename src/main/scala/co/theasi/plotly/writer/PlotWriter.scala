@@ -13,7 +13,7 @@ import co.theasi.plotly._
 object PlotWriter {
 
   def draw(
-      plot: Plot,
+      plot: Plot[_],
       fileName: String,
       fileOptions: FileOptions = FileOptions()
   )(implicit server: Server) = {
@@ -26,7 +26,7 @@ object PlotWriter {
   }
 
   def plotAsJson(
-      plot: Plot,
+      plot: Plot[_],
       drawnGrid: GridFile,
       fileName: String
   ): JObject = {
@@ -48,7 +48,7 @@ object PlotWriter {
   }
 
   private def drawGrid(
-      plot: Plot,
+      plot: Plot[_],
       fileName: String,
       fileOptions: FileOptions)
       (implicit server: Server)

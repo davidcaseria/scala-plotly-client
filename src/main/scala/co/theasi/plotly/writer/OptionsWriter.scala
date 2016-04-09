@@ -33,11 +33,12 @@ object OptionsWriter {
     else { Some(mode.map { _.toString.toLowerCase }.mkString("+")) }
 
   private def markerOptionsToJson(options: MarkerOptions): JObject = {
-    ("color" -> options.color.map(colorToJson)) ~
+    ("color" -> options.color.map(ColorWriter.toJson _)) ~
     ("size" -> options.size) ~
+    ("symbol" -> options.symbol) ~
     ("line" ->
       (
-        ("color" -> options.lineColor.map(colorToJson)) ~
+        ("color" -> options.lineColor.map(ColorWriter.toJson _)) ~
         ("width" -> options.lineWidth)
       )
     )
@@ -52,7 +53,5 @@ object OptionsWriter {
       case None => JObject()
     }
 
-  private def colorToJson(color: Color): String =
-    s"rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})"
 
 }

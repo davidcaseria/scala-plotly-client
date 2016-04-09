@@ -12,6 +12,10 @@ case class ScatterOptions(
   def name(newName: String) = copy(name = Some(newName))
   def xAxis(newXAxis: Int) = copy(xAxis = Some(newXAxis))
   def yAxis(newYAxis: Int): ScatterOptions = copy(yAxis = Some(newYAxis))
+  def onAxes(axesRef: (Int, Int)): ScatterOptions = {
+    val (xAxisRef, yAxisRef) = axesRef
+    copy(xAxis = Some(xAxisRef), yAxis = Some(yAxisRef))
+  }
 
   def mode(newMode: ScatterMode.Value, rest: ScatterMode.Value*)
   : ScatterOptions = mode(newMode +: rest)
@@ -29,6 +33,12 @@ case class ScatterOptions(
 
   def marker(newMarker: MarkerOptions): ScatterOptions =
     copy(marker = newMarker)
+
+  def updatedMarker(updater: MarkerOptions => MarkerOptions)
+  : ScatterOptions = {
+    val newMarker = updater(marker)
+    marker(newMarker)
+  }
 
 }
 
@@ -52,6 +62,7 @@ object ScatterMode extends Enumeration {
 case class MarkerOptions(
   size: Option[Int],
   color: Option[Color],
+  symbol: Option[String],
   lineWidth: Option[Int],
   lineColor: Option[Color]
 ) {
@@ -63,6 +74,9 @@ case class MarkerOptions(
     color(Color.rgba(r, g, b, a))
   def color(r: Int, g: Int, b: Int): MarkerOptions =
     color(r, g, b, 1.0)
+
+  def symbol(newSymbol: String): MarkerOptions =
+    copy(symbol = Some(newSymbol))
 
   def lineWidth(newLineWidth: Int): MarkerOptions =
     copy(lineWidth = Some(newLineWidth))
@@ -78,6 +92,7 @@ object MarkerOptions {
   def apply(): MarkerOptions = MarkerOptions(
     size = None,
     color = None,
+    symbol = None,
     lineWidth = None,
     lineColor = None
   )
