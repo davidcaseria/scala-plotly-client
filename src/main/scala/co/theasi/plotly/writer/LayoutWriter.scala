@@ -4,7 +4,7 @@ import org.json4s._
 import org.json4s.native.JsonMethods._
 import org.json4s.JsonDSL._
 
-import co.theasi.plotly.{Layout, Axis, AxisOptions, LayoutOptions, LegendOptions, emptyLegendOptions}
+import co.theasi.plotly.{Layout, Axis, AxisOptions, LayoutOptions, LegendOptions, emptyLegendOptions, Margins, emptyMargins}
 
 object LayoutWriter {
   def toJson(layout: Layout[_]): JObject = {
@@ -17,7 +17,8 @@ object LayoutWriter {
 
   private def layoutOptionsAsJson(options: LayoutOptions): JObject = (
     ("title" -> options.title) ~
-    ("legend" -> legendAsJson(options.legendOptions))
+    ("legend" -> legendAsJson(options.legendOptions)) ~
+    ("margin" -> marginsAsJson(options.margins))
   )
 
   private def axesAsJson(
@@ -59,7 +60,7 @@ object LayoutWriter {
 
   private def legendAsJson(options: LegendOptions): Option[JObject] =
     options match {
-      case emptyLegendOptions() => None // empty legend options
+      case emptyLegendOptions() => None
       case _ => Some(
         ("x" -> options.x) ~
         ("y" -> options.y) ~
@@ -69,6 +70,17 @@ object LayoutWriter {
         ("bgcolor" -> options.backgroundColor.map { ColorWriter.toJson }) ~
         ("font" -> FontWriter.toJson(options.font)) ~
         ("borderwidth" -> options.borderWidth)
+      )
+    }
+
+  private def marginsAsJson(margins: Margins): Option[JObject] =
+    margins match {
+      case emptyMargins() => None
+      case _ => Some(
+        ("l" -> margins.left) ~
+        ("r" -> margins.right) ~
+        ("b" -> margins.bottom) ~
+        ("t" -> margins.top)
       )
     }
 }

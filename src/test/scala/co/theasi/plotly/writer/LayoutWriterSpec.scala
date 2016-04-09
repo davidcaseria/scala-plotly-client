@@ -63,4 +63,19 @@ class LayoutWriterSpec extends FlatSpec with Matchers {
     val jobj = LayoutWriter.toJson(layout) \ "legend"
     jobj shouldEqual JNothing
   }
+
+  it should "serialize the margin options" in {
+    val layout = SingleAxisLayout().leftMargin(10).rightMargin(20)
+    val jobj = LayoutWriter.toJson(layout) \ "margin"
+    jobj \ "l" shouldEqual JInt(10)
+    jobj \ "r" shouldEqual JInt(20)
+    jobj \ "t" shouldEqual JNothing
+    jobj \ "b" shouldEqual JNothing
+  }
+
+  it should "not include 'margin' if the Margins are empty" in {
+    val layout = SingleAxisLayout()
+    val jobj = LayoutWriter.toJson(layout) \ "margin"
+    jobj shouldEqual JNothing
+  }
 }
