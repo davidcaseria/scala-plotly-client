@@ -113,4 +113,11 @@ class LayoutSpec extends FlatSpec with Matchers with Inside {
     l.yAxes(2).options.title shouldEqual Some("hello2")
   }
 
+  "Layout" should "allow setting margin options" in {
+    val l = SingleAxisLayout()
+    val l1 = l.margins(1, 2, 3, 4)
+    val l2 = l.topMargin(1).rightMargin(2).bottomMargin(3).leftMargin(4)
+    l1 shouldEqual l2
+  }
+
 }

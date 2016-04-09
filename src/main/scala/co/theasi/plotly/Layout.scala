@@ -12,6 +12,28 @@ sealed trait Layout[A <: Layout[A]] {
 
   def legend(newLegend: LegendOptions): A =
     newOptions(options.copy(legendOptions = newLegend))
+
+  def margins(newMargins: Margins): A =
+    newOptions(options.copy(margins = newMargins))
+  def margins(top: Int, right: Int, bottom: Int, left: Int): A =
+    margins(Margins(Some(top), Some(right), Some(bottom), Some(left)))
+  def leftMargin(newLeftMargin: Int): A = {
+    val newMargin = options.margins.copy(left = Some(newLeftMargin))
+    margins(newMargin)
+  }
+  def rightMargin(newRightMargin: Int): A = {
+    val newMargin = options.margins.copy(right = Some(newRightMargin))
+    margins(newMargin)
+  }
+  def topMargin(newTopMargin: Int): A = {
+    val newMargin = options.margins.copy(top = Some(newTopMargin))
+    margins(newMargin)
+  }
+  def bottomMargin(newBottomMargin: Int): A = {
+    val newMargin = options.margins.copy(bottom = Some(newBottomMargin))
+    margins(newMargin)
+  }
+
 }
 
 

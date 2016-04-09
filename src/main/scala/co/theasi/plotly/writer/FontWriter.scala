@@ -4,7 +4,7 @@ import org.json4s._
 import org.json4s.native.JsonMethods._
 import org.json4s.JsonDSL._
 
-import co.theasi.plotly.Font
+import co.theasi.plotly.{Font, emptyFont}
 
 object FontWriter {
   def toJson(font: Font): Option[JObject] = font match {
