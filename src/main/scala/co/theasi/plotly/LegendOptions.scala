@@ -21,6 +21,13 @@ case class LegendOptions(
   def borderColor(newColor: Color): LegendOptions =
     copy(borderColor = Some(newColor))
 
+  def fontColor(newColor: Color): LegendOptions =
+    copy(font = font.copy(color = Some(newColor)))
+  def fontSize(newSize: Int): LegendOptions =
+    copy(font = font.copy(size = Some(newSize)))
+  def fontFamily(newFamily: List[String]): LegendOptions =
+    copy(font = font.copy(family = Some(newFamily)))
+
   def borderWidth(newWidth: Double): LegendOptions =
     copy(borderWidth = Some(newWidth))
 }
@@ -36,6 +43,11 @@ object LegendOptions {
     font = Font(),
     borderWidth = None
   )
+}
+
+object emptyLegendOptions {
+  def unapply(options: LegendOptions): Boolean =
+    options == LegendOptions()
 }
 
 object XAnchor extends Enumeration {

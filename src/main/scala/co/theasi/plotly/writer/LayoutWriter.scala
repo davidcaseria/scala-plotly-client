@@ -4,7 +4,7 @@ import org.json4s._
 import org.json4s.native.JsonMethods._
 import org.json4s.JsonDSL._
 
-import co.theasi.plotly.{Layout, Axis, AxisOptions, LayoutOptions, LegendOptions}
+import co.theasi.plotly.{Layout, Axis, AxisOptions, LayoutOptions, LegendOptions, emptyLegendOptions}
 
 object LayoutWriter {
   def toJson(layout: Layout[_]): JObject = {
@@ -57,19 +57,18 @@ object LayoutWriter {
     ("tickcolor" -> options.tickColor.map(ColorWriter.toJson _))
   )
 
-  private def legendAsJson(options: LegendOptions): Option[JObject] = {
-    val jobj = (
-      ("x" -> options.x) ~
-      ("y" -> options.y) ~
-      ("xanchor" -> options.xAnchor.map { _.toString }) ~
-      ("yanchor" -> options.yAnchor.map { _.toString }) ~
-      ("bordercolor" -> options.borderColor.map { ColorWriter.toJson }) ~
-      ("bgcolor" -> options.backgroundColor.map { ColorWriter.toJson }) ~
-      ("borderwidth" -> options.borderWidth)
-    )
-    jobj match {
-      case JObject(List()) => None // JObject is empty
-      case o => Some(o)
+  private def legendAsJson(options: LegendOptions): Option[JObject] =
+    options match {
+      case emptyLegendOptions() => None // empty legend options
+      case _ => Some(
+        ("x" -> options.x) ~
+        ("y" -> options.y) ~
+        ("xanchor" -> options.xAnchor.map { _.toString }) ~
+        ("yanchor" -> options.yAnchor.map { _.toString }) ~
+        ("bordercolor" -> options.borderColor.map { ColorWriter.toJson }) ~
+        ("bgcolor" -> options.backgroundColor.map { ColorWriter.toJson }) ~
+        ("font" -> FontWriter.toJson(options.font)) ~
+        ("borderwidth" -> options.borderWidth)
+      )
     }
-  }
 }

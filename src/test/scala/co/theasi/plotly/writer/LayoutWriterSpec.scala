@@ -5,7 +5,7 @@ import org.json4s.native.JsonMethods._
 
 import org.scalatest._
 
-import co.theasi.plotly.{GridLayout, SingleAxisLayout, AxisOptions}
+import co.theasi.plotly._
 
 class LayoutWriterSpec extends FlatSpec with Matchers {
   "Layout.toJson" should "serialize axis domains" in {
@@ -43,5 +43,24 @@ class LayoutWriterSpec extends FlatSpec with Matchers {
     val jobj = LayoutWriter.toJson(layout)
     (jobj \ "xaxis" \ "title") shouldEqual JString("hello")
     (jobj \ "yaxis" \ "title") shouldEqual JNothing
+  }
+
+  it should "serialize legend options" in {
+    val layout = SingleAxisLayout().legend(LegendOptions()
+      .x(0.5)
+      .y(0.6)
+      .xAnchor(XAnchor.Left)
+      .yAnchor(YAnchor.Top))
+    val jobj = LayoutWriter.toJson(layout) \ "legend"
+    jobj \ "x" shouldEqual JDouble(0.5)
+    jobj \ "y" shouldEqual JDouble(0.6)
+    jobj \ "xanchor" shouldEqual JString("left")
+    jobj \ "yanchor" shouldEqual JString("top")
+  }
+
+  it should "not include 'legend' if the LegendOptions are empty" in {
+    val layout = SingleAxisLayout()
+    val jobj = LayoutWriter.toJson(layout) \ "legend"
+    jobj shouldEqual JNothing
   }
 }
