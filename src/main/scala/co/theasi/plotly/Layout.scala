@@ -7,28 +7,42 @@ sealed trait Layout[A <: Layout[A]] {
 
   def newOptions(newOptions: LayoutOptions): A
 
+  /** Set layout title */
   def title(newTitle: String): A =
     newOptions(options.copy(title = Some(newTitle)))
 
+  /** Set layout legend options
+    *
+    * {{{
+    * val legend = LegendOptions().fontSize(20)
+    * val layout = SingleAxisLayout().legendOptions(legend)
+    * }}}
+    */
   def legend(newLegend: LegendOptions): A =
     newOptions(options.copy(legendOptions = newLegend))
 
-  def margins(newMargins: Margins): A =
+  private def margins(newMargins: Margins): A =
     newOptions(options.copy(margins = newMargins))
+    
+  /** Set layout margins */
   def margins(top: Int, right: Int, bottom: Int, left: Int): A =
     margins(Margins(Some(top), Some(right), Some(bottom), Some(left)))
+  /** Set left margin (in px) */
   def leftMargin(newLeftMargin: Int): A = {
     val newMargin = options.margins.copy(left = Some(newLeftMargin))
     margins(newMargin)
   }
+  /** Set right margin (in px) */
   def rightMargin(newRightMargin: Int): A = {
     val newMargin = options.margins.copy(right = Some(newRightMargin))
     margins(newMargin)
   }
+  /** Set top margin (in px) */
   def topMargin(newTopMargin: Int): A = {
     val newMargin = options.margins.copy(top = Some(newTopMargin))
     margins(newMargin)
   }
+  /** Set bottom margin (in px) */
   def bottomMargin(newBottomMargin: Int): A = {
     val newMargin = options.margins.copy(bottom = Some(newBottomMargin))
     margins(newMargin)
