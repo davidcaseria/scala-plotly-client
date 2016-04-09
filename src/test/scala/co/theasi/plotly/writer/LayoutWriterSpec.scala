@@ -78,4 +78,25 @@ class LayoutWriterSpec extends FlatSpec with Matchers {
     val jobj = LayoutWriter.toJson(layout) \ "margin"
     jobj shouldEqual JNothing
   }
+
+  it should "include width and height if set" in {
+    val layout = SingleAxisLayout()
+    (LayoutWriter.toJson(layout.width(10)) \ "width") shouldEqual JInt(10)
+    (LayoutWriter.toJson(layout.height(20)) \ "height") shouldEqual JInt(20)
+    val jobj = LayoutWriter.toJson(layout)
+    jobj \ "width" shouldEqual JNothing
+    jobj \ "height" shouldEqual JNothing
+  }
+
+  it should "include the paper and plot background color if set" in {
+    val c1 = Color.rgb(10, 20, 30)
+    val c2 = Color.rgb(100, 200, 250)
+    val layout = SingleAxisLayout()
+    ((LayoutWriter.toJson(layout.plotBackgroundColor(c1)) \ "plot_bgcolor")
+      shouldEqual JString(ColorWriter.toJson(c1)))
+    ((LayoutWriter.toJson(layout.paperBackgroundColor(c2)) \ "paper_bgcolor")
+      shouldEqual JString(ColorWriter.toJson(c2)))
+    (LayoutWriter.toJson(layout) \ "plot_bgcolor") shouldEqual JNothing
+    (LayoutWriter.toJson(layout) \ "paper_bgcolor") shouldEqual JNothing
+  }
 }

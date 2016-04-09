@@ -18,7 +18,13 @@ object LayoutWriter {
   private def layoutOptionsAsJson(options: LayoutOptions): JObject = (
     ("title" -> options.title) ~
     ("legend" -> legendAsJson(options.legendOptions)) ~
-    ("margin" -> marginsAsJson(options.margins))
+    ("margin" -> marginsAsJson(options.margins)) ~
+    ("width" -> options.width) ~
+    ("height" -> options.height) ~
+    ("paper_bgcolor" ->
+      options.paperBackgroundColor.map { ColorWriter.toJson }) ~
+    ("plot_bgcolor" ->
+      options.plotBackgroundColor.map { ColorWriter.toJson })
   )
 
   private def axesAsJson(
