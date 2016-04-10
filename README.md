@@ -58,10 +58,10 @@ This will create a graph called `hello-plotly` in your account!
 Sometimes, creating a `~/.plotly/.credentials` file isn't practical. In that case, you can pass credentials to Plotly programatically by defining a custom server.
 
 ```
-import co.theasi.plotly
+import co.theasi.plotly._
 
 implicit val server = new writer.Server {
-  val credentials = writer.Credentials("<username> "<api_key>")
+  val credentials = writer.Credentials("<username>", "<api_key>")
   val url = "https://api.plot.ly/v2/"
 }
 ```
