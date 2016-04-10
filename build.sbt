@@ -1,6 +1,6 @@
 name := "plotly"
 
-version := "0.1-SNAPSHOT"
+version := "0.1"
 
 organization := "co.theasi"
 
