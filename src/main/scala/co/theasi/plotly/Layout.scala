@@ -1,5 +1,13 @@
 package co.theasi.plotly
 
+/** Base class for plot layouts.
+  *
+  * Do not construct this class directly. Use one of the sub-classes instead:
+  *
+  *  - [[SingleAxisLayout]] to have a single pair of axes on the figure
+  *  - [[RowLayout]] for subplots equally distributed in a single line
+  *  - [[GridLayout]] for subplots distributed on a grid.
+  */
 sealed trait Layout[A <: Layout[A]] {
   def xAxes: Vector[Axis]
   def yAxes: Vector[Axis]
@@ -87,15 +95,35 @@ sealed trait Layout[A <: Layout[A]] {
 
 }
 
-
+/** Layout with a single plot.
+  *
+  * ==Example usage==
+  *
+  * {{{
+  * val xs = Vector(1, 2, 3)
+  * val ys = Vector(4.5, 8.5, 21.0)
+  *
+  * val layout = SingleAxisLayout()
+  *   .leftMargin(140)
+  *   .paperBackgroundColor(254, 247, 234)
+  *   .plotBackgroundColor(254, 247, 234)
+  *   .xAxisOptions(AxisOptions()
+  *     .titleColor(204, 204, 204)
+  *     .noAutoTick)
+  *
+  * val plot = Plot().layout(layout).withScatter(xs, ys)
+  * }}}
+  */
 case class SingleAxisLayout(xAxis: Axis, yAxis: Axis, options: LayoutOptions)
 extends Layout[SingleAxisLayout] {
   def xAxes = Vector(xAxis)
   def yAxes = Vector(yAxis)
 
+  /** Set options for the x-axis */
   def xAxisOptions(newOptions: AxisOptions): SingleAxisLayout =
     copy(xAxis = xAxis.copy(options = newOptions))
 
+  /** Set options for the y-axis */
   def yAxisOptions(newOptions: AxisOptions): SingleAxisLayout =
     copy(yAxis = yAxis.copy(options = newOptions))
 
@@ -110,6 +138,41 @@ object SingleAxisLayout {
 }
 
 
+/** Layout with a grid of sub-plots.
+  *
+  * This creates a grid of subplots arranged in rows and columns.
+  *
+  * ==Example Usage==
+  *
+  * Let's draw six scatter plots on a grid.
+  *
+  * {{{
+  * val xs = (0 to 100).map { i => Random.nextGaussian }
+  * def ys = (0 to 100).map { i => Random.nextGaussian }
+  *
+  * // 2 rows, 3 columns
+  * val layout = GridLayout(2, 3)
+  *
+  * // Options common to all the plots
+  * val commonOptions = ScatterOptions()
+  *   .mode(ScatterMode.Marker)
+  *
+  * // The '.ref' method is useful for specifying which subplot to plot
+  * // a specific series on.
+  * val p = Plot()
+  *   .layout(layout)
+  *   .withScatter(xs, ys, commonOptions.onAxes(layout.ref(0, 0)).name("top-left"))
+  *   .withScatter(xs, ys, commonOptions.onAxes(layout.ref(0, 1)).name("top-middle"))
+  *   .withScatter(xs, ys, commonOptions.onAxes(layout.ref(0, 2)).name("top-right"))
+  *   .withScatter(xs, ys, commonOptions.onAxes(layout.ref(1, 0)).name("bottom-left"))
+  *   .withScatter(xs, ys, commonOptions.onAxes(layout.ref(1, 1)).name("bottom-middle"))
+  *   .withScatter(xs, ys, commonOptions.onAxes(layout.ref(1, 2)).name("bottom-right"))
+  *
+  * draw(p, "subplots-grid", writer.FileOptions(overwrite=true))
+  * }}}
+  *
+  *
+  */
 case class GridLayout(
     xAxes: Vector[Axis],
     yAxes: Vector[Axis],
