@@ -28,7 +28,7 @@
         </head>
         <body class="type">
       <div id="definition">
-        <img alt="Class" src="../../../lib/class_big.png" />
+        <img alt="Trait" src="../../../lib/trait_big.png" />
         <p id="owner"><a href="../../package.html" class="extype" name="co">co</a>.<a href="../package.html" class="extype" name="co.theasi">theasi</a>.<a href="package.html" class="extype" name="co.theasi.plotly">plotly</a></p>
         <h1>Layout</h1><h3><span class="morelinks"><div>Related Doc:
             <a href="package.html" class="extype" name="co.theasi.plotly">package plotly</a>
@@ -41,18 +41,21 @@
 
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">case class</span>
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">Layout</span><span class="params">(<span name="xAxes">xAxes: <span class="extype" name="scala.List">List</span>[<a href="Axis.html" class="extype" name="co.theasi.plotly.Axis">Axis</a>] = <span class="symbol">List.empty</span></span>, <span name="yAxes">yAxes: <span class="extype" name="scala.List">List</span>[<a href="Axis.html" class="extype" name="co.theasi.plotly.Axis">Axis</a>] = <span class="symbol">List.empty</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">Layout</span><span class="tparams">[<span name="A">A &lt;: <a href="" class="extype" name="co.theasi.plotly.Layout">Layout</a>[<span class="extype" name="co.theasi.plotly.Layout.A">A</span>]</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       
           <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
-        </div></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div><div class="toggleContainer block">
+            <span class="toggle">Known Subclasses</span>
+            <div class="subClasses hiddenContent"><a href="GridLayout.html" class="extype" name="co.theasi.plotly.GridLayout">GridLayout</a>, <a href="RowLayout.html" class="extype" name="co.theasi.plotly.RowLayout">RowLayout</a>, <a href="SingleAxisLayout.html" class="extype" name="co.theasi.plotly.SingleAxisLayout">SingleAxisLayout</a></div>
+          </div></div>
         
 
       <div id="mbrsel">
@@ -69,7 +72,7 @@
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="co.theasi.plotly.Layout"><span>Layout</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.Product"><span>Product</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="co.theasi.plotly.Layout"><span>Layout</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -86,21 +89,76 @@
 
       <div id="template">
         <div id="allMembers">
-        <div id="constructors" class="members">
-              <h3>Instance Constructors</h3>
-              <ol><li name="co.theasi.plotly.Layout#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(xAxes:List[co.theasi.plotly.Axis],yAxes:List[co.theasi.plotly.Axis]):co.theasi.plotly.Layout"></a>
-      <a id="&lt;init&gt;:Layout"></a>
+        
+
+        
+
+        <div id="values" class="values members">
+              <h3>Abstract Value Members</h3>
+              <ol><li name="co.theasi.plotly.Layout#newOptions" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="newOptions(newOptions:co.theasi.plotly.LayoutOptions):A"></a>
+      <a id="newOptions(LayoutOptions):A"></a>
       <h4 class="signature">
       <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">new</span>
+        <span class="modifier">abstract </span>
+        <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">Layout</span><span class="params">(<span name="xAxes">xAxes: <span class="extype" name="scala.List">List</span>[<a href="Axis.html" class="extype" name="co.theasi.plotly.Axis">Axis</a>] = <span class="symbol">List.empty</span></span>, <span name="yAxes">yAxes: <span class="extype" name="scala.List">List</span>[<a href="Axis.html" class="extype" name="co.theasi.plotly.Axis">Axis</a>] = <span class="symbol">List.empty</span></span>)</span>
+        <span class="name">newOptions</span><span class="params">(<span name="newOptions">newOptions: <a href="LayoutOptions.html" class="extype" name="co.theasi.plotly.LayoutOptions">LayoutOptions</a></span>)</span><span class="result">: <span class="extype" name="co.theasi.plotly.Layout.A">A</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.Layout@&lt;init&gt;(xAxes:List[co.theasi.plotly.Axis],yAxes:List[co.theasi.plotly.Axis]):co.theasi.plotly.Layout" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.Layout@newOptions(newOptions:co.theasi.plotly.LayoutOptions):A" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.Layout#options" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="options:co.theasi.plotly.LayoutOptions"></a>
+      <a id="options:LayoutOptions"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">options</span><span class="result">: <a href="LayoutOptions.html" class="extype" name="co.theasi.plotly.LayoutOptions">LayoutOptions</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@options:co.theasi.plotly.LayoutOptions" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.Layout#xAxes" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="xAxes:Vector[co.theasi.plotly.Axis]"></a>
+      <a id="xAxes:Vector[Axis]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">xAxes</span><span class="result">: <span class="extype" name="scala.Vector">Vector</span>[<a href="Axis.html" class="extype" name="co.theasi.plotly.Axis">Axis</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@xAxes:Vector[co.theasi.plotly.Axis]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.Layout#yAxes" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="yAxes:Vector[co.theasi.plotly.Axis]"></a>
+      <a id="yAxes:Vector[Axis]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">yAxes</span><span class="result">: <span class="extype" name="scala.Vector">Vector</span>[<a href="Axis.html" class="extype" name="co.theasi.plotly.Axis">Axis</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@yAxes:Vector[co.theasi.plotly.Axis]" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -108,12 +166,8 @@
     </li></ol>
             </div>
 
-        
-
-        
-
         <div id="values" class="values members">
-              <h3>Value Members</h3>
+              <h3>Concrete Value Members</h3>
               <ol><li name="scala.AnyRef#!=" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="!=(x$1:Any):Boolean"></a>
       <a id="!=(Any):Boolean"></a>
@@ -182,6 +236,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="co.theasi.plotly.Layout#bottomMargin" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="bottomMargin(newBottomMargin:Int):A"></a>
+      <a id="bottomMargin(Int):A"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">bottomMargin</span><span class="params">(<span name="newBottomMargin">newBottomMargin: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="co.theasi.plotly.Layout.A">A</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@bottomMargin(newBottomMargin:Int):A" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Set bottom margin (in px)</p>
     </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a>
       <a id="clone():AnyRef"></a>
@@ -222,6 +293,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#equals" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(x$1:Any):Boolean"></a>
+      <a id="equals(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@equals(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <a id="finalize():Unit"></a>
@@ -262,6 +350,40 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hashCode():Int"></a>
+      <a id="hashCode():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@hashCode():Int" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="co.theasi.plotly.Layout#height" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="height(newHeight:Int):A"></a>
+      <a id="height(Int):A"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">height</span><span class="params">(<span name="newHeight">newHeight: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="co.theasi.plotly.Layout.A">A</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@height(newHeight:Int):A" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Set the plot height (in px)</p>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -279,6 +401,58 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="co.theasi.plotly.Layout#leftMargin" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="leftMargin(newLeftMargin:Int):A"></a>
+      <a id="leftMargin(Int):A"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">leftMargin</span><span class="params">(<span name="newLeftMargin">newLeftMargin: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="co.theasi.plotly.Layout.A">A</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@leftMargin(newLeftMargin:Int):A" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Set left margin (in px)</p>
+    </li><li name="co.theasi.plotly.Layout#legend" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="legend(newLegend:co.theasi.plotly.LegendOptions):A"></a>
+      <a id="legend(LegendOptions):A"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">legend</span><span class="params">(<span name="newLegend">newLegend: <a href="LegendOptions.html" class="extype" name="co.theasi.plotly.LegendOptions">LegendOptions</a></span>)</span><span class="result">: <span class="extype" name="co.theasi.plotly.Layout.A">A</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@legend(newLegend:co.theasi.plotly.LegendOptions):A" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Set layout legend options</p><div class="fullcomment"><div class="comment cmt"><p>Set layout legend options</p><pre><span class="kw">val</span> legend = LegendOptions().fontSize(<span class="num">20</span>)
+<span class="kw">val</span> layout = SingleAxisLayout().legendOptions(legend)</pre></div></div>
+    </li><li name="co.theasi.plotly.Layout#margins" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="margins(top:Int,right:Int,bottom:Int,left:Int):A"></a>
+      <a id="margins(Int,Int,Int,Int):A"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">margins</span><span class="params">(<span name="top">top: <span class="extype" name="scala.Int">Int</span></span>, <span name="right">right: <span class="extype" name="scala.Int">Int</span></span>, <span name="bottom">bottom: <span class="extype" name="scala.Int">Int</span></span>, <span name="left">left: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="co.theasi.plotly.Layout.A">A</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@margins(top:Int,right:Int,bottom:Int,left:Int):A" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Set layout margins</p>
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>
@@ -330,6 +504,125 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="co.theasi.plotly.Layout#paperBackgroundColor" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="paperBackgroundColor(r:Int,g:Int,b:Int):A"></a>
+      <a id="paperBackgroundColor(Int,Int,Int):A"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">paperBackgroundColor</span><span class="params">(<span name="r">r: <span class="extype" name="scala.Int">Int</span></span>, <span name="g">g: <span class="extype" name="scala.Int">Int</span></span>, <span name="b">b: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="co.theasi.plotly.Layout.A">A</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@paperBackgroundColor(r:Int,g:Int,b:Int):A" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Set the paper's background color.</p>
+    </li><li name="co.theasi.plotly.Layout#paperBackgroundColor" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="paperBackgroundColor(r:Int,g:Int,b:Int,a:Double):A"></a>
+      <a id="paperBackgroundColor(Int,Int,Int,Double):A"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">paperBackgroundColor</span><span class="params">(<span name="r">r: <span class="extype" name="scala.Int">Int</span></span>, <span name="g">g: <span class="extype" name="scala.Int">Int</span></span>, <span name="b">b: <span class="extype" name="scala.Int">Int</span></span>, <span name="a">a: <span class="extype" name="scala.Double">Double</span></span>)</span><span class="result">: <span class="extype" name="co.theasi.plotly.Layout.A">A</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@paperBackgroundColor(r:Int,g:Int,b:Int,a:Double):A" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Set the paper's background color with (red, green, blue, alpha)</p>
+    </li><li name="co.theasi.plotly.Layout#paperBackgroundColor" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="paperBackgroundColor(newColor:co.theasi.plotly.Color):A"></a>
+      <a id="paperBackgroundColor(Color):A"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">paperBackgroundColor</span><span class="params">(<span name="newColor">newColor: <a href="Color.html" class="extype" name="co.theasi.plotly.Color">Color</a></span>)</span><span class="result">: <span class="extype" name="co.theasi.plotly.Layout.A">A</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@paperBackgroundColor(newColor:co.theasi.plotly.Color):A" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Set the paper's background color</p><div class="fullcomment"><div class="comment cmt"><p>Set the paper's background color</p><pre><span class="kw">val</span> layout = SingleAxisLayout().paperBackgroundColor(Color.rgb(<span class="num">0</span>, <span class="num">255</span>, <span class="num">0</span>))</pre></div></div>
+    </li><li name="co.theasi.plotly.Layout#plotBackgroundColor" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="plotBackgroundColor(r:Int,g:Int,b:Int):A"></a>
+      <a id="plotBackgroundColor(Int,Int,Int):A"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">plotBackgroundColor</span><span class="params">(<span name="r">r: <span class="extype" name="scala.Int">Int</span></span>, <span name="g">g: <span class="extype" name="scala.Int">Int</span></span>, <span name="b">b: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="co.theasi.plotly.Layout.A">A</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@plotBackgroundColor(r:Int,g:Int,b:Int):A" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Set the plot's background color</p>
+    </li><li name="co.theasi.plotly.Layout#plotBackgroundColor" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="plotBackgroundColor(r:Int,g:Int,b:Int,a:Double):A"></a>
+      <a id="plotBackgroundColor(Int,Int,Int,Double):A"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">plotBackgroundColor</span><span class="params">(<span name="r">r: <span class="extype" name="scala.Int">Int</span></span>, <span name="g">g: <span class="extype" name="scala.Int">Int</span></span>, <span name="b">b: <span class="extype" name="scala.Int">Int</span></span>, <span name="a">a: <span class="extype" name="scala.Double">Double</span></span>)</span><span class="result">: <span class="extype" name="co.theasi.plotly.Layout.A">A</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@plotBackgroundColor(r:Int,g:Int,b:Int,a:Double):A" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Set the plot's background color with (red, green, blue, alpha)</p>
+    </li><li name="co.theasi.plotly.Layout#plotBackgroundColor" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="plotBackgroundColor(newColor:co.theasi.plotly.Color):A"></a>
+      <a id="plotBackgroundColor(Color):A"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">plotBackgroundColor</span><span class="params">(<span name="newColor">newColor: <a href="Color.html" class="extype" name="co.theasi.plotly.Color">Color</a></span>)</span><span class="result">: <span class="extype" name="co.theasi.plotly.Layout.A">A</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@plotBackgroundColor(newColor:co.theasi.plotly.Color):A" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Set the plot's background color</p><div class="fullcomment"><div class="comment cmt"><p>Set the plot's background color</p><pre><span class="kw">val</span> layout = SingleAxisLayout().plotBackgroundColor(Color.rgb(<span class="num">0</span>, <span class="num">255</span>, <span class="num">0</span>))</pre></div></div>
+    </li><li name="co.theasi.plotly.Layout#rightMargin" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="rightMargin(newRightMargin:Int):A"></a>
+      <a id="rightMargin(Int):A"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">rightMargin</span><span class="params">(<span name="newRightMargin">newRightMargin: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="co.theasi.plotly.Layout.A">A</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@rightMargin(newRightMargin:Int):A" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Set right margin (in px)</p>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
@@ -347,6 +640,57 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="co.theasi.plotly.Layout#title" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="title(newTitle:String):A"></a>
+      <a id="title(String):A"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">title</span><span class="params">(<span name="newTitle">newTitle: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="co.theasi.plotly.Layout.A">A</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@title(newTitle:String):A" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Set layout title</p>
+    </li><li name="scala.AnyRef#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toString():String"></a>
+      <a id="toString():String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@toString():String" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="co.theasi.plotly.Layout#topMargin" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="topMargin(newTopMargin:Int):A"></a>
+      <a id="topMargin(Int):A"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">topMargin</span><span class="params">(<span name="newTopMargin">newTopMargin: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="co.theasi.plotly.Layout.A">A</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Layout@topMargin(newTopMargin:Int):A" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Set top margin (in px)</p>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>
@@ -416,40 +760,23 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="co.theasi.plotly.Layout#xAxes" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="xAxes:List[co.theasi.plotly.Axis]"></a>
-      <a id="xAxes:List[Axis]"></a>
+    </li><li name="co.theasi.plotly.Layout#width" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="width(newWidth:Int):A"></a>
+      <a id="width(Int):A"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">val</span>
+        <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">xAxes</span><span class="result">: <span class="extype" name="scala.List">List</span>[<a href="Axis.html" class="extype" name="co.theasi.plotly.Axis">Axis</a>]</span>
+        <span class="name">width</span><span class="params">(<span name="newWidth">newWidth: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="co.theasi.plotly.Layout.A">A</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.Layout@xAxes:List[co.theasi.plotly.Axis]" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.Layout@width(newWidth:Int):A" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
-    </li><li name="co.theasi.plotly.Layout#yAxes" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="yAxes:List[co.theasi.plotly.Axis]"></a>
-      <a id="yAxes:List[Axis]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">yAxes</span><span class="result">: <span class="extype" name="scala.List">List</span>[<a href="Axis.html" class="extype" name="co.theasi.plotly.Axis">Axis</a>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.Layout@yAxes:List[co.theasi.plotly.Axis]" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
+      <p class="shortcomment cmt">Set the plot width (in px)</p>
     </li></ol>
             </div>
 
@@ -459,15 +786,7 @@
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.Serializable">
-              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
-            </div><div class="parent" name="java.io.Serializable">
-              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
-            </div><div class="parent" name="scala.Product">
-              <h3>Inherited from <span class="extype" name="scala.Product">Product</span></h3>
-            </div><div class="parent" name="scala.Equals">
-              <h3>Inherited from <span class="extype" name="scala.Equals">Equals</span></h3>
-            </div><div class="parent" name="scala.AnyRef">
+        <div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>

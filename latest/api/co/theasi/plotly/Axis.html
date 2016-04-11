@@ -28,10 +28,12 @@
         </head>
         <body class="type">
       <div id="definition">
-        <img alt="Class" src="../../../lib/class_big.png" />
+        <a href="Axis$.html" title="See companion object"><img alt="Class/Object" src="../../../lib/class_to_object_big.png" /></a>
         <p id="owner"><a href="../../package.html" class="extype" name="co">co</a>.<a href="../package.html" class="extype" name="co.theasi">theasi</a>.<a href="package.html" class="extype" name="co.theasi.plotly">plotly</a></p>
-        <h1>Axis</h1><h3><span class="morelinks"><div>Related Doc:
-            <a href="package.html" class="extype" name="co.theasi.plotly">package plotly</a>
+        <h1><a href="Axis$.html" title="See companion object">Axis</a></h1><h3><span class="morelinks"><div>
+            Related Docs:
+            <a href="Axis$.html" title="See companion object">object Axis</a>
+            | <a href="package.html" class="extype" name="co.theasi.plotly">package plotly</a>
           </div></span></h3><span class="permalink">
       <a href="../../../index.html#co.theasi.plotly.Axis" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
@@ -45,7 +47,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">Axis</span><span class="params">(<span name="domain">domain: (<span class="extype" name="scala.Double">Double</span>, <span class="extype" name="scala.Double">Double</span>)</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">Axis</span><span class="params">(<span name="domain">domain: (<span class="extype" name="scala.Double">Double</span>, <span class="extype" name="scala.Double">Double</span>)</span>, <span name="anchor">anchor: <span class="extype" name="scala.Int">Int</span></span>, <span name="options">options: <a href="AxisOptions.html" class="extype" name="co.theasi.plotly.AxisOptions">AxisOptions</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
@@ -89,7 +91,7 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="co.theasi.plotly.Axis#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(domain:(Double,Double)):co.theasi.plotly.Axis"></a>
+      <a id="&lt;init&gt;(domain:(Double,Double),anchor:Int,options:co.theasi.plotly.AxisOptions):co.theasi.plotly.Axis"></a>
       <a id="&lt;init&gt;:Axis"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -97,10 +99,10 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">Axis</span><span class="params">(<span name="domain">domain: (<span class="extype" name="scala.Double">Double</span>, <span class="extype" name="scala.Double">Double</span>)</span>)</span>
+        <span class="name">Axis</span><span class="params">(<span name="domain">domain: (<span class="extype" name="scala.Double">Double</span>, <span class="extype" name="scala.Double">Double</span>)</span>, <span name="anchor">anchor: <span class="extype" name="scala.Int">Int</span></span>, <span name="options">options: <a href="AxisOptions.html" class="extype" name="co.theasi.plotly.AxisOptions">AxisOptions</a></span>)</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.Axis@&lt;init&gt;(domain:(Double,Double)):co.theasi.plotly.Axis" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.Axis@&lt;init&gt;(domain:(Double,Double),anchor:Int,options:co.theasi.plotly.AxisOptions):co.theasi.plotly.Axis" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -165,6 +167,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="co.theasi.plotly.Axis#anchor" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="anchor:Int"></a>
+      <a id="anchor:Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">anchor</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Axis@anchor:Int" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -347,6 +366,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="co.theasi.plotly.Axis#options" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="options:co.theasi.plotly.AxisOptions"></a>
+      <a id="options:AxisOptions"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">options</span><span class="result">: <a href="AxisOptions.html" class="extype" name="co.theasi.plotly.AxisOptions">AxisOptions</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Axis@options:co.theasi.plotly.AxisOptions" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>

@@ -70,7 +70,7 @@
 
         <div id="values" class="values members">
               <h3>Value Members</h3>
-              <ol><li name="co.theasi.plotly" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+              <ol><li name="co.theasi.plotly" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="plotly"></a>
       <a id="plotly:plotly"></a>
       <h4 class="signature">
@@ -86,7 +86,20 @@
         <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Plotly is a platform for creating and hosting plots.</p><div class="fullcomment"><div class="comment cmt"><h4>Scala Plotly client</h4><p>Plotly is a platform for creating and hosting plots. This
+library lets you create, modify and delete plots on Plotly.</p><p>Build a plot using <a href="plotly/Plot.html" class="extype" name="co.theasi.plotly.Plot">Plot</a>, and send that
+plot to the Plotly servers with <a href="plotly/package.html#draw(grid:co.theasi.plotly.Grid,fileName:String,fileOptions:co.theasi.plotly.writer.FileOptions)(implicitserver:co.theasi.plotly.writer.Server):co.theasi.plotly.writer.GridFile" class="extmbr" name="co.theasi.plotly#draw">draw</a>.</p><pre><span class="kw">import</span> co.theasi.plotly._
+
+<span class="kw">val</span> xs = Vector(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)
+<span class="kw">val</span> ys = Vector(<span class="num">4.5</span>, <span class="num">8.5</span>, <span class="num">21.0</span>)
+
+<span class="kw">val</span> p = Plot().withScatter(xs, ys)
+draw(p, <span class="lit">"my-first-plot"</span>)</pre><h4>Useful links</h4><p>For more information on how to build complex plot objects,
+read the documentation for <a href="plotly/Plot.html" class="extype" name="co.theasi.plotly.Plot">Plot</a>.</p><p>To control how the client deals with existing files with
+the same name on the Plotly server, and to control the
+privacy options, read the documentation
+for <a href="plotly/writer/FileOptions.html" class="extype" name="co.theasi.plotly.writer.FileOptions">writer.FileOptions</a>
+</p></div></div>
     </li></ol>
             </div>
 
