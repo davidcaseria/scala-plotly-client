@@ -51,7 +51,28 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Layout with a grid of sub-plots.</p><p>This creates a grid of subplots arranged in rows and columns.</p><h4>Example Usage</h4><p>Let's draw six scatter plots on a grid.</p><pre><span class="kw">val</span> xs = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
+<span class="kw">def</span> ys = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
+
+<span class="cmt">// 2 rows, 3 columns</span>
+<span class="kw">val</span> layout = GridLayout(<span class="num">2</span>, <span class="num">3</span>)
+
+<span class="cmt">// Options common to all the plots</span>
+<span class="kw">val</span> commonOptions = ScatterOptions()
+  .mode(ScatterMode.Marker)
+
+<span class="cmt">// The '.ref' method is useful for specifying which subplot to plot</span>
+<span class="cmt">// a specific series on.</span>
+<span class="kw">val</span> p = Plot()
+  .layout(layout)
+  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">0</span>, <span class="num">0</span>)).name(<span class="lit">"top-left"</span>))
+  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">0</span>, <span class="num">1</span>)).name(<span class="lit">"top-middle"</span>))
+  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">0</span>, <span class="num">2</span>)).name(<span class="lit">"top-right"</span>))
+  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">1</span>, <span class="num">0</span>)).name(<span class="lit">"bottom-left"</span>))
+  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">1</span>, <span class="num">1</span>)).name(<span class="lit">"bottom-middle"</span>))
+  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">1</span>, <span class="num">2</span>)).name(<span class="lit">"bottom-right"</span>))
+
+draw(p, <span class="lit">"subplots-grid"</span>, writer.FileOptions(overwrite=<span class="kw">true</span>))</pre></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <a href="Layout.html" class="extype" name="co.theasi.plotly.Layout">Layout</a>[<a href="" class="extype" name="co.theasi.plotly.GridLayout">GridLayout</a>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>

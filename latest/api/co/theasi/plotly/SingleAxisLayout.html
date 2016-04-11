@@ -51,7 +51,18 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Layout with a single plot.</p><h4>Example usage</h4><pre><span class="kw">val</span> xs = Vector(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)
+<span class="kw">val</span> ys = Vector(<span class="num">4.5</span>, <span class="num">8.5</span>, <span class="num">21.0</span>)
+
+<span class="kw">val</span> layout = SingleAxisLayout()
+  .leftMargin(<span class="num">140</span>)
+  .paperBackgroundColor(<span class="num">254</span>, <span class="num">247</span>, <span class="num">234</span>)
+  .plotBackgroundColor(<span class="num">254</span>, <span class="num">247</span>, <span class="num">234</span>)
+  .xAxisOptions(AxisOptions()
+    .titleColor(<span class="num">204</span>, <span class="num">204</span>, <span class="num">204</span>)
+    .noAutoTick)
+
+<span class="kw">val</span> plot = Plot().layout(layout).withScatter(xs, ys)</pre></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <a href="Layout.html" class="extype" name="co.theasi.plotly.Layout">Layout</a>[<a href="" class="extype" name="co.theasi.plotly.SingleAxisLayout">SingleAxisLayout</a>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -758,7 +769,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Set options for the x-axis</p>
     </li><li name="co.theasi.plotly.SingleAxisLayout#yAxes" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="yAxes:scala.collection.immutable.Vector[co.theasi.plotly.Axis]"></a>
       <a id="yAxes:Vector[Axis]"></a>
@@ -809,7 +820,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Set options for the y-axis</p>
     </li></ol>
             </div>
 

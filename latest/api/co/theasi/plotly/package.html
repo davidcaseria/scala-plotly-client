@@ -254,7 +254,7 @@ for <a href="writer/FileOptions.html" class="extype" name="co.theasi.plotly.writ
       </a>
     </span>
       
-    </li><li name="co.theasi.plotly.GridLayout" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="co.theasi.plotly.GridLayout" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="GridLayoutextendsLayout[co.theasi.plotly.GridLayout]withProductwithSerializable"></a>
       <a id="GridLayout:GridLayout"></a>
       <h4 class="signature">
@@ -270,7 +270,28 @@ for <a href="writer/FileOptions.html" class="extype" name="co.theasi.plotly.writ
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Layout with a grid of sub-plots.</p><div class="fullcomment"><div class="comment cmt"><p>Layout with a grid of sub-plots.</p><p>This creates a grid of subplots arranged in rows and columns.</p><h4>Example Usage</h4><p>Let's draw six scatter plots on a grid.</p><pre><span class="kw">val</span> xs = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
+<span class="kw">def</span> ys = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
+
+<span class="cmt">// 2 rows, 3 columns</span>
+<span class="kw">val</span> layout = GridLayout(<span class="num">2</span>, <span class="num">3</span>)
+
+<span class="cmt">// Options common to all the plots</span>
+<span class="kw">val</span> commonOptions = ScatterOptions()
+  .mode(ScatterMode.Marker)
+
+<span class="cmt">// The '.ref' method is useful for specifying which subplot to plot</span>
+<span class="cmt">// a specific series on.</span>
+<span class="kw">val</span> p = Plot()
+  .layout(layout)
+  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">0</span>, <span class="num">0</span>)).name(<span class="lit">"top-left"</span>))
+  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">0</span>, <span class="num">1</span>)).name(<span class="lit">"top-middle"</span>))
+  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">0</span>, <span class="num">2</span>)).name(<span class="lit">"top-right"</span>))
+  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">1</span>, <span class="num">0</span>)).name(<span class="lit">"bottom-left"</span>))
+  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">1</span>, <span class="num">1</span>)).name(<span class="lit">"bottom-middle"</span>))
+  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">1</span>, <span class="num">2</span>)).name(<span class="lit">"bottom-right"</span>))
+
+draw(p, <span class="lit">"subplots-grid"</span>, writer.FileOptions(overwrite=<span class="kw">true</span>))</pre></div></div>
     </li><li name="co.theasi.plotly.IterableText" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="IterableText[T&lt;:co.theasi.plotly.PType]extendsTextValuewithProductwithSerializable"></a>
       <a id="IterableText[T&lt;:PType]:IterableText[T]"></a>
@@ -288,7 +309,7 @@ for <a href="writer/FileOptions.html" class="extype" name="co.theasi.plotly.writ
       </a>
     </span>
       
-    </li><li name="co.theasi.plotly.Layout" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+    </li><li name="co.theasi.plotly.Layout" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="Layout[A&lt;:co.theasi.plotly.Layout[A]]extendsAnyRef"></a>
       <a id="Layout[A&lt;:Layout[A]]:Layout[A]"></a>
       <h4 class="signature">
@@ -304,7 +325,8 @@ for <a href="writer/FileOptions.html" class="extype" name="co.theasi.plotly.writ
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Base class for plot layouts.</p><div class="fullcomment"><div class="comment cmt"><p>Base class for plot layouts.</p><p>Do not construct this class directly. Use one of the sub-classes instead:</p><ul><li><a href="SingleAxisLayout.html" class="extype" name="co.theasi.plotly.SingleAxisLayout">SingleAxisLayout</a> to have a single pair of axes on the figure</li><li><a href="RowLayout.html" class="extype" name="co.theasi.plotly.RowLayout">RowLayout</a> for subplots equally distributed in a single line</li><li><a href="GridLayout.html" class="extype" name="co.theasi.plotly.GridLayout">GridLayout</a> for subplots distributed on a grid.
+</li></ul></div></div>
     </li><li name="co.theasi.plotly.LayoutOptions" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="LayoutOptionsextendsProductwithSerializable"></a>
       <a id="LayoutOptions:LayoutOptions"></a>
@@ -644,7 +666,7 @@ adapted for immutable objects.</p></div></div>
       </a>
     </span>
       
-    </li><li name="co.theasi.plotly.SingleAxisLayout" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="co.theasi.plotly.SingleAxisLayout" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="SingleAxisLayoutextendsLayout[co.theasi.plotly.SingleAxisLayout]withProductwithSerializable"></a>
       <a id="SingleAxisLayout:SingleAxisLayout"></a>
       <h4 class="signature">
@@ -660,7 +682,18 @@ adapted for immutable objects.</p></div></div>
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Layout with a single plot.</p><div class="fullcomment"><div class="comment cmt"><p>Layout with a single plot.</p><h4>Example usage</h4><pre><span class="kw">val</span> xs = Vector(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)
+<span class="kw">val</span> ys = Vector(<span class="num">4.5</span>, <span class="num">8.5</span>, <span class="num">21.0</span>)
+
+<span class="kw">val</span> layout = SingleAxisLayout()
+  .leftMargin(<span class="num">140</span>)
+  .paperBackgroundColor(<span class="num">254</span>, <span class="num">247</span>, <span class="num">234</span>)
+  .plotBackgroundColor(<span class="num">254</span>, <span class="num">247</span>, <span class="num">234</span>)
+  .xAxisOptions(AxisOptions()
+    .titleColor(<span class="num">204</span>, <span class="num">204</span>, <span class="num">204</span>)
+    .noAutoTick)
+
+<span class="kw">val</span> plot = Plot().layout(layout).withScatter(xs, ys)</pre></div></div>
     </li><li name="co.theasi.plotly.SrcText" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="SrcTextextendsTextValuewithProductwithSerializable"></a>
       <a id="SrcText:SrcText"></a>
