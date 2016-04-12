@@ -6,9 +6,15 @@
 To add the plotly client to your code, add the following lines to your `build.sbt`:
 
 ```
+libraryDependencies += "co.theasi" %% "plotly" % "0.1"
+```
+
+To install the bleeding edge version, add this instead:
+
+```
 resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 
-libraryDependencies += "co.theasi" %% "plotly" % "0.1-SNAPSHOT"
+libraryDependencies += "co.theasi" %% "plotly" % "0.1.1-SNAPSHOT"
 ```
 
 ## Documentation
