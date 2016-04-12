@@ -147,6 +147,8 @@ object SingleAxisLayout {
   * Let's draw six scatter plots on a grid.
   *
   * {{{
+  * import util.Random
+  *
   * val xs = (0 to 100).map { i => Random.nextGaussian }
   * def ys = (0 to 100).map { i => Random.nextGaussian }
   *
@@ -170,7 +172,7 @@ object SingleAxisLayout {
   * }}}
   *
   * The `.ref` method takes a (row, column) pair as arguments and returns a single
-  * axis index that can be passed to '.onAxes'.
+  * axis index that can be passed to `.onAxes`.
   *
   */
 case class GridLayout(
@@ -295,6 +297,47 @@ object GridLayout {
 }
 
 
+/** Layout with a row of subplots.
+  *
+  * ==Example Usage==
+  *
+  * Let's draw 2 scatter plots.
+  * {{{
+  * import util.Random
+  *
+  * val xsLeft = (0 to 100).map { i => Random.nextGaussian }
+  * val ysLeft = (0 to 100).map { i => Random.nextGaussian }
+  *
+  * val xsRight = (0 to 100).map { i => Random.nextDouble }
+  * val ysRight = (0 to 100).map { i => Random.nextDouble }
+  *
+  * // 2 subplots
+  * val layout = RowLayout(2)
+  * }}}
+  *
+  * To create a new plot with this layout, we use the [[Plot.layout]] method:
+  *
+  * {{{
+  * val p = Plot().layout(layout)
+  * }}}
+  * We can specify which subplot a new data series will be plotted to using the 'onAxes'
+  * series option.
+  *
+  * {{{
+  * val p = Plot().layout(layout)
+  *   .withScatter(xsLeft, ysLeft,
+  *     ScatterOptions()
+  *       .onAxes(layout.ref(0)) // left subplot
+  *       .mode(ScatterMode.Marker))
+  *   .withScatter(xsRight, ysRight,
+  *     ScatterOptions()
+  *       .onAxes(layout.ref(1)) // right subplot
+  *       .mode(ScatterMode.Marker))
+  * }}}
+  *
+  * The `.ref` method takes a single index denoting which subplot to plot on, and
+  * returns an index that can be passed to `.onAxes`.
+  */
 case class RowLayout(private val impl: GridLayout)
 extends Layout[RowLayout] {
   // The implementation is just a wrapper around a GridLayout with
@@ -303,11 +346,27 @@ extends Layout[RowLayout] {
   def yAxes = impl.yAxes
   val options = impl.options
 
+  /** Returns the index of the axes on a subplot
+    *
+    * The main use case for this is to generate an argument
+    * for the `.onAxes` method, to specify which sub-plot a
+    * new series should be drawn on.
+    *
+    * @example {{{
+    * // Layout with 3 subplots
+    * val layout = RowLayout(3)
+    *
+    * // options for plotting on subplot (1): middle subplot
+    * val options = ScatterOptions().onAxes(layout.ref(1))
+    * }}}
+    */
   def ref(subplot: Int): (Int, Int) = impl.ref(0, subplot)
 
+  /** Set new axis options for the x-axis of one of the subplots. */
   def xAxisOptions(subplot: Int, newOptions: AxisOptions): RowLayout =
     copy(impl.xAxisOptions(0, subplot, newOptions))
 
+  /** Set new axis options for the y-axis of one of the subplots. */
   def yAxisOptions(subplot: Int, newOptions: AxisOptions): RowLayout =
     copy(impl.yAxisOptions(0, subplot, newOptions))
 
