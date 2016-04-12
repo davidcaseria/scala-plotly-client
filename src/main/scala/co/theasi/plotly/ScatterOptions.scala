@@ -1,5 +1,6 @@
 package co.theasi.plotly
 
+/** Options controlling how scatter and line plots are plotted. */
 case class ScatterOptions(
   name: Option[String],
   xAxis: Option[Int],
@@ -9,16 +10,54 @@ case class ScatterOptions(
   marker: MarkerOptions
 ) extends SeriesOptions[ScatterOptions] {
 
+  /** Set the name of the series */
   def name(newName: String) = copy(name = Some(newName))
   def xAxis(newXAxis: Int) = copy(xAxis = Some(newXAxis))
   def yAxis(newYAxis: Int): ScatterOptions = copy(yAxis = Some(newYAxis))
+
+  /** Set the axis pair on which this scatter is plotted.
+    *
+    * This should be used in conjunction with the
+    * `.ref` method of the plot's layout.
+    *
+    * @example {{{
+    * // layout with three subplots
+    * val layout = RowLayout(3)
+    *
+    * // plot on middle subplot
+    * val options = ScatterOptions().onAxes(layout.ref(1))
+    * }}}
+    */
   def onAxes(axesRef: (Int, Int)): ScatterOptions = {
     val (xAxisRef, yAxisRef) = axesRef
     copy(xAxis = Some(xAxisRef), yAxis = Some(yAxisRef))
   }
 
+  /** Set the line mode.
+    *
+    * Possible arguments are `ScatterMode.Marker`, `ScatterMode.Line`
+    * and `ScatterMode.Text`. These are additive:
+    * `.mode(ScatterMode.Marker, ScatterMode.Line)` will show both
+    * markers and a line between them.
+    *
+    * `ScatterMode.Text` indicates that the text corresponding to
+    * a particular point should always be shown (by default, it is
+    * shown when the user hovers over the point).
+    */
   def mode(newMode: ScatterMode.Value, rest: ScatterMode.Value*)
   : ScatterOptions = mode(newMode +: rest)
+
+  /** Set the line mode.
+    *
+    * Possible arguments are `ScatterMode.Marker`, `ScatterMode.Line`
+    * and `ScatterMode.Text`. These are additive:
+    * `.mode(List(ScatterMode.Marker, ScatterMode.Line))`
+    * will show both markers and a line between them.
+    *
+    * `ScatterMode.Text` indicates that the text corresponding to
+    * a particular point should always be shown (by default, it is
+    * shown when the user hovers over the point).
+    */
   def mode(newModes: Iterable[ScatterMode.Value]): ScatterOptions =
     copy(mode = newModes.toSeq)
 
