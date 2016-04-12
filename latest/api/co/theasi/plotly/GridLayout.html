@@ -51,28 +51,17 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Layout with a grid of sub-plots.</p><p>This creates a grid of subplots arranged in rows and columns.</p><h4>Example Usage</h4><p>Let's draw six scatter plots on a grid.</p><pre><span class="kw">val</span> xs = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Layout with a grid of sub-plots.</p><p>This creates a grid of subplots arranged in rows and columns.</p><h4>Example Usage</h4><p>Let's draw six scatter plots on a grid.</p><pre><span class="kw">import</span> util.Random
+
+<span class="kw">val</span> xs = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
 <span class="kw">def</span> ys = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
 
 <span class="cmt">// 2 rows, 3 columns</span>
-<span class="kw">val</span> layout = GridLayout(<span class="num">2</span>, <span class="num">3</span>)
-
-<span class="cmt">// Options common to all the plots</span>
-<span class="kw">val</span> commonOptions = ScatterOptions()
-  .mode(ScatterMode.Marker)
-
-<span class="cmt">// The '.ref' method is useful for specifying which subplot to plot</span>
-<span class="cmt">// a specific series on.</span>
-<span class="kw">val</span> p = Plot()
+<span class="kw">val</span> layout = GridLayout(<span class="num">2</span>, <span class="num">3</span>)</pre><p>To create a new plot with this layout, we use the <a href="Plot.html#layout[B&lt;:co.theasi.plotly.Layout[B]](newLayout:co.theasi.plotly.Layout[B]):co.theasi.plotly.Plot[B]" class="extmbr" name="co.theasi.plotly.Plot#layout">Plot.layout</a> method:</p><pre><span class="kw">val</span> p = Plot().layout(layout)</pre><p>We can specify which subplot a new data series will be plotted to using
+the 'onAxes' series option.</p><pre><span class="kw">val</span> p = Plot()
   .layout(layout)
-  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">0</span>, <span class="num">0</span>)).name(<span class="lit">"top-left"</span>))
-  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">0</span>, <span class="num">1</span>)).name(<span class="lit">"top-middle"</span>))
-  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">0</span>, <span class="num">2</span>)).name(<span class="lit">"top-right"</span>))
-  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">1</span>, <span class="num">0</span>)).name(<span class="lit">"bottom-left"</span>))
-  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">1</span>, <span class="num">1</span>)).name(<span class="lit">"bottom-middle"</span>))
-  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">1</span>, <span class="num">2</span>)).name(<span class="lit">"bottom-right"</span>))
-
-draw(p, <span class="lit">"subplots-grid"</span>, writer.FileOptions(overwrite=<span class="kw">true</span>))</pre></div><div class="toggleContainer block">
+  .withScatter(xs, ys, ScatterOptions().onAxes(layout.ref(<span class="num">0</span>, <span class="num">1</span>))) <span class="cmt">// top middle</span></pre><p>The <code>.ref</code> method takes a (row, column) pair as arguments and returns a single
+axis index that can be passed to <code>.onAxes</code>.</p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <a href="Layout.html" class="extype" name="co.theasi.plotly.Layout">Layout</a>[<a href="" class="extype" name="co.theasi.plotly.GridLayout">GridLayout</a>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -609,7 +598,7 @@ draw(p, <span class="lit">"subplots-grid"</span>, writer.FileOptions(overwrite=<
       </a>
     </span>
       <p class="shortcomment cmt">Set the plot's background color</p><div class="fullcomment"><div class="comment cmt"><p>Set the plot's background color</p><pre><span class="kw">val</span> layout = SingleAxisLayout().plotBackgroundColor(Color.rgb(<span class="num">0</span>, <span class="num">255</span>, <span class="num">0</span>))</pre></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Layout.html" class="extype" name="co.theasi.plotly.Layout">Layout</a></dd></dl></div>
-    </li><li name="co.theasi.plotly.GridLayout#ref" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="co.theasi.plotly.GridLayout#ref" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ref(row:Int,column:Int):(Int,Int)"></a>
       <a id="ref(Int,Int):(Int,Int)"></a>
       <h4 class="signature">
@@ -625,7 +614,15 @@ draw(p, <span class="lit">"subplots-grid"</span>, writer.FileOptions(overwrite=<
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Returns the index of axes at (row, column)</p><div class="fullcomment"><div class="comment cmt"><p>Returns the index of axes at (row, column)</p><p>The main use case for this is to generate an argument
+for the <code>.onAxes</code> method, to specify which sub-plot a
+new series should be drawn on.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre><span class="cmt">// grid layout with 2 rows and 3 columns</span>
+<span class="kw">val</span> layout = GridLayout(<span class="num">2</span>, <span class="num">3</span>)
+<span class="cmt">// options for plotting on subplot (0, 1): top row, middle column</span>
+<span class="kw">val</span> options = ScatterOptions().onAxes(layout.ref(<span class="num">0</span>, <span class="num">1</span>))</pre></li></ol>
+            </div></dl></div>
     </li><li name="co.theasi.plotly.Layout#rightMargin" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="rightMargin(newRightMargin:Int):A"></a>
       <a id="rightMargin(Int):GridLayout"></a>
@@ -830,7 +827,7 @@ draw(p, <span class="lit">"subplots-grid"</span>, writer.FileOptions(overwrite=<
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Set new axis options for the x-axis of one of the subplots.</p>
     </li><li name="co.theasi.plotly.GridLayout#yAxes" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="yAxes:Vector[co.theasi.plotly.Axis]"></a>
       <a id="yAxes:Vector[Axis]"></a>
@@ -881,7 +878,7 @@ draw(p, <span class="lit">"subplots-grid"</span>, writer.FileOptions(overwrite=<
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Set new axis options for the y-axis of one of the subplots.</p>
     </li></ol>
             </div>
 

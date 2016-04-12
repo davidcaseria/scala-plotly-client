@@ -270,28 +270,17 @@ for <a href="writer/FileOptions.html" class="extype" name="co.theasi.plotly.writ
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Layout with a grid of sub-plots.</p><div class="fullcomment"><div class="comment cmt"><p>Layout with a grid of sub-plots.</p><p>This creates a grid of subplots arranged in rows and columns.</p><h4>Example Usage</h4><p>Let's draw six scatter plots on a grid.</p><pre><span class="kw">val</span> xs = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
+      <p class="shortcomment cmt">Layout with a grid of sub-plots.</p><div class="fullcomment"><div class="comment cmt"><p>Layout with a grid of sub-plots.</p><p>This creates a grid of subplots arranged in rows and columns.</p><h4>Example Usage</h4><p>Let's draw six scatter plots on a grid.</p><pre><span class="kw">import</span> util.Random
+
+<span class="kw">val</span> xs = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
 <span class="kw">def</span> ys = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
 
 <span class="cmt">// 2 rows, 3 columns</span>
-<span class="kw">val</span> layout = GridLayout(<span class="num">2</span>, <span class="num">3</span>)
-
-<span class="cmt">// Options common to all the plots</span>
-<span class="kw">val</span> commonOptions = ScatterOptions()
-  .mode(ScatterMode.Marker)
-
-<span class="cmt">// The '.ref' method is useful for specifying which subplot to plot</span>
-<span class="cmt">// a specific series on.</span>
-<span class="kw">val</span> p = Plot()
+<span class="kw">val</span> layout = GridLayout(<span class="num">2</span>, <span class="num">3</span>)</pre><p>To create a new plot with this layout, we use the <a href="Plot.html#layout[B&lt;:co.theasi.plotly.Layout[B]](newLayout:co.theasi.plotly.Layout[B]):co.theasi.plotly.Plot[B]" class="extmbr" name="co.theasi.plotly.Plot#layout">Plot.layout</a> method:</p><pre><span class="kw">val</span> p = Plot().layout(layout)</pre><p>We can specify which subplot a new data series will be plotted to using
+the 'onAxes' series option.</p><pre><span class="kw">val</span> p = Plot()
   .layout(layout)
-  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">0</span>, <span class="num">0</span>)).name(<span class="lit">"top-left"</span>))
-  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">0</span>, <span class="num">1</span>)).name(<span class="lit">"top-middle"</span>))
-  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">0</span>, <span class="num">2</span>)).name(<span class="lit">"top-right"</span>))
-  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">1</span>, <span class="num">0</span>)).name(<span class="lit">"bottom-left"</span>))
-  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">1</span>, <span class="num">1</span>)).name(<span class="lit">"bottom-middle"</span>))
-  .withScatter(xs, ys, commonOptions.onAxes(layout.ref(<span class="num">1</span>, <span class="num">2</span>)).name(<span class="lit">"bottom-right"</span>))
-
-draw(p, <span class="lit">"subplots-grid"</span>, writer.FileOptions(overwrite=<span class="kw">true</span>))</pre></div></div>
+  .withScatter(xs, ys, ScatterOptions().onAxes(layout.ref(<span class="num">0</span>, <span class="num">1</span>))) <span class="cmt">// top middle</span></pre><p>The <code>.ref</code> method takes a (row, column) pair as arguments and returns a single
+axis index that can be passed to <code>.onAxes</code>.</p></div></div>
     </li><li name="co.theasi.plotly.IterableText" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="IterableText[T&lt;:co.theasi.plotly.PType]extendsTextValuewithProductwithSerializable"></a>
       <a id="IterableText[T&lt;:PType]:IterableText[T]"></a>
@@ -547,7 +536,7 @@ adapted for immutable objects.</p></div></div>
       </a>
     </span>
       
-    </li><li name="co.theasi.plotly.RowLayout" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="co.theasi.plotly.RowLayout" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="RowLayoutextendsLayout[co.theasi.plotly.RowLayout]withProductwithSerializable"></a>
       <a id="RowLayout:RowLayout"></a>
       <h4 class="signature">
@@ -563,7 +552,27 @@ adapted for immutable objects.</p></div></div>
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Layout with a row of subplots.</p><div class="fullcomment"><div class="comment cmt"><p>Layout with a row of subplots.</p><h4>Example Usage</h4><p>Let's draw 2 scatter plots.</p><pre><span class="kw">import</span> util.Random
+
+<span class="kw">val</span> xsLeft = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
+<span class="kw">val</span> ysLeft = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
+
+<span class="kw">val</span> xsRight = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextDouble }
+<span class="kw">val</span> ysRight = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextDouble }
+
+<span class="cmt">// 2 subplots</span>
+<span class="kw">val</span> layout = RowLayout(<span class="num">2</span>)</pre><p>To create a new plot with this layout, we use the <a href="Plot.html#layout[B&lt;:co.theasi.plotly.Layout[B]](newLayout:co.theasi.plotly.Layout[B]):co.theasi.plotly.Plot[B]" class="extmbr" name="co.theasi.plotly.Plot#layout">Plot.layout</a> method:</p><pre><span class="kw">val</span> p = Plot().layout(layout)</pre><p>We can specify which subplot a new data series will be plotted to using the 'onAxes'
+series option.</p><pre><span class="kw">val</span> p = Plot().layout(layout)
+  .withScatter(xsLeft, ysLeft,
+    ScatterOptions()
+      .onAxes(layout.ref(<span class="num">0</span>)) <span class="cmt">// left subplot</span>
+      .mode(ScatterMode.Marker))
+  .withScatter(xsRight, ysRight,
+    ScatterOptions()
+      .onAxes(layout.ref(<span class="num">1</span>)) <span class="cmt">// right subplot</span>
+      .mode(ScatterMode.Marker))</pre><p>The <code>.ref</code> method takes a single index denoting which subplot to plot on, and
+returns an index that can be passed to <code>.onAxes</code>.
+</p></div></div>
     </li><li name="co.theasi.plotly.Scatter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="Scatter[X&lt;:co.theasi.plotly.PType,Y&lt;:co.theasi.plotly.PType]extendsSeries2D[X,Y]withProductwithSerializable"></a>
       <a id="Scatter[X&lt;:PType,Y&lt;:PType]:Scatter[X,Y]"></a>

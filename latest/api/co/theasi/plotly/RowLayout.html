@@ -51,7 +51,27 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Layout with a row of subplots.</p><h4>Example Usage</h4><p>Let's draw 2 scatter plots.</p><pre><span class="kw">import</span> util.Random
+
+<span class="kw">val</span> xsLeft = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
+<span class="kw">val</span> ysLeft = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
+
+<span class="kw">val</span> xsRight = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextDouble }
+<span class="kw">val</span> ysRight = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextDouble }
+
+<span class="cmt">// 2 subplots</span>
+<span class="kw">val</span> layout = RowLayout(<span class="num">2</span>)</pre><p>To create a new plot with this layout, we use the <a href="Plot.html#layout[B&lt;:co.theasi.plotly.Layout[B]](newLayout:co.theasi.plotly.Layout[B]):co.theasi.plotly.Plot[B]" class="extmbr" name="co.theasi.plotly.Plot#layout">Plot.layout</a> method:</p><pre><span class="kw">val</span> p = Plot().layout(layout)</pre><p>We can specify which subplot a new data series will be plotted to using the 'onAxes'
+series option.</p><pre><span class="kw">val</span> p = Plot().layout(layout)
+  .withScatter(xsLeft, ysLeft,
+    ScatterOptions()
+      .onAxes(layout.ref(<span class="num">0</span>)) <span class="cmt">// left subplot</span>
+      .mode(ScatterMode.Marker))
+  .withScatter(xsRight, ysRight,
+    ScatterOptions()
+      .onAxes(layout.ref(<span class="num">1</span>)) <span class="cmt">// right subplot</span>
+      .mode(ScatterMode.Marker))</pre><p>The <code>.ref</code> method takes a single index denoting which subplot to plot on, and
+returns an index that can be passed to <code>.onAxes</code>.
+</p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <a href="Layout.html" class="extype" name="co.theasi.plotly.Layout">Layout</a>[<a href="" class="extype" name="co.theasi.plotly.RowLayout">RowLayout</a>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -554,7 +574,7 @@
       </a>
     </span>
       <p class="shortcomment cmt">Set the plot's background color</p><div class="fullcomment"><div class="comment cmt"><p>Set the plot's background color</p><pre><span class="kw">val</span> layout = SingleAxisLayout().plotBackgroundColor(Color.rgb(<span class="num">0</span>, <span class="num">255</span>, <span class="num">0</span>))</pre></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Layout.html" class="extype" name="co.theasi.plotly.Layout">Layout</a></dd></dl></div>
-    </li><li name="co.theasi.plotly.RowLayout#ref" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="co.theasi.plotly.RowLayout#ref" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ref(subplot:Int):(Int,Int)"></a>
       <a id="ref(Int):(Int,Int)"></a>
       <h4 class="signature">
@@ -570,7 +590,15 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Returns the index of the axes on a subplot</p><div class="fullcomment"><div class="comment cmt"><p>Returns the index of the axes on a subplot</p><p>The main use case for this is to generate an argument
+for the <code>.onAxes</code> method, to specify which sub-plot a
+new series should be drawn on.
+</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre><span class="cmt">// Layout with 3 subplots</span>
+<span class="kw">val</span> layout = RowLayout(<span class="num">3</span>)
+<span class="cmt">// options for plotting on subplot (1): middle subplot</span>
+<span class="kw">val</span> options = ScatterOptions().onAxes(layout.ref(<span class="num">1</span>))</pre></li></ol>
+            </div></dl></div>
     </li><li name="co.theasi.plotly.Layout#rightMargin" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="rightMargin(newRightMargin:Int):A"></a>
       <a id="rightMargin(Int):RowLayout"></a>
@@ -758,7 +786,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Set new axis options for the x-axis of one of the subplots.</p>
     </li><li name="co.theasi.plotly.RowLayout#yAxes" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="yAxes:Vector[co.theasi.plotly.Axis]"></a>
       <a id="yAxes:Vector[Axis]"></a>
@@ -792,7 +820,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Set new axis options for the y-axis of one of the subplots.</p>
     </li></ol>
             </div>
 
