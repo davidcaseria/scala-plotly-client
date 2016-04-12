@@ -19,7 +19,7 @@ libraryDependencies += "co.theasi" %% "plotly" % "0.1.1-SNAPSHOT"
 
 ## Documentation
 
- - Tutorials will be included as part of the [Plotly API documentation](https://plot.ly/api/) when the interface stabilises.
+ - Tutorials will be included as part of the [Plotly documentation](https://plot.ly/api/) when the interface stabilises.
 
  - [API documentation](http://the-asi.github.io/scala-plotly-client/latest/api/#co.theasi.plotly.package).
 
