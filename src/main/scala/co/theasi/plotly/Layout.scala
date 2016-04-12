@@ -152,25 +152,25 @@ object SingleAxisLayout {
   *
   * // 2 rows, 3 columns
   * val layout = GridLayout(2, 3)
-  *
-  * // Options common to all the plots
-  * val commonOptions = ScatterOptions()
-  *   .mode(ScatterMode.Marker)
-  *
-  * // The '.ref' method is useful for specifying which subplot to plot
-  * // a specific series on.
-  * val p = Plot()
-  *   .layout(layout)
-  *   .withScatter(xs, ys, commonOptions.onAxes(layout.ref(0, 0)).name("top-left"))
-  *   .withScatter(xs, ys, commonOptions.onAxes(layout.ref(0, 1)).name("top-middle"))
-  *   .withScatter(xs, ys, commonOptions.onAxes(layout.ref(0, 2)).name("top-right"))
-  *   .withScatter(xs, ys, commonOptions.onAxes(layout.ref(1, 0)).name("bottom-left"))
-  *   .withScatter(xs, ys, commonOptions.onAxes(layout.ref(1, 1)).name("bottom-middle"))
-  *   .withScatter(xs, ys, commonOptions.onAxes(layout.ref(1, 2)).name("bottom-right"))
-  *
-  * draw(p, "subplots-grid", writer.FileOptions(overwrite=true))
   * }}}
   *
+  * To create a new plot with this layout, we use the [[Plot.layout]] method:
+  *
+  * {{{
+  * val p = Plot().layout(layout)
+  * }}}
+  *
+  * We can specify which subplot a new data series will be plotted to using
+  * the 'onAxes' series option.
+  *
+  * {{{
+  * val p = Plot()
+  *   .layout(layout)
+  *   .withScatter(xs, ys, ScatterOptions().onAxes(layout.ref(0, 1))) // top middle
+  * }}}
+  *
+  * The `.ref` method takes a (row, column) pair as arguments and returns a single
+  * axis index that can be passed to '.onAxes'.
   *
   */
 case class GridLayout(
@@ -184,6 +184,7 @@ case class GridLayout(
   def xAxis(row: Int, column: Int) = xAxes(ref(row, column)._1)
   def yAxis(row: Int, column: Int) = yAxes(ref(row, column)._2)
 
+  /** Set new axis options for the x-axis of one of the subplots. */
   def xAxisOptions(row: Int, column: Int, newOptions: AxisOptions)
   : GridLayout = {
     val axisRef = ref(row, column)._1
@@ -191,12 +192,27 @@ case class GridLayout(
     copy(xAxes = xAxes.updated(axisRef, newAxis))
   }
 
+  /** Set new axis options for the y-axis of one of the subplots. */
   def yAxisOptions(row: Int, column: Int, newOptions: AxisOptions) = {
     val axisRef = ref(row, column)._2
     val newAxis = yAxes(axisRef).copy(options = newOptions)
     copy(yAxes = yAxes.updated(axisRef, newAxis))
   }
 
+  /** Returns the index of axes at (row, column)
+    *
+    * The main use case for this is to generate an argument
+    * for the `.onAxes` method, to specify which sub-plot a
+    * new series should be drawn on.
+    *
+    * @example {{{
+    * // grid layout with 2 rows and 3 columns
+    * val layout = GridLayout(2, 3)
+    *
+    * // options for plotting on subplot (0, 1): top row, middle column
+    * val options = ScatterOptions().onAxes(layout.ref(0, 1))
+    * }}}
+    */
   def ref(row: Int, column: Int): (Int, Int) = {
     checkRowColumn(row, column)
     rowColumnToRefImpl(row, column)
