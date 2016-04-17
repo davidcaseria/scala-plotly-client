@@ -51,7 +51,7 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Options controlling how scatter and line plots are plotted.</p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <a href="SeriesOptions.html" class="extype" name="co.theasi.plotly.SeriesOptions">SeriesOptions</a>[<a href="" class="extype" name="co.theasi.plotly.ScatterOptions">ScatterOptions</a>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -281,7 +281,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="co.theasi.plotly.ScatterOptions#marker" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="co.theasi.plotly.ScatterOptions#marker" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="marker(newMarker:co.theasi.plotly.MarkerOptions):co.theasi.plotly.ScatterOptions"></a>
       <a id="marker(MarkerOptions):ScatterOptions"></a>
       <h4 class="signature">
@@ -297,7 +297,9 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Set new <a href="MarkerOptions.html" class="extype" name="co.theasi.plotly.MarkerOptions">MarkerOptions</a> for this series.</p><div class="fullcomment"><div class="comment cmt"><p>Set new <a href="MarkerOptions.html" class="extype" name="co.theasi.plotly.MarkerOptions">MarkerOptions</a> for this series.
+</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="#updatedMarker(updater:co.theasi.plotly.MarkerOptions=&gt;co.theasi.plotly.MarkerOptions):co.theasi.plotly.ScatterOptions" class="extmbr" name="co.theasi.plotly.ScatterOptions#updatedMarker">ScatterOptions.updatedMarker</a> to update an
+  existing set of marker options.</p></span></dd></dl></div>
     </li><li name="co.theasi.plotly.ScatterOptions#marker" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="marker:co.theasi.plotly.MarkerOptions"></a>
       <a id="marker:MarkerOptions"></a>
@@ -315,7 +317,7 @@
       </a>
     </span>
       
-    </li><li name="co.theasi.plotly.ScatterOptions#mode" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="co.theasi.plotly.ScatterOptions#mode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="mode(newModes:Iterable[co.theasi.plotly.ScatterMode.Value]):co.theasi.plotly.ScatterOptions"></a>
       <a id="mode(Iterable[ScatterMode.Value]):ScatterOptions"></a>
       <h4 class="signature">
@@ -331,8 +333,14 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
-    </li><li name="co.theasi.plotly.ScatterOptions#mode" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Set the line mode.</p><div class="fullcomment"><div class="comment cmt"><p>Set the line mode.</p><p>Possible arguments are <code>ScatterMode.Marker</code>, <code>ScatterMode.Line</code>
+and <code>ScatterMode.Text</code>. These are additive:
+<code>.mode(List(ScatterMode.Marker, ScatterMode.Line))</code>
+will show both markers and a line between them.</p><p><code>ScatterMode.Text</code> indicates that the text corresponding to
+a particular point should always be shown (by default, it is
+shown when the user hovers over the point).
+</p></div></div>
+    </li><li name="co.theasi.plotly.ScatterOptions#mode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="mode(newMode:co.theasi.plotly.ScatterMode.Value,rest:co.theasi.plotly.ScatterMode.Value*):co.theasi.plotly.ScatterOptions"></a>
       <a id="mode(ScatterMode.Value,ScatterMode.Value*):ScatterOptions"></a>
       <h4 class="signature">
@@ -348,7 +356,13 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Set the line mode.</p><div class="fullcomment"><div class="comment cmt"><p>Set the line mode.</p><p>Possible arguments are <code>ScatterMode.Marker</code>, <code>ScatterMode.Line</code>
+and <code>ScatterMode.Text</code>. These are additive:
+<code>.mode(ScatterMode.Marker, ScatterMode.Line)</code> will show both
+markers and a line between them.</p><p><code>ScatterMode.Text</code> indicates that the text corresponding to
+a particular point should always be shown (by default, it is
+shown when the user hovers over the point).
+</p></div></div>
     </li><li name="co.theasi.plotly.ScatterOptions#mode" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="mode:Seq[co.theasi.plotly.ScatterMode.Value]"></a>
       <a id="mode:Seq[ScatterMode.Value]"></a>
@@ -382,7 +396,7 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="co.theasi.plotly.ScatterOptions">ScatterOptions</a> → <a href="SeriesOptions.html" class="extype" name="co.theasi.plotly.SeriesOptions">SeriesOptions</a></dd></dl></div>
+      <p class="shortcomment cmt">Set the name of the series</p><div class="fullcomment"><div class="comment cmt"><p>Set the name of the series</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="co.theasi.plotly.ScatterOptions">ScatterOptions</a> → <a href="SeriesOptions.html" class="extype" name="co.theasi.plotly.SeriesOptions">SeriesOptions</a></dd></dl></div>
     </li><li name="co.theasi.plotly.ScatterOptions#name" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="name:Option[String]"></a>
       <a id="name:Option[String]"></a>
@@ -467,7 +481,14 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="co.theasi.plotly.ScatterOptions">ScatterOptions</a> → <a href="SeriesOptions.html" class="extype" name="co.theasi.plotly.SeriesOptions">SeriesOptions</a></dd></dl></div>
+      <p class="shortcomment cmt">Set the axis pair on which this scatter is plotted.</p><div class="fullcomment"><div class="comment cmt"><p>Set the axis pair on which this scatter is plotted.</p><p>This should be used in conjunction with the
+<code>.ref</code> method of the plot's layout.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="co.theasi.plotly.ScatterOptions">ScatterOptions</a> → <a href="SeriesOptions.html" class="extype" name="co.theasi.plotly.SeriesOptions">SeriesOptions</a></dd><div class="block">Example:
+               <ol><li class="cmt"><p></p><pre><span class="cmt">// layout with three subplots</span>
+<span class="kw">val</span> layout = RowLayout(<span class="num">3</span>)
+<span class="cmt">// plot on middle subplot</span>
+<span class="kw">val</span> options = ScatterOptions().onAxes(layout.ref(<span class="num">1</span>))</pre></li></ol>
+            </div></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
@@ -485,7 +506,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="co.theasi.plotly.ScatterOptions#text" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="co.theasi.plotly.ScatterOptions#text" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="text[T](newText:Iterable[T])(implicitevidence$1:co.theasi.plotly.Writable[T]):co.theasi.plotly.ScatterOptions"></a>
       <a id="text[T](Iterable[T])(Writable[T]):ScatterOptions"></a>
       <h4 class="signature">
@@ -501,8 +522,10 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
-    </li><li name="co.theasi.plotly.ScatterOptions#text" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Set the text labels for points in this series.</p><div class="fullcomment"><div class="comment cmt"><p>Set the text labels for points in this series.</p><p>This sets a different label for each point. The iterator
+<code>newText</code> must be the same length as the data series.
+</p></div></div>
+    </li><li name="co.theasi.plotly.ScatterOptions#text" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="text(newText:String):co.theasi.plotly.ScatterOptions"></a>
       <a id="text(String):ScatterOptions"></a>
       <h4 class="signature">
@@ -518,7 +541,8 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Set the text labels for points in this series.</p><div class="fullcomment"><div class="comment cmt"><p>Set the text labels for points in this series.</p><p>This sets the same label for every point.
+</p></div></div>
     </li><li name="co.theasi.plotly.ScatterOptions#text" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="text:Option[co.theasi.plotly.TextValue]"></a>
       <a id="text:Option[TextValue]"></a>
@@ -536,7 +560,7 @@
       </a>
     </span>
       
-    </li><li name="co.theasi.plotly.ScatterOptions#textSrc" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="co.theasi.plotly.ScatterOptions#textSrc" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="textSrc(src:String):co.theasi.plotly.ScatterOptions"></a>
       <a id="textSrc(String):ScatterOptions"></a>
       <h4 class="signature">
@@ -552,8 +576,22 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
-    </li><li name="co.theasi.plotly.ScatterOptions#updatedMarker" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Set the text labels for points in this series.</p><div class="fullcomment"><div class="comment cmt"><p>Set the text labels for points in this series.</p><p>This sets the labels from data that is already in Plotly.
+</p></div><dl class="paramcmts block"><dt class="param">src</dt><dd class="cmt"><p>String of format <code>fileId:columnUid</code>, where
+<code>fileId</code> is the id of a grid in Plotly and column uid is
+the id of a column in that grid.</p></dd></dl><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre><span class="kw">import</span> co.theasi.plotly._
+<span class="kw">val</span> gridFile = writer.GridFile.fromFileName(<span class="lit">"lowest-oecd-votes-cast-grid"</span>)
+<span class="kw">val</span> fileId = gridFile.fileId
+<span class="kw">val</span> columnUid = gridFile.columnUids(<span class="lit">"y-0"</span>)
+<span class="kw">val</span> textSrc = s<span class="lit">"$fileId:$columnUid"</span>
+<span class="kw">val</span> xs = (<span class="num">1</span> to <span class="num">10</span>)
+<span class="kw">val</span> ys = (<span class="num">1</span> to <span class="num">10</span>)
+<span class="kw">val</span> p = Plot().withScatter(xs, ys, ScatterOptions()
+  .textSrc(textSrc))
+draw(p, <span class="lit">"text-src-example"</span>)</pre></li></ol>
+            </div></dl></div>
+    </li><li name="co.theasi.plotly.ScatterOptions#updatedMarker" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="updatedMarker(updater:co.theasi.plotly.MarkerOptions=&gt;co.theasi.plotly.MarkerOptions):co.theasi.plotly.ScatterOptions"></a>
       <a id="updatedMarker((MarkerOptions)⇒MarkerOptions):ScatterOptions"></a>
       <h4 class="signature">
@@ -569,7 +607,15 @@
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Update the <a href="MarkerOptions.html" class="extype" name="co.theasi.plotly.MarkerOptions">MarkerOptions</a> for this series.</p><div class="fullcomment"><div class="comment cmt"><p>Update the <a href="MarkerOptions.html" class="extype" name="co.theasi.plotly.MarkerOptions">MarkerOptions</a> for this series.
+</p></div><dl class="paramcmts block"><dt class="param">updater</dt><dd class="cmt"><p>Function mapping the existing <a href="MarkerOptions.html" class="extype" name="co.theasi.plotly.MarkerOptions">MarkerOptions</a>
+  to new <a href="MarkerOptions.html" class="extype" name="co.theasi.plotly.MarkerOptions">MarkerOptions</a>.</p></dd></dl><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre><span class="kw">val</span> xs = (<span class="num">1</span> to <span class="num">10</span>)
+<span class="kw">val</span> ys = (<span class="num">1</span> to <span class="num">10</span>)
+<span class="kw">val</span> p = Plot()
+  .withScatter(xs, ys, ScatterOptions()
+    .updatedMarker(_.size(<span class="num">10</span>).symbol(<span class="lit">"x"</span>)))</pre></li></ol>
+            </div></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>
