@@ -1,5 +1,6 @@
 package co.theasi.plotly
 
+/** Options controlling how scatter and line plots are plotted. */
 case class ScatterOptions(
   name: Option[String],
   xAxis: Option[Int],
@@ -9,31 +10,124 @@ case class ScatterOptions(
   marker: MarkerOptions
 ) extends SeriesOptions[ScatterOptions] {
 
+  /** Set the name of the series */
   def name(newName: String) = copy(name = Some(newName))
   def xAxis(newXAxis: Int) = copy(xAxis = Some(newXAxis))
   def yAxis(newYAxis: Int): ScatterOptions = copy(yAxis = Some(newYAxis))
+
+  /** Set the axis pair on which this scatter is plotted.
+    *
+    * This should be used in conjunction with the
+    * `.ref` method of the plot's layout.
+    *
+    * @example {{{
+    * // layout with three subplots
+    * val layout = RowLayout(3)
+    *
+    * // plot on middle subplot
+    * val options = ScatterOptions().onAxes(layout.ref(1))
+    * }}}
+    */
   def onAxes(axesRef: (Int, Int)): ScatterOptions = {
     val (xAxisRef, yAxisRef) = axesRef
     copy(xAxis = Some(xAxisRef), yAxis = Some(yAxisRef))
   }
 
+  /** Set the line mode.
+    *
+    * Possible arguments are `ScatterMode.Marker`, `ScatterMode.Line`
+    * and `ScatterMode.Text`. These are additive:
+    * `.mode(ScatterMode.Marker, ScatterMode.Line)` will show both
+    * markers and a line between them.
+    *
+    * `ScatterMode.Text` indicates that the text corresponding to
+    * a particular point should always be shown (by default, it is
+    * shown when the user hovers over the point).
+    */
   def mode(newMode: ScatterMode.Value, rest: ScatterMode.Value*)
   : ScatterOptions = mode(newMode +: rest)
+
+  /** Set the line mode.
+    *
+    * Possible arguments are `ScatterMode.Marker`, `ScatterMode.Line`
+    * and `ScatterMode.Text`. These are additive:
+    * `.mode(List(ScatterMode.Marker, ScatterMode.Line))`
+    * will show both markers and a line between them.
+    *
+    * `ScatterMode.Text` indicates that the text corresponding to
+    * a particular point should always be shown (by default, it is
+    * shown when the user hovers over the point).
+    */
   def mode(newModes: Iterable[ScatterMode.Value]): ScatterOptions =
     copy(mode = newModes.toSeq)
 
+  /** Set the text labels for points in this series.
+    *
+    * This sets the same label for every point.
+    */
   def text(newText: String): ScatterOptions =
     copy(text = Some(StringText(newText)))
+
+  /** Set the text labels for points in this series.
+    *
+    * This sets a different label for each point. The iterator
+    * `newText` must be the same length as the data series.
+    */
   def text[T: Writable](newText: Iterable[T]): ScatterOptions = {
     val textAsPType = newText.map { implicitly[Writable[T]].toPType }
     copy(text = Some(IterableText(textAsPType)))
   }
+
+  /** Set the text labels for points in this series.
+    *
+    * This sets the labels from data that is already in Plotly.
+    *
+    * @param src String of format `fileId:columnUid`, where
+    * `fileId` is the id of a grid in Plotly and column uid is
+    * the id of a column in that grid.
+    *
+    * @example {{{
+    * import co.theasi.plotly._
+    * val gridFile = writer.GridFile.fromFileName("lowest-oecd-votes-cast-grid")
+    *
+    * val fileId = gridFile.fileId
+    * val columnUid = gridFile.columnUids("y-0")
+    *
+    * val textSrc = s"$fileId:$columnUid"
+    *
+    * val xs = (1 to 10)
+    * val ys = (1 to 10)
+    * val p = Plot().withScatter(xs, ys, ScatterOptions()
+    *   .textSrc(textSrc))
+    *
+    * draw(p, "text-src-example")
+    * }}}
+    */
   def textSrc(src: String): ScatterOptions =
     copy(text = Some(SrcText(src)))
 
+  /** Set new [[MarkerOptions]] for this series.
+    *
+    * @see [[ScatterOptions.updatedMarker]] to update an
+    *   existing set of marker options.
+    */
   def marker(newMarker: MarkerOptions): ScatterOptions =
     copy(marker = newMarker)
 
+  /** Update the [[MarkerOptions]] for this series.
+    *
+    * @param updater Function mapping the existing [[MarkerOptions]]
+    *   to new [[MarkerOptions]].
+    *
+    * @example {{{
+    * val xs = (1 to 10)
+    * val ys = (1 to 10)
+    *
+    * val p = Plot()
+    *   .withScatter(xs, ys, ScatterOptions()
+    *     .updatedMarker(_.size(10).symbol("x")))
+    * }}}
+    */
   def updatedMarker(updater: MarkerOptions => MarkerOptions)
   : ScatterOptions = {
     val newMarker = updater(marker)
