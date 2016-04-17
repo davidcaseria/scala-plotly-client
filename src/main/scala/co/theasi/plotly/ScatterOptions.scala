@@ -82,8 +82,8 @@ case class ScatterOptions(
     *
     * This sets the labels from data that is already in Plotly.
     *
-    * @param src String of format `$fileId:$columnUid`, where
-    * `$fileId` is the id of a grid in Plotly and column uid is
+    * @param src String of format `fileId:columnUid`, where
+    * `fileId` is the id of a grid in Plotly and column uid is
     * the id of a column in that grid.
     *
     * @example {{{
@@ -106,9 +106,28 @@ case class ScatterOptions(
   def textSrc(src: String): ScatterOptions =
     copy(text = Some(SrcText(src)))
 
+  /** Set new [[MarkerOptions]] for this series.
+    *
+    * @see [[ScatterOptions.updatedMarker]] to update an
+    *   existing set of marker options.
+    */
   def marker(newMarker: MarkerOptions): ScatterOptions =
     copy(marker = newMarker)
 
+  /** Update the [[MarkerOptions]] for this series.
+    *
+    * @param updater Function mapping the existing [[MarkerOptions]]
+    *   to new [[MarkerOptions]].
+    *
+    * @example {{{
+    * val xs = (1 to 10)
+    * val ys = (1 to 10)
+    *
+    * val p = Plot()
+    *   .withScatter(xs, ys, ScatterOptions()
+    *     .updatedMarker(_.size(10).symbol("x")))
+    * }}}
+    */
   def updatedMarker(updater: MarkerOptions => MarkerOptions)
   : ScatterOptions = {
     val newMarker = updater(marker)
