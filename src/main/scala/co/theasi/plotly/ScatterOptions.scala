@@ -61,12 +61,48 @@ case class ScatterOptions(
   def mode(newModes: Iterable[ScatterMode.Value]): ScatterOptions =
     copy(mode = newModes.toSeq)
 
+  /** Set the text labels for points in this series.
+    *
+    * This sets the same label for every point.
+    */
   def text(newText: String): ScatterOptions =
     copy(text = Some(StringText(newText)))
+
+  /** Set the text labels for points in this series.
+    *
+    * This sets a different label for each point. The iterator
+    * `newText` must be the same length as the data series.
+    */
   def text[T: Writable](newText: Iterable[T]): ScatterOptions = {
     val textAsPType = newText.map { implicitly[Writable[T]].toPType }
     copy(text = Some(IterableText(textAsPType)))
   }
+
+  /** Set the text labels for points in this series.
+    *
+    * This sets the labels from data that is already in Plotly.
+    *
+    * @param src String of format `$fileId:$columnUid`, where
+    * `$fileId` is the id of a grid in Plotly and column uid is
+    * the id of a column in that grid.
+    *
+    * @example {{{
+    * import co.theasi.plotly._
+    * val gridFile = writer.GridFile.fromFileName("lowest-oecd-votes-cast-grid")
+    *
+    * val fileId = gridFile.fileId
+    * val columnUid = gridFile.columnUids("y-0")
+    *
+    * val textSrc = s"$fileId:$columnUid"
+    *
+    * val xs = (1 to 10)
+    * val ys = (1 to 10)
+    * val p = Plot().withScatter(xs, ys, ScatterOptions()
+    *   .textSrc(textSrc))
+    *
+    * draw(p, "text-src-example")
+    * }}}
+    */
   def textSrc(src: String): ScatterOptions =
     copy(text = Some(SrcText(src)))
 

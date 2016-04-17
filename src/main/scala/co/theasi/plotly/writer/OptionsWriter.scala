@@ -50,6 +50,8 @@ object OptionsWriter {
       case Some(SrcText(s)) => ("textsrc" -> s)
       case Some(IterableText(v)) =>
         throw new IllegalStateException("No")
+        // Should not happen at this stage
+        // text series are replaced by textSrc in PlotWriter
       case None => JObject()
     }
 
