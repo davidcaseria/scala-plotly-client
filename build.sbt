@@ -40,4 +40,4 @@ enablePlugins(SiteScaladocPlugin)
 
 ghpages.settings
 
-git.remoteRepo := "git@github.com:the-asi/scala-plotly-client.git"
+git.remoteRepo := "git@github.com:ASIDataScience/scala-plotly-client.git"

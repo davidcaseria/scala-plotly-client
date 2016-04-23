@@ -1,4 +1,3 @@
-
 # Plotly client
 
 ## Installation
@@ -21,7 +20,7 @@ libraryDependencies += "co.theasi" %% "plotly" % "0.1.1-SNAPSHOT"
 
  - Tutorials will be included as part of the [Plotly documentation](https://plot.ly/api/) when the interface stabilises.
 
- - [API documentation](http://AsiDataScience.github.io/scala-plotly-client/latest/api/#co.theasi.plotly.package).
+ - [API documentation](http://asidatascience.github.io/scala-plotly-client/latest/api/#co.theasi.plotly.package).
 
 ## Authentication
 
