@@ -1,6 +1,6 @@
 package co.theasi.plotly.writer
 
-// import co.theasi.plotly.{Plot, Grid}
+import co.theasi.plotly.{Plot, Grid, Figure, SinglePlotFigure}
 
 trait ServerWriterWithDefaultCredentials extends ServerWriter {
   implicit val server = ServerWithDefaultCredentials
@@ -9,40 +9,56 @@ trait ServerWriterWithDefaultCredentials extends ServerWriter {
 trait ServerWriter {
   implicit val server: Server
 
-  // def draw(
-  //     plot: Plot[_],
-  //     fileName: String)
-  //     (implicit server: Server)
-  // : PlotFile = {
-  //   draw(plot, fileName, FileOptions())
-  // }
+  def draw(
+      figure: Figure,
+      fileName: String)
+      (implicit server: Server)
+  : PlotFile = {
+    draw(figure, fileName, FileOptions())
+  }
 
-  // def draw(
-  //     plot: Plot[_],
-  //     fileName: String,
-  //     fileOptions: FileOptions)
-  //     (implicit server: Server)
-  // : PlotFile = {
-  //   PlotWriter.draw(plot, fileName, fileOptions)
-  // }
+  def draw(
+    figure: Figure,
+    fileName: String,
+    fileOptions: FileOptions)
+    (implicit server: Server)
+  : PlotFile = {
+    FigureWriter.draw(figure, fileName, fileOptions)
+  }
 
-  // def draw(
-  //     grid: Grid,
-  //     fileName: String)
-  //     (implicit server: Server)
-  // : GridFile = {
-  //   draw(grid, fileName, FileOptions())
-  // }
+  def draw(
+      plot: Plot,
+      fileName: String)
+      (implicit server: Server)
+  : PlotFile = {
+    draw(plot, fileName, FileOptions())
+  }
 
-  // def draw(
-  //     grid: Grid,
-  //     fileName: String,
-  //     fileOptions: FileOptions)
-  //     (implicit server: Server)
-  // : GridFile = {
-  //   GridWriter.draw(grid, fileName, fileOptions)
-  // }
+  def draw(
+      plot: Plot,
+      fileName: String,
+      fileOptions: FileOptions)
+      (implicit server: Server)
+  : PlotFile = {
+    val figure = SinglePlotFigure(plot)
+    draw(figure, fileName, fileOptions)
+  }
 
+  def draw(
+      grid: Grid,
+      fileName: String)
+      (implicit server: Server)
+  : GridFile = {
+    draw(grid, fileName, FileOptions())
+  }
 
+  def draw(
+      grid: Grid,
+      fileName: String,
+      fileOptions: FileOptions)
+      (implicit server: Server)
+  : GridFile = {
+    GridWriter.draw(grid, fileName, fileOptions)
+  }
 
 }
