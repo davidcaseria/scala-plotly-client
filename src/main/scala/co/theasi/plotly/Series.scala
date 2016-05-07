@@ -32,6 +32,26 @@ extends Series {
   val xs: Iterable[X]
 }
 
+sealed abstract class Series2D[
+    X <: PType,
+    Y <: PType]
+extends Series {
+  val xs: Iterable[X]
+  val ys: Iterable[Y]
+  val options: OptionType
+}
+
+sealed abstract class Series3D[
+  X <: PType,
+  Y <: PType,
+  Z <: PType
+] extends Series {
+  val xs: Option[Iterable[Iterable[X]]]
+  val ys: Option[Iterable[Iterable[Y]]]
+  val zs: Iterable[Iterable[Z]]
+  val options: OptionType
+}
+
 case class Box[X <: PType](
     val xs: Iterable[X],
     override val options: BoxOptions)
@@ -40,15 +60,6 @@ extends Series1D[X] {
 
   override def options(newOptions: BoxOptions): Box[X] =
     copy(options = newOptions)
-}
-
-sealed abstract class Series2D[
-    X <: PType,
-    Y <: PType]
-extends Series {
-  val xs: Iterable[X]
-  val ys: Iterable[Y]
-  val options: OptionType
 }
 
 case class Scatter[
@@ -64,7 +75,6 @@ extends Series2D[X, Y] {
     copy(options = newOptions)
 }
 
-
 case class Bar[X <: PType, Y <: PType](
     val xs: Iterable[X],
     val ys: Iterable[Y],
@@ -75,3 +85,18 @@ extends Series2D[X, Y] {
   override def options(newOptions: BarOptions): Bar[X, Y] =
     copy(options = newOptions)
 }
+
+
+/*
+case class Surface[X <: PType, Y <: PType, Z <: PType](
+    val xs: Option[Iterable[Iterable[X]]],
+    val ys: Option[Iterable[Iterable[Y]]],
+    val zs: Iterable[Iterable[Z]],
+    override val options: SurfaceOptions)
+extends Series3D[X, Y, Z] {
+  type OptionType = SurfaceOptions
+
+  override def options(newOptions: SeriesOptions): Surface[X, Y, Z] =
+    copy(options = newOptions)
+}
+*/

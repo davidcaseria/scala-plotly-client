@@ -10,37 +10,41 @@ import scala.util.{Try, Success, Failure}
 
 import co.theasi.plotly._
 
-object PlotWriter {
+object FigureWriter {
 
   def draw(
-      plot: Plot[_],
+      figure: Figure,
       fileName: String,
       fileOptions: FileOptions = FileOptions()
   )(implicit server: Server) = {
     if (fileOptions.overwrite) { deleteIfExists(fileName) }
-    val drawnGrid = drawGrid(plot, fileName, fileOptions)
-    val body = plotAsJson(plot, drawnGrid, fileName)
+    val drawnGrid = drawGrid(figure, fileName, fileOptions)
+    val body = plotAsJson(figure, drawnGrid, fileName)
     val request = Api.post("plots", compact(render(body)))
     val responseAsJson = Api.despatchAndInterpret(request)
     PlotFile.fromResponse(responseAsJson \ "file")
   }
 
   def plotAsJson(
-      plot: Plot[_],
+      figure: Figure,
       drawnGrid: GridFile,
       fileName: String
   ): JObject = {
-    val seriesAsJson = plot.series.zipWithIndex.map {
-      case (series, index) =>
-        val srcs = srcsFromDrawnGrid(drawnGrid, series, index)
-        val newOptions = updateOptionsFromDrawnGrid(
-          drawnGrid, series.options, index)
-        SeriesWriter.toJson(srcs, newOptions)
+    val allSeries = for {
+      subplot <- figure.subplots
+      series <- subplot.series
+    } yield series
+
+    val seriesAsJson = allSeries.zipWithIndex.map { case (series, index) =>
+      val srcs = srcsFromDrawnGrid(drawnGrid, series, index)
+      val newOptions = updateOptionsFromDrawnGrid(
+        drawnGrid, series.options, index)
+      SeriesWriter.toJson(srcs, newOptions)
     }
-    val layoutAsJson = LayoutWriter.toJson(plot.layout)
+    //val layoutAsJson = LayoutWriter.toJson(plot.layout)
     val body =
       ("figure" ->
-        ("data" -> seriesAsJson) ~ ("layout" -> layoutAsJson)
+        ("data" -> seriesAsJson) // ~ ("layout" -> layoutAsJson)
       ) ~
       ("filename" -> fileName) ~
       ("world_readable" -> true)
@@ -48,12 +52,17 @@ object PlotWriter {
   }
 
   private def drawGrid(
-      plot: Plot[_],
+      figure: Figure,
       fileName: String,
       fileOptions: FileOptions)
       (implicit server: Server)
   : GridFile = {
-    val columns = plot.series.zipWithIndex.flatMap {
+    val allSeries = for {
+      subplot <- figure.subplots
+      series <- subplot.series
+    } yield series
+
+    val columns = allSeries.zipWithIndex.flatMap {
       case (s, index) => seriesToColumns(s, index)
     }.toMap
     val grid = Grid(columns)
