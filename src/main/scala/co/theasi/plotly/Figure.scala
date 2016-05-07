@@ -1,7 +1,7 @@
 package co.theasi.plotly
 
 trait Figure {
-  def subplots: Vector[Subplot]
+  def subplots: Vector[Plot]
 }
 
 object Figure {
@@ -9,13 +9,13 @@ object Figure {
 }
 
 
-case class SinglePlotFigure(subplot: Subplot) extends Figure {
+case class SinglePlotFigure(plot: Plot) extends Figure {
 
-  def subplots = Vector(subplot)
+  def subplots = Vector(plot)
 
-  def plot(newSubplot: Subplot): SinglePlotFigure = copy(subplot = newSubplot)
+  def plot(newPlot: Plot): SinglePlotFigure = copy(plot = newPlot)
 }
 
 object SinglePlotFigure {
-  def apply(): SinglePlotFigure = SinglePlotFigure(CartesianSubplot())
+  def apply(): SinglePlotFigure = SinglePlotFigure(Plot())
 }
