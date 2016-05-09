@@ -30,24 +30,48 @@ object FigureWriter {
       drawnGrid: GridFile,
       fileName: String
   ): JObject = {
+
+    val axisIndices = axisIndicesFromPlots(figure.plots)
+
     val allSeries = for {
-      subplot <- figure.subplots
+      subplot <- figure.plots
       series <- subplot.series
     } yield series
 
-    val seriesAsJson = allSeries.zipWithIndex.map { case (series, index) =>
-      val srcs = srcsFromDrawnGrid(drawnGrid, series, index)
-      val newOptions = updateOptionsFromDrawnGrid(
+    val seriesSrcs = for {
+      (series, index) <- allSeries.zipWithIndex
+      srcs = srcsFromDrawnGrid(drawnGrid, series, index)
+    } yield srcs
+
+    val seriesOptions = for {
+      (series, index) <- allSeries.zipWithIndex
+      newOptions = updateOptionsFromDrawnGrid(
         drawnGrid, series.options, index)
-      SeriesWriter.toJson(srcs, newOptions)
-    }
-    //val layoutAsJson = LayoutWriter.toJson(plot.layout)
+    } yield newOptions
+
+    val seriesAxisIndex = for {
+      (subplot, axisIndex) <- figure.plots.zip(axisIndices)
+      series <- subplot.series
+    } yield axisIndex
+
+    val writeInfos = for {
+      (srcs, options, axisIndex) <- (seriesSrcs, seriesOptions, seriesAxisIndex).zipped
+      writeInfo = options match {
+        case o: ScatterOptions => ScatterWriteInfo(srcs, axisIndex, o)
+      }
+    } yield writeInfo
+
+    val seriesAsJson = writeInfos.map { SeriesWriter.toJson }
+
+    val axesAsJson = AxisWriter.toJson(axisIndices, figure.viewPorts)
+
     val body =
       ("figure" ->
-        ("data" -> seriesAsJson) // ~ ("layout" -> layoutAsJson)
+        ("data" -> seriesAsJson) ~ ("layout" -> axesAsJson)
       ) ~
       ("filename" -> fileName) ~
       ("world_readable" -> true)
+    println(compact(render(body)))
     body
   }
 
@@ -58,7 +82,7 @@ object FigureWriter {
       (implicit server: Server)
   : GridFile = {
     val allSeries = for {
-      subplot <- figure.subplots
+      subplot <- figure.plots
       series <- subplot.series
     } yield series
 
@@ -88,6 +112,15 @@ object FigureWriter {
 
     dataColumns ++ optionColumns
   }
+
+  private def axisIndicesFromPlots(plots: Vector[Plot]) =
+    plots.scanLeft(1) {
+      (curIndex, plot) => plot match {
+        case p: CartesianPlot => curIndex + 1
+        case _ => curIndex
+      }
+    }
+
 
   def scatterOptionsToColumns(options: ScatterOptions, index: Int)
   : List[(String, Iterable[PType])] =
@@ -120,24 +153,47 @@ object FigureWriter {
   }
 
   private def updateOptionsFromDrawnGrid(
-      drawnGrid: GridFile,
-      options: SeriesOptions[_],
-      index: Int
-  ): SeriesOptions[_] = {
+    drawnGrid: GridFile,
+    options: SeriesOptions,
+    index: Int
+  ): SeriesOptions = {
     options match {
       case o: ScatterOptions =>
-        val newText = o.text.map {
-          case IterableText(values) =>
-            val textName = s"text-$index"
-            val textUid = drawnGrid.columnUids(textName)
-            val textSrc = s"${drawnGrid.fileId}:$textUid"
-            SrcText(textSrc)
-          case t => t
-        }
-        o.copy(text = newText)
-      case s => s
+        updateScatterOptionsFromDrawnGrid(drawnGrid, o, index)
+      case o: BarOptions =>
+        updateBarOptionsFromDrawnGrid(drawnGrid, o, index)
+      case o: BoxOptions =>
+        updateBoxOptionsFromDrawnGrid(drawnGrid, o, index)
     }
   }
+
+  private def updateScatterOptionsFromDrawnGrid(
+    drawnGrid: GridFile,
+    options: ScatterOptions,
+    index: Int
+  ): ScatterOptions = {
+    val newText = options.text.map {
+      case IterableText(values) =>
+        val textName = s"text-$index"
+        val textUid = drawnGrid.columnUids(textName)
+        val textSrc = s"${drawnGrid.fileId}:$textUid"
+        SrcText(textSrc)
+      case t => t
+    }
+    options.copy(text = newText)
+  }
+
+  private def updateBarOptionsFromDrawnGrid(
+      drawnGrid: GridFile,
+      options: BarOptions,
+      index: Int
+  ): BarOptions = options
+
+  private def updateBoxOptionsFromDrawnGrid(
+    drawnGrid: GridFile,
+    options: BoxOptions,
+    index: Int
+  ): BoxOptions = options
 
   private def deleteIfExists(fileName: String)(implicit server: Server) {
     Try { PlotFile.fromFileName(fileName) } match {

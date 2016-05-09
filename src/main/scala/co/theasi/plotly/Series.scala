@@ -1,7 +1,7 @@
 package co.theasi.plotly
 
 sealed trait Series {
-  type OptionType <: SeriesOptions[OptionType]
+  type OptionType <: SeriesOptions
   val options: OptionType
 
   def options(newOptions: OptionType): Series
