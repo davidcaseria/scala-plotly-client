@@ -64,10 +64,13 @@ object FigureWriter {
     val seriesAsJson = writeInfos.map { SeriesWriter.toJson }
 
     val axesAsJson = AxisWriter.toJson(axisIndices, figure.viewPorts)
+    val optionsAsJson = FigureOptionsWriter.toJson(figure.options)
+
+    val layout = axesAsJson ~ optionsAsJson
 
     val body =
       ("figure" ->
-        ("data" -> seriesAsJson) ~ ("layout" -> axesAsJson)
+        ("data" -> seriesAsJson) ~ ("layout" -> layout)
       ) ~
       ("filename" -> fileName) ~
       ("world_readable" -> true)

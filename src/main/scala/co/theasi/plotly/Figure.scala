@@ -3,6 +3,7 @@ package co.theasi.plotly
 trait Figure {
   def plots: Vector[Plot]
   def viewPorts: Vector[ViewPort]
+  def options: FigureOptions
 }
 
 object Figure {
@@ -10,7 +11,8 @@ object Figure {
 }
 
 
-case class SinglePlotFigure(plot: Plot) extends Figure {
+case class SinglePlotFigure(plot: Plot, options: FigureOptions)
+extends Figure {
 
   def plots = Vector(plot)
   def viewPorts = Vector(ViewPort((0.0, 1.0), (0.0, 1.0)))
@@ -19,7 +21,9 @@ case class SinglePlotFigure(plot: Plot) extends Figure {
 }
 
 object SinglePlotFigure {
-  def apply(): SinglePlotFigure = SinglePlotFigure(Plot())
+  def apply(): SinglePlotFigure = apply(FigureOptions())
+  def apply(options: FigureOptions): SinglePlotFigure =
+    SinglePlotFigure(Plot(), options)
 }
 
 
@@ -27,12 +31,18 @@ case class GridFigure(
     plots: Vector[Plot],
     viewPorts: Vector[ViewPort],
     numberRows: Int,
-    numberColumns: Int)
+    numberColumns: Int,
+    options: FigureOptions)
 extends Figure {
 
   def plot(rowIndex: Int, columnIndex: Int)(newPlot: Plot): GridFigure = {
     val ref = subplotRef(rowIndex, columnIndex)
     copy(plots = plots.updated(ref, newPlot))
+  }
+
+  def viewPortAt(rowIndex: Int, columnIndex: Int): ViewPort = {
+    val ref = subplotRef(rowIndex, columnIndex)
+    viewPorts(ref)
   }
 
   private def subplotRef(rowIndex: Int, columnIndex: Int): Int = {
@@ -69,7 +79,11 @@ object GridFigure {
   val DefaultHorizontalSpacing = 0.2
   val DefaultVerticalSpacing = 0.3
 
-  def apply(numberRows: Int, numberColumns: Int): GridFigure = {
+  def apply(
+      numberRows: Int,
+      numberColumns: Int,
+      options: FigureOptions)
+  : GridFigure = {
 
     // Spacing between plots
     val horizontalSpacing = DefaultHorizontalSpacing / numberColumns.toDouble
@@ -103,6 +117,10 @@ object GridFigure {
 
     val plots = Vector.fill(viewPorts.size) { Plot() }
 
-    GridFigure(plots, viewPorts.toVector, numberRows, numberColumns)
+    GridFigure(plots, viewPorts.toVector,
+      numberRows, numberColumns, options)
   }
+
+  def apply(numberRows: Int, numberColumns: Int): GridFigure =
+    apply(numberRows, numberColumns, FigureOptions())
 }
