@@ -83,7 +83,7 @@ object FigureWriter {
       ) ~
       ("filename" -> fileName) ~
       ("world_readable" -> true)
-    println(compact(render(body)))
+
     body
   }
 

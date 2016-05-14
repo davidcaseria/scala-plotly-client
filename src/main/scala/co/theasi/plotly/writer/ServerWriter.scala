@@ -1,6 +1,6 @@
 package co.theasi.plotly.writer
 
-import co.theasi.plotly.{Plot, Grid, Figure, SinglePlotFigure}
+import co.theasi.plotly.{Plot, Grid, Figure, SinglePlotFigure, FigureOptions}
 
 trait ServerWriterWithDefaultCredentials extends ServerWriter {
   implicit val server = ServerWithDefaultCredentials
@@ -40,7 +40,7 @@ trait ServerWriter {
       fileOptions: FileOptions)
       (implicit server: Server)
   : PlotFile = {
-    val figure = SinglePlotFigure(plot)
+    val figure = SinglePlotFigure(plot, FigureOptions())
     draw(figure, fileName, fileOptions)
   }
 
