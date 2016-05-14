@@ -63,10 +63,19 @@ object FigureWriter {
 
     val seriesAsJson = writeInfos.map { SeriesWriter.toJson }
 
-    val axesAsJson = AxisWriter.toJson(axisIndices, figure.viewPorts)
+    val layoutFragments = for {
+      (index, viewPort, plot) <- (axisIndices, figure.viewPorts, figure.plots).zipped
+      fragment = plot match {
+        case p: CartesianPlot =>
+          CartesianPlotLayoutWriter.toJson(index, viewPort, p)
+      }
+    } yield fragment
+
+    val fragmentsAsJson = layoutFragments.reduce { _ ~ _ }
+
     val optionsAsJson = FigureOptionsWriter.toJson(figure.options)
 
-    val layout = axesAsJson ~ optionsAsJson
+    val layout = fragmentsAsJson ~ optionsAsJson
 
     val body =
       ("figure" ->

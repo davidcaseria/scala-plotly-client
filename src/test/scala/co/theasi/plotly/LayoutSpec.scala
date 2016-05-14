@@ -74,15 +74,6 @@ class FigureSpec extends FlatSpec with Matchers with Inside {
 //     l.yAxes(0).anchor shouldEqual 0
 //   }
 
-//   it should "allow adding x-axis options" in {
-//     val l = SingleAxisLayout().xAxisOptions(AxisOptions().title("hello"))
-//     l.xAxes(0).options.title shouldEqual Some("hello")
-//   }
-
-//   it should "allow adding y-axis options" in {
-//     val l = SingleAxisLayout().yAxisOptions(AxisOptions().title("hello"))
-//     l.yAxes(0).options.title shouldEqual Some("hello")
-//   }
 
 //   "RowLayout" should "put subplots in a row" in {
 //     val l = RowLayout(3)
