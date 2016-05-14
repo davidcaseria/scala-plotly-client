@@ -10,6 +10,35 @@ class FigureSpec extends FlatSpec with Matchers with Inside {
   def ySize(viewPort: ViewPort) =
     viewPort.yDomain._2 - viewPort.yDomain._1
 
+  "SinglePlotFigure" should "allow setting the legend" in {
+    val f = SinglePlotFigure()
+      .legend(LegendOptions().fontSize(20).x(0.5))
+    f.options.legendOptions.x shouldEqual Some(0.5)
+    f.options.legendOptions.font.size shouldEqual Some(20)
+  }
+
+  it should "allow setting margin options" in {
+    val fo = SinglePlotFigure()
+    val fo1 = fo.margins(1, 2, 3, 4)
+    val fo2 = fo.topMargin(1).rightMargin(2).bottomMargin(3).leftMargin(4)
+    fo1 shouldEqual fo2
+  }
+
+  it should "allow setting paper background color" in {
+    val fo = SinglePlotFigure()
+    val fo1 = fo.paperBackgroundColor(10, 20, 30)
+    val fo2 = fo.paperBackgroundColor(Color.rgb(10, 20, 30))
+    fo1 shouldEqual fo2
+    fo.options.paperBackgroundColor shouldEqual None
+  }
+
+  it should "allow setting plot background color" in {
+    val fo = SinglePlotFigure()
+    val fo1 = fo.plotBackgroundColor(10, 20, 30)
+    val fo2 = fo.plotBackgroundColor(Color.rgb(10, 20, 30))
+    fo1 shouldEqual fo2
+    fo.options.plotBackgroundColor shouldEqual None
+  }
 
   "GridFigure" should "create subplots in a row" in {
     val f = GridFigure(1, 2)
@@ -64,16 +93,6 @@ class FigureSpec extends FlatSpec with Matchers with Inside {
 
   }
 
-//   "SingleAxisLayout" should "have the correct domain and anchor" in {
-//     val l = SingleAxisLayout()
-//     l.xAxes.size shouldEqual 1
-//     l.yAxes.size shouldEqual 1
-//     l.xAxes(0).domain shouldEqual (0.0, 1.0)
-//     l.yAxes(0).domain shouldEqual (0.0, 1.0)
-//     l.xAxes(0).anchor shouldEqual 0
-//     l.yAxes(0).anchor shouldEqual 0
-//   }
-
 
 //   "RowLayout" should "put subplots in a row" in {
 //     val l = RowLayout(3)
@@ -86,24 +105,5 @@ class FigureSpec extends FlatSpec with Matchers with Inside {
 //     l.xAxes.foreach { axis => size(axis) shouldEqual width +- 1e-5 }
 //   }
 
-//   it should "allow setting x-axis options" in {
-//     val l = RowLayout(3)
-//       .xAxisOptions(1, AxisOptions().title("hello"))
-//       .xAxisOptions(2, AxisOptions().title("hello2"))
-
-//     l.xAxes(0).options.title shouldEqual None
-//     l.xAxes(1).options.title shouldEqual Some("hello")
-//     l.xAxes(2).options.title shouldEqual Some("hello2")
-//   }
-
-//   it should "allow setting y-axis options" in {
-//     val l = RowLayout(3)
-//       .yAxisOptions(1, AxisOptions().title("hello"))
-//       .yAxisOptions(2, AxisOptions().title("hello2"))
-
-//     l.yAxes(0).options.title shouldEqual None
-//     l.yAxes(1).options.title shouldEqual Some("hello")
-//     l.yAxes(2).options.title shouldEqual Some("hello2")
-//   }
 
 }
