@@ -1,10 +1,10 @@
 package co.theasi.plotly.writer
 
-import co.theasi.plotly.{SeriesOptions, ScatterOptions, BarOptions, BoxOptions}
+import co.theasi.plotly.{SeriesOptions, ScatterOptions,
+  BarOptions, BoxOptions, SurfaceOptions}
 
 trait SeriesWriteInfo {
   val srcs: List[String]
-  val axisIndex: Int
   val options: SeriesOptions
 }
 
@@ -24,4 +24,9 @@ case class BoxWriteInfo(
   srcs: List[String],
   axisIndex: Int,
   options: BoxOptions
+) extends SeriesWriteInfo
+
+case class SurfaceWriteInfo(
+  srcs: List[String],
+  options: SurfaceOptions
 ) extends SeriesWriteInfo

@@ -4,8 +4,6 @@ import org.json4s._
 import org.json4s.native.JsonMethods._
 import org.json4s.JsonDSL._
 
-import scalaj.http._
-
 import scala.util.{Try, Success, Failure}
 
 import co.theasi.plotly._
@@ -58,6 +56,7 @@ object FigureWriter {
       (srcs, options, axisIndex) <- (seriesSrcs, seriesOptions, seriesAxisIndex).zipped
       writeInfo = options match {
         case o: ScatterOptions => ScatterWriteInfo(srcs, axisIndex, o)
+        case o: SurfaceOptions => SurfaceWriteInfo(srcs, o)
       }
     } yield writeInfo
 
@@ -68,6 +67,8 @@ object FigureWriter {
       fragment = plot match {
         case p: CartesianPlot =>
           CartesianPlotLayoutWriter.toJson(index, viewPort, p)
+        case p: ThreeDPlot =>
+          JObject()
       }
     } yield fragment
 
@@ -111,10 +112,14 @@ object FigureWriter {
   ): List[(String, Iterable[PType])] = {
 
     val dataColumns = series match {
-      case s: Series2D[_, _] =>
+      case s: CartesianSeries2D[_, _] =>
         List(s"x-$index" -> s.xs, s"y-$index" -> s.ys)
-      case s: Series1D[_] =>
+      case s: CartesianSeries1D[_] =>
         List(s"x-$index" -> s.xs)
+      case s: SurfaceZ[_] =>
+        s.zs.zipWithIndex.map { case (row, rowIndex) =>
+          s"z-$index-$rowIndex" -> row
+        }.toList
     }
 
     val optionColumns = series match {
@@ -147,7 +152,7 @@ object FigureWriter {
       index: Int
   ): List[String] = {
     val srcs = series match {
-      case s: Series2D[_, _] =>
+      case s: CartesianSeries2D[_, _] =>
         val xName = s"x-$index"
         val yName = s"y-$index"
         val xuid = drawnGrid.columnUids(xName)
@@ -155,11 +160,25 @@ object FigureWriter {
         val xsrc = s"${drawnGrid.fileId}:$xuid"
         val ysrc = s"${drawnGrid.fileId}:$yuid"
         List(xsrc, ysrc)
-      case s: Series1D[_] =>
+      case s: CartesianSeries1D[_] =>
         val xName = s"x-$index"
         val xuid = drawnGrid.columnUids(xName)
         val xsrc = s"${drawnGrid.fileId}:$xuid"
         List(xsrc)
+      case s: SurfaceZ[_] =>
+        // this is pretty hacky
+        val zPrefix = s"z-$index"
+        val columnNames = drawnGrid.columnUids.filterKeys {
+          _.startsWith(zPrefix)
+        }.keys.toList
+        val sortedColumnNames = columnNames.sortBy {
+          colName => colName.stripPrefix(s"z-$index-").toInt
+        }
+        val uids = sortedColumnNames.map { colName =>
+          drawnGrid.columnUids(colName)
+        }
+        val uidString = s"${drawnGrid.fileId}:${uids.mkString(",")}"
+        List(uidString)
     }
     srcs
   }
@@ -176,6 +195,7 @@ object FigureWriter {
         updateBarOptionsFromDrawnGrid(drawnGrid, o, index)
       case o: BoxOptions =>
         updateBoxOptionsFromDrawnGrid(drawnGrid, o, index)
+      case o => o
     }
   }
 

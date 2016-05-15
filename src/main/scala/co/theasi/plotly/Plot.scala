@@ -12,7 +12,7 @@ object Plot {
 
 
 case class CartesianPlot(
-    series: Vector[Series],
+    series: Vector[CartesianSeries],
     options: CartesianPlotOptions)
 extends Plot {
   type OptionType = CartesianPlotOptions
@@ -31,7 +31,7 @@ extends Plot {
   def withBar[X: Writable, Y: Writable](
       xs: Iterable[X],
       ys: Iterable[Y]
-  ): Plot = {
+  ): CartesianPlot = {
     val xsAsPType = xs.map { implicitly[Writable[X]].toPType }
     val ysAsPType = ys.map { implicitly[Writable[Y]].toPType }
     copy(series = series :+ Bar(xsAsPType, ysAsPType, BarOptions()))
@@ -39,7 +39,7 @@ extends Plot {
 
   def withBox[X: Writable](
     xs: Iterable[X]
-  ): Plot = {
+  ): CartesianPlot = {
     val xsAsPType = xs.map { implicitly[Writable[X]].toPType }
     copy(series = series :+ Box(xsAsPType, BoxOptions()))
   }
@@ -62,7 +62,30 @@ extends Plot {
 object CartesianPlot {
 
   def apply(): CartesianPlot = CartesianPlot(
-    Vector.empty[Series], CartesianPlotOptions())
+    Vector.empty[CartesianSeries], CartesianPlotOptions())
 
 }
 
+
+case class ThreeDPlot(
+  series: Vector[Series],
+  options: ThreeDPlotOptions)
+extends Plot {
+
+  type OptionType = ThreeDPlotOptions
+
+  def withSurface[Z: Writable](zs: Iterable[Iterable[Z]]): ThreeDPlot = {
+    val zsAsPType = zs.map { zRow =>
+      zRow.map { implicitly[Writable[Z]].toPType }
+    }
+    copy(series = series :+ SurfaceZ(zsAsPType, SurfaceOptions()))
+
+  }
+
+}
+
+
+object ThreeDPlot {
+  def apply(): ThreeDPlot = ThreeDPlot(
+    Vector.empty[Series], ThreeDPlotOptions())
+}
