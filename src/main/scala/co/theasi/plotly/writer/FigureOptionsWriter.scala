@@ -41,9 +41,9 @@ object FigureOptionsWriter {
       case emptyMargins() => None
       case _ => Some(
         ("l" -> margins.left) ~
-          ("r" -> margins.right) ~
-          ("b" -> margins.bottom) ~
-          ("t" -> margins.top)
+        ("r" -> margins.right) ~
+        ("b" -> margins.bottom) ~
+        ("t" -> margins.top)
       )
     }
 }
