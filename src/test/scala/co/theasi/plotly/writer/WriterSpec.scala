@@ -1,6 +1,7 @@
 package co.theasi.plotly.writer
 
 import org.json4s._
+import org.json4s.native.JsonMethods._
 
 import org.scalatest._
 
@@ -17,6 +18,7 @@ class WriterSpec extends FlatSpec with Matchers {
   val testX2 = Vector(1, 2, 3)
   val testY1 = Vector(4.0, 5.0, 7.0)
   val testText1 = Vector("A", "B", "C")
+  val testZData = Vector(Vector(1.0, 2.0, 3.0), Vector(1.0, 4.0, 3.0))
 
   def checkTestX1(arr: JValue) = {
     val JArray(response) = arr
@@ -36,6 +38,17 @@ class WriterSpec extends FlatSpec with Matchers {
   def checkTestText1(arr: JValue) = {
     val JArray(response) = arr
     response.toVector shouldEqual testText1.map { JString }
+  }
+
+  def checkTestZData(arr: JValue) = {
+    val JArray(response) = arr
+    val responseVector = response.toVector
+    val rows = response.toVector.map {
+      case JArray(row) => row.toVector
+      case _ => fail("Not a 2D array")
+    }
+    rows(0) shouldEqual Vector(1.0, 2.0, 3.0).map { JDouble }
+    rows(1) shouldEqual Vector(1.0, 4.0, 3.0).map { JDouble }
   }
 
   def getJsonForPlotFile(plotFile: PlotFile): JValue = {
@@ -121,5 +134,15 @@ class WriterSpec extends FlatSpec with Matchers {
     checkTestText1(series0 \ "text")
     val series1 = (jsonResponse \ "data")(1)
     (series1 \ "text") shouldEqual JString("hello")
+  }
+
+  it should "draw a 3D plot" in {
+    val p = ThreeDPlot()
+      .withSurface(testZData)
+    val plotFile = draw(p, "test-128")
+    val jsonResponse = getJsonForPlotFile(plotFile)
+    val series0 = (jsonResponse \ "data")(0)
+    checkTestZData(series0 \ "z")
+    series0 \ "type" shouldEqual JString("surface")
   }
 }

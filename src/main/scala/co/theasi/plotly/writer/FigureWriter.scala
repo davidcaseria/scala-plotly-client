@@ -117,7 +117,7 @@ object FigureWriter {
       case s: CartesianSeries1D[_] =>
         List(s"x-$index" -> s.xs)
       case s: SurfaceZ[_] =>
-        s.zs.zipWithIndex.map { case (row, rowIndex) =>
+        s.zs.transpose.zipWithIndex.map { case (row, rowIndex) =>
           s"z-$index-$rowIndex" -> row
         }.toList
     }
