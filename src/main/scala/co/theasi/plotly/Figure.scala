@@ -221,3 +221,33 @@ object GridFigure {
   def apply(numberRows: Int, numberColumns: Int): GridFigure =
     apply(numberRows, numberColumns, FigureOptions())
 }
+
+
+case class RowFigure(impl: GridFigure)
+extends Figure {
+
+  type Self = RowFigure
+
+  def plots = impl.plots
+  def viewPorts = impl.viewPorts
+  def options = impl.options
+
+  def plot(index: Int)(newPlot: Plot): RowFigure = {
+    val newImpl = impl.plot(0, index)(newPlot)
+    RowFigure(newImpl)
+  }
+
+  def withNewOptions(newOptions: FigureOptions): Self = {
+    val newImpl = impl.withNewOptions(newOptions)
+    RowFigure(newImpl)
+  }
+
+}
+
+
+object RowFigure {
+  def apply(numberColumns: Int): RowFigure = {
+    val impl = GridFigure(1, numberColumns)
+    RowFigure(impl)
+  }
+}

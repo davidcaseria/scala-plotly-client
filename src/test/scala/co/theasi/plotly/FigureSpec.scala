@@ -93,17 +93,20 @@ class FigureSpec extends FlatSpec with Matchers with Inside {
 
   }
 
+  "RowFigure" should "put subplots in a row" in {
+    val fig = RowFigure(3)
+    fig.viewPorts.foreach { vp => vp.yDomain shouldEqual((0.0, 1.0)) }
 
-//   "RowLayout" should "put subplots in a row" in {
-//     val l = RowLayout(3)
-//     l.yAxes.foreach { axis => axis.domain shouldEqual (0.0, 1.0) }
+    fig.viewPorts(0).xDomain._1 shouldEqual 0.0
+    fig.viewPorts(2).xDomain._2 shouldEqual 1.0
 
-//     l.xAxes(0).domain._1 shouldEqual 0.0
-//     l.xAxes(2).domain._2 shouldEqual 1.0
-
-//     val width = size(l.xAxes(0))
-//     l.xAxes.foreach { axis => size(axis) shouldEqual width +- 1e-5 }
-//   }
+    val width = xSize(fig.viewPorts(0))
+    fig.viewPorts.foreach { vp => xSize(vp) shouldEqual width +- 1e-5 }
+    fig.viewPorts.sliding(2).foreach {
+      case Vector(vpLeft, vpRight) =>
+        vpLeft.xDomain._2 should be < vpRight.xDomain._1
+    }
+  }
 
 
 }
