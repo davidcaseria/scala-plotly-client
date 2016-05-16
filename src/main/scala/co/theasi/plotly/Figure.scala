@@ -134,6 +134,9 @@ extends Figure {
     copy(plots = plots.updated(ref, newPlot))
   }
 
+  def plotAt(rowIndex: Int, columnIndex: Int): Plot =
+    plots(subplotRef(rowIndex, columnIndex))
+
   def viewPortAt(rowIndex: Int, columnIndex: Int): ViewPort = {
     val ref = subplotRef(rowIndex, columnIndex)
     viewPorts(ref)

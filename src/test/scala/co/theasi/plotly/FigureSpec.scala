@@ -93,6 +93,18 @@ class FigureSpec extends FlatSpec with Matchers with Inside {
 
   }
 
+  it should "allow plotting on each of the subplots" in {
+    val fig = GridFigure(2, 3)
+    val p00 = CartesianPlot().withScatter(List(1, 2), List(2, 3))
+    val p01 = CartesianPlot().withScatter(List(2, 4), List(2, 3))
+    val p12 = CartesianPlot().withScatter(List(2, 5), List(2, 3))
+    val modifiedFig = fig.plot(0, 0)(p00).plot(0, 1)(p01).plot(1, 2)(p12)
+
+    modifiedFig.plotAt(0, 0) shouldEqual p00
+    modifiedFig.plotAt(0, 1) shouldEqual p01
+    modifiedFig.plotAt(1, 2) shouldEqual p12
+  }
+
   "RowFigure" should "put subplots in a row" in {
     val fig = RowFigure(3)
     fig.viewPorts.foreach { vp => vp.yDomain shouldEqual((0.0, 1.0)) }
@@ -108,5 +120,16 @@ class FigureSpec extends FlatSpec with Matchers with Inside {
     }
   }
 
+  it should "allow plotting on each of the subplots" in {
+    val fig = RowFigure(3)
+    val p0 = CartesianPlot().withScatter(List(1, 2), List(2, 3))
+    val p1 = CartesianPlot().withScatter(List(2, 4), List(2, 3))
+    val p2 = CartesianPlot().withScatter(List(2, 5), List(2, 3))
+    val modifiedFig = fig.plot(0)(p0).plot(1)(p1).plot(2)(p2)
+
+    modifiedFig.plots(0) shouldEqual p0
+    modifiedFig.plots(1) shouldEqual p1
+    modifiedFig.plots(2) shouldEqual p2
+  }
 
 }
