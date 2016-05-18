@@ -166,15 +166,11 @@ object FigureWriter {
         val xsrc = s"${drawnGrid.fileId}:$xuid"
         List(xsrc)
       case s: SurfaceZ[_] =>
-        // this is pretty hacky
         val zPrefix = s"z-$index"
-        val columnNames = drawnGrid.columnUids.filterKeys {
-          _.startsWith(zPrefix)
-        }.keys.toList
-        val sortedColumnNames = columnNames.sortBy {
-          colName => colName.stripPrefix(s"z-$index-").toInt
+        val columnNames = s.zs.transpose.zipWithIndex.map {
+          case (row, rowIndex) => zPrefix + s"-$rowIndex"
         }
-        val uids = sortedColumnNames.map { colName =>
+        val uids = columnNames.map { colName =>
           drawnGrid.columnUids(colName)
         }
         val uidString = s"${drawnGrid.fileId}:${uids.mkString(",")}"
