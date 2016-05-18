@@ -17,7 +17,6 @@ object SeriesWriter {
     }
   }
 
-  //private def scatterToJson(srcs: List[String], options: ScatterOptions)
   private def scatterToJson(info: ScatterWriteInfo)
   : JValue = {
     val List(xsrc, ysrc) = info.srcs
