@@ -74,11 +74,14 @@ extends Plot {
 
   type OptionType = ThreeDPlotOptions
 
-  def withSurface[Z: Writable](zs: Iterable[Iterable[Z]]): ThreeDPlot = {
+  def withSurface[Z: Writable](
+    zs: Iterable[Iterable[Z]],
+    options: SurfaceOptions = SurfaceOptions()
+  ): ThreeDPlot = {
     val zsAsPType = zs.map { zRow =>
       zRow.map { implicitly[Writable[Z]].toPType }
     }
-    copy(series = series :+ SurfaceZ(zsAsPType, SurfaceOptions()))
+    copy(series = series :+ SurfaceZ(zsAsPType, options))
 
   }
 

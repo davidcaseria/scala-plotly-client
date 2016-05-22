@@ -45,7 +45,10 @@ object SeriesWriter {
   private def surfaceToJson(info: SurfaceWriteInfo)
   : JValue = {
     val List(zsrc) = info.srcs
-    ("zsrc" -> zsrc) ~ ("type" -> "surface") ~ sceneToJson(info.sceneIndex)
+    ("zsrc" -> zsrc) ~
+    ("type" -> "surface") ~
+    sceneToJson(info.sceneIndex) ~
+    OptionsWriter.surfaceOptionsToJson(info.options)
   }
 
   private def axisToJson(axisIndex: Int): JObject =
