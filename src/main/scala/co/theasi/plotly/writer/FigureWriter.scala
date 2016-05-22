@@ -68,7 +68,7 @@ object FigureWriter {
         case p: CartesianPlot =>
           CartesianPlotLayoutWriter.toJson(index, viewPort, p)
         case p: ThreeDPlot =>
-          JObject()
+          ThreeDPlotLayoutWriter.toJson(index, viewPort, p)
       }
     } yield fragment
 
