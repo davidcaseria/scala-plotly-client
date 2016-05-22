@@ -82,6 +82,21 @@ extends Plot {
 
   }
 
+  def xAxisOptions(newAxisOptions: AxisOptions): ThreeDPlot = {
+    val newOptions = options.copy(xAxisOptions = newAxisOptions)
+    copy(options = newOptions)
+  }
+
+  def yAxisOptions(newAxisOptions: AxisOptions): ThreeDPlot = {
+    val newOptions = options.copy(yAxisOptions = newAxisOptions)
+    copy(options = newOptions)
+  }
+
+  def zAxisOptions(newAxisOptions: AxisOptions): ThreeDPlot = {
+    val newOptions = options.copy(zAxisOptions = newAxisOptions)
+    copy(options = newOptions)
+  }
+
 }
 
 
