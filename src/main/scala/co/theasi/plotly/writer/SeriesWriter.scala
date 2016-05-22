@@ -45,12 +45,21 @@ object SeriesWriter {
   private def surfaceToJson(info: SurfaceWriteInfo)
   : JValue = {
     val List(zsrc) = info.srcs
-    ("zsrc" -> zsrc) ~ ("type" -> "surface")
+    ("zsrc" -> zsrc) ~ ("type" -> "surface") ~ sceneToJson(info.sceneIndex)
   }
 
   private def axisToJson(axisIndex: Int): JObject =
     axisIndex match {
       case 1 => ("xaxis" -> "x") ~ ("yaxis" -> "y")
       case i => ("xaxis" -> s"x$i") ~ ("yaxis" -> s"y$i")
+    }
+
+  private def sceneToJson(plotIndex: Int): JObject =
+    "scene" -> ("scene" + stringifyPlotIndex(plotIndex))
+
+  private def stringifyPlotIndex(plotIndex: Int): String =
+    plotIndex match {
+      case 1 => ""
+      case i => i.toString
     }
 }

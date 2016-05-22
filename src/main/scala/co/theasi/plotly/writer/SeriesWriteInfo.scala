@@ -28,5 +28,6 @@ case class BoxWriteInfo(
 
 case class SurfaceWriteInfo(
   srcs: List[String],
+  sceneIndex: Int,
   options: SurfaceOptions
 ) extends SeriesWriteInfo

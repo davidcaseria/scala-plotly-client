@@ -29,41 +29,13 @@ object FigureWriter {
       fileName: String
   ): JObject = {
 
-    val axisIndices = axisIndicesFromPlots(figure.plots)
-
-    val allSeries = for {
-      subplot <- figure.plots
-      series <- subplot.series
-    } yield series
-
-    val seriesSrcs = for {
-      (series, index) <- allSeries.zipWithIndex
-      srcs = srcsFromDrawnGrid(drawnGrid, series, index)
-    } yield srcs
-
-    val seriesOptions = for {
-      (series, index) <- allSeries.zipWithIndex
-      newOptions = updateOptionsFromDrawnGrid(
-        drawnGrid, series.options, index)
-    } yield newOptions
-
-    val seriesAxisIndex = for {
-      (subplot, axisIndex) <- figure.plots.zip(axisIndices)
-      series <- subplot.series
-    } yield axisIndex
-
-    val writeInfos = for {
-      (srcs, options, axisIndex) <- (seriesSrcs, seriesOptions, seriesAxisIndex).zipped
-      writeInfo = options match {
-        case o: ScatterOptions => ScatterWriteInfo(srcs, axisIndex, o)
-        case o: SurfaceOptions => SurfaceWriteInfo(srcs, o)
-      }
-    } yield writeInfo
-
+    val writeInfos = extractSeriesWriteInfos(figure, drawnGrid)
     val seriesAsJson = writeInfos.map { SeriesWriter.toJson }
 
+    val plotIndices = indicesFromPlots(figure.plots)
+
     val layoutFragments = for {
-      (index, viewPort, plot) <- (axisIndices, figure.viewPorts, figure.plots).zipped
+      (index, viewPort, plot) <- (plotIndices, figure.viewPorts, figure.plots).zipped
       fragment = plot match {
         case p: CartesianPlot =>
           CartesianPlotLayoutWriter.toJson(index, viewPort, p)
@@ -73,9 +45,7 @@ object FigureWriter {
     } yield fragment
 
     val fragmentsAsJson = layoutFragments.reduce { _ ~ _ }
-
     val optionsAsJson = FigureOptionsWriter.toJson(figure.options)
-
     val layout = fragmentsAsJson ~ optionsAsJson
 
     val body =
@@ -130,13 +100,33 @@ object FigureWriter {
     dataColumns ++ optionColumns
   }
 
-  private def axisIndicesFromPlots(plots: Vector[Plot]) =
-    plots.scanLeft(1) {
-      (curIndex, plot) => plot match {
-        case p: CartesianPlot => curIndex + 1
-        case _ => curIndex
+  private def indicesFromPlots(plots: Vector[Plot]): Vector[Int] = {
+    // Get the index of each plot in the output document.
+    // This is tricky because plotly expects each type of plot
+    // to be numbered independently.
+
+    // We do this by iterating through the plots, keeping running
+    // counters for each of the plot types.
+    case class Counters(cartesian: Int, threeD: Int)
+
+    val plotCounters = plots.scanLeft(Counters(1, 1)) {
+      (curIndices, plot) => plot match {
+        case p: CartesianPlot =>
+          curIndices.copy(cartesian = curIndices.cartesian + 1)
+        case p: ThreeDPlot =>
+          curIndices.copy(threeD = curIndices.threeD + 1)
       }
     }
+
+    val plotIndices = plots.zip(plotCounters).map { case (plot, counters) =>
+      plot match {
+        case p: CartesianPlot => counters.cartesian
+        case p: ThreeDPlot => counters.threeD
+      }
+    }
+
+    plotIndices
+  }
 
 
   def scatterOptionsToColumns(options: ScatterOptions, index: Int)
@@ -222,6 +212,45 @@ object FigureWriter {
     options: BoxOptions,
     index: Int
   ): BoxOptions = options
+
+  private def extractSeriesWriteInfos(
+      figure: Figure,
+      drawnGrid: GridFile
+  ): Vector[SeriesWriteInfo] = {
+
+    val allSeries = for {
+      subplot <- figure.plots
+      series <- subplot.series
+    } yield series
+
+    val seriesSrcs = for {
+      (series, index) <- allSeries.zipWithIndex
+      srcs = srcsFromDrawnGrid(drawnGrid, series, index)
+    } yield srcs
+
+    val seriesOptions = for {
+      (series, index) <- allSeries.zipWithIndex
+      newOptions = updateOptionsFromDrawnGrid(
+        drawnGrid, series.options, index)
+    } yield newOptions
+
+    val plotIndices = indicesFromPlots(figure.plots)
+
+    val seriesPlotIndex = for {
+      (subplot, plotIndex) <- figure.plots.zip(plotIndices)
+      series <- subplot.series
+    } yield plotIndex
+
+    val writeInfos = for {
+      (srcs, options, plotIndex) <- (seriesSrcs, seriesOptions, seriesPlotIndex).zipped
+      writeInfo = options match {
+        case o: ScatterOptions => ScatterWriteInfo(srcs, plotIndex, o)
+        case o: SurfaceOptions => SurfaceWriteInfo(srcs, plotIndex, o)
+      }
+    } yield writeInfo
+
+    writeInfos.toVector
+  }
 
   private def deleteIfExists(fileName: String)(implicit server: Server) {
     Try { PlotFile.fromFileName(fileName) } match {
