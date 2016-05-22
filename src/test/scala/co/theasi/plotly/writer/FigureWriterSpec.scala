@@ -61,4 +61,33 @@ class FigureWriterSpec extends FlatSpec with Matchers with Inside {
 
   }
 
+  it should "serialize simple 3D layouts with multiple surfaces" in {
+
+    val figure = SinglePlotFigure().plot {
+      ThreeDPlot().withSurface(testZData).withSurface(testZData2)
+    }
+
+    val columnUidMap = Map(
+      "z-0-0" -> "uid1",
+      "z-0-1" -> "uid2",
+      "z-0-2" -> "uid3",
+      "z-1-0" -> "uid4",
+      "z-1-1" -> "uid5",
+      "z-1-2" -> "uid6"
+    )
+
+    val drawnGrid = GridFile("file-id", "file-name", columnUidMap)
+
+    val jobj = FigureWriter.plotAsJson(figure, drawnGrid, "test-file")
+    val figobj = jobj \ "figure"
+
+    // Check that the surfaces get plotted on the correct scenes
+    val JArray(data) = figobj \ "data"
+    data(0) \ "zsrc" shouldEqual JString("file-id:uid1,uid2,uid3")
+    data(1) \ "zsrc" shouldEqual JString("file-id:uid4,uid5,uid6")
+    data(0) \ "scene" shouldEqual JString("scene")
+    data(1) \ "scene" shouldEqual JString("scene")
+
+  }
+
 }
