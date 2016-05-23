@@ -97,6 +97,29 @@ object Figure {
 }
 
 
+/** Figure containing a single plot
+  *
+  * {{{
+  * val xs = Vector(1, 2, 5)
+  * val ys = Vector(5, 9, 11)
+  *
+  * val figure = SinglePlotFigure()
+  *   .plot { CartesianPlot().withScatter(xs, ys) }
+  *   .title("My awesome plot")
+  *
+  * draw(figure, "test-plot")
+  * }}}
+  *
+  * Use the companion object's `apply` method to construct
+  * a new figure. Set the content of the plot on the figure
+  * with the [[plot]] method.
+  * 
+  * '''Note''' that all the methods on this class return a
+  * ''new'' instance of the class. They do not modify the
+  *  class in place. In face, instances of `SinglePlotFigure`
+  *  are immutable.
+  * 
+  */
 case class SinglePlotFigure(plot: Plot, options: FigureOptions)
 extends Figure {
 
@@ -105,6 +128,10 @@ extends Figure {
   def plots = Vector(plot)
   def viewPorts = Vector(ViewPort((0.0, 1.0), (0.0, 1.0)))
 
+  /** Set the content of the figure.
+    *
+    * This returns a ''new'' figure containing the plot instance.
+    */
   def plot(newPlot: Plot): SinglePlotFigure = copy(plot = newPlot)
 
   def withNewOptions(newOptions: FigureOptions): Self =
@@ -112,13 +139,55 @@ extends Figure {
 
 }
 
+/** Factory methods for building instances of `SinglePlotFigure`.
+  */
 object SinglePlotFigure {
-  def apply(): SinglePlotFigure = apply(FigureOptions())
-  def apply(options: FigureOptions): SinglePlotFigure =
-    SinglePlotFigure(Plot(), options)
+
+  /** Build a [[SinglePlotFigure]] with default options
+    *
+    * This factory method does not allow customisation of the figure.
+    * The intention is that customisation happens through methods
+    * on the `SinglePlotFigure` instance:
+    *
+    * {{{
+    * val figure = SinglePlotFigure()
+    *   .title("my figure")
+    *   .legend(LegendOptions().x(0.5).y(0.1))
+    *   .paperBackgroundColor(254, 247, 234)
+    *   .plotBackgroundColor(254, 247, 234)
+    * }}}
+    */
+  def apply(): SinglePlotFigure = SinglePlotFigure(Plot(), FigureOptions())
+
 }
 
 
+/** Figure containing plots arranged on a grid.
+  *
+  * This [[Figure]] subclass is designed for equally spaced subplots on a grid.
+  * Use the companion object's `apply` method to construct a new instance,
+  * specifying the number of rows and columns. For instance,
+  * `val figure = GridFigure(2, 3)` will build a new figure with 6 subplots,
+  * arranged in a grid with two rows and three columns. You can then use
+  * the [[plot]] method to set the content of specific sub-plots.
+  * 
+  * {{{
+  * import util.Random
+  * val xs = (0 to 100).map { i => Random.nextGaussian }
+  * val ys = (0 to 100).map { i => Random.nextGaussian }
+  * val ys2 = (0 to 100).map { i => Random.nextGaussian }
+  * val ys3 = (0 to 100).map { i => Random.nextGaussian }
+  *
+  * val figure = GridFigure(2, 3) // 2 rows, 3 columns
+  *   .plot(0, 0) { CartesianPlot().withScatter(xs, ys) } // top left
+  *   .plot(0, 1) { CartesianPlot().withScatter(xs, ys2) } // top middle
+  *   .plot(1, 2) { CartesianPlot().withScatter(xs, ys3) } // bottom right
+  *   .title("My grid figure")
+  *
+  * draw(figure, "grid-figure")
+  * }}}
+  *
+  */
 case class GridFigure(
     plots: Vector[Plot],
     viewPorts: Vector[ViewPort],
@@ -129,14 +198,20 @@ extends Figure {
 
   type Self = GridFigure
 
+  /** Set the content of a sub-plot.
+    *
+    * This returns a ''new'' figure containing the plot instance.
+    */
   def plot(rowIndex: Int, columnIndex: Int)(newPlot: Plot): GridFigure = {
     val ref = subplotRef(rowIndex, columnIndex)
     copy(plots = plots.updated(ref, newPlot))
   }
 
+  /** Get the plot at a specific `row, column`. */
   def plotAt(rowIndex: Int, columnIndex: Int): Plot =
     plots(subplotRef(rowIndex, columnIndex))
 
+  /** Get the view-port at a specific `row, column`. */
   def viewPortAt(rowIndex: Int, columnIndex: Int): ViewPort = {
     val ref = subplotRef(rowIndex, columnIndex)
     viewPorts(ref)
@@ -174,16 +249,27 @@ extends Figure {
 }
 
 
+/** Factory methods for building instances of `GridFigure`.
+  */
 object GridFigure {
 
   val DefaultHorizontalSpacing = 0.2
   val DefaultVerticalSpacing = 0.3
 
-  def apply(
-      numberRows: Int,
-      numberColumns: Int,
-      options: FigureOptions)
-  : GridFigure = {
+  /** Build a [[GridFigure]] with default options.
+    *
+    * This factory method does not allow customisation of the figure.
+    * The intention is that customisation happens through methods
+    * on the `GridFigure` instance:
+    *
+    * {{{
+    * val figure = GridFigure(1, 2)
+    *   .title("my figure")
+    *   .paperBackgroundColor(254, 247, 234)
+    *   .plotBackgroundColor(254, 247, 234)
+    * }}}
+    */
+  def apply(numberRows: Int, numberColumns: Int): GridFigure = {
 
     // Spacing between plots
     val horizontalSpacing = DefaultHorizontalSpacing / numberColumns.toDouble
@@ -218,14 +304,35 @@ object GridFigure {
     val plots = Vector.fill(viewPorts.size) { Plot() }
 
     GridFigure(plots, viewPorts.toVector,
-      numberRows, numberColumns, options)
+      numberRows, numberColumns, FigureOptions())
   }
-
-  def apply(numberRows: Int, numberColumns: Int): GridFigure =
-    apply(numberRows, numberColumns, FigureOptions())
 }
 
 
+/** Figure containing plots arranged in a row.
+  *
+  * This [[Figure]] subclass is designed for equally spaced subplots
+  * in a row.
+  * Use the companion object's `apply` method to construct a new
+  * instance, specifying the number of subplots. For instance,
+  * `val figure = RowFigure(2)` will build a new figure with two
+  * subplots in a row. You can then use the [[plot]] method to
+  *  set the content of specific sub-plots.
+  *
+  * {{{
+  * import util.Random
+  * val xs = (0 to 100).map { i => Random.nextGaussian }
+  * val ys = (0 to 100).map { i => Random.nextGaussian }
+  * val ys2 = (0 to 100).map { i => Random.nextGaussian }
+  * 
+  * val figure = RowFigure(2) // 2 subplots
+  *   .plot(0) { CartesianPlot().withScatter(xs, ys) } // left
+  *   .plot(1) { CartesianPlot().withScatter(xs, ys2) } // right
+  *   .title("My row figure")
+  *
+  * draw(figure, "row-figure")
+  * }}}
+  */
 case class RowFigure(impl: GridFigure)
 extends Figure {
 
@@ -235,6 +342,10 @@ extends Figure {
   def viewPorts = impl.viewPorts
   def options = impl.options
 
+  /** Set the content of a sub-plot.
+    *
+    * This returns a ''new'' figure containing the plot instance.
+    */
   def plot(index: Int)(newPlot: Plot): RowFigure = {
     val newImpl = impl.plot(0, index)(newPlot)
     RowFigure(newImpl)
@@ -249,6 +360,20 @@ extends Figure {
 
 
 object RowFigure {
+
+  /** Build a [[RowFigure]] with default options.
+    *
+    * This factory method does not allow customisation of the figure.
+    * The intention is that customisation happens through methods
+    * on the `RowFigure` instance:
+    *
+    * {{{
+    * val figure = RowFigure(2)
+    *   .title("my figure")
+    *   .paperBackgroundColor(254, 247, 234)
+    *   .plotBackgroundColor(254, 247, 234)
+    * }}}
+    */
   def apply(numberColumns: Int): RowFigure = {
     val impl = GridFigure(1, numberColumns)
     RowFigure(impl)
