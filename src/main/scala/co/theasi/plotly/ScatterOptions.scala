@@ -76,8 +76,8 @@ case class ScatterOptions(
     *
     * val xs = (1 to 10)
     * val ys = (1 to 10)
-    * val p = Plot().withScatter(xs, ys, ScatterOptions()
-    *   .textSrc(textSrc))
+    * val p = CartesianPlot()
+    *   .withScatter(xs, ys, ScatterOptions().textSrc(textSrc))
     *
     * draw(p, "text-src-example")
     * }}}
@@ -102,7 +102,7 @@ case class ScatterOptions(
     * val xs = (1 to 10)
     * val ys = (1 to 10)
     *
-    * val p = Plot()
+    * val p = CartesianPlot()
     *   .withScatter(xs, ys, ScatterOptions()
     *     .updatedMarker(_.size(10).symbol("x")))
     * }}}

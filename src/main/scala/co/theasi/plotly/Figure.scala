@@ -115,8 +115,8 @@ object Figure {
   * with the [[plot]] method.
   * 
   * '''Note''' that all the methods on this class return a
-  * ''new'' instance of the class. They do not modify the
-  *  class in place. In face, instances of `SinglePlotFigure`
+  * ''copy'' of the current instance. They do not modify the
+  *  instance in place. Instances of `SinglePlotFigure`
   *  are immutable.
   * 
   */
@@ -200,7 +200,7 @@ extends Figure {
 
   /** Set the content of a sub-plot.
     *
-    * This returns a ''new'' figure containing the plot instance.
+    * This returns a ''copy'' of the current figure with the new plot.
     */
   def plot(rowIndex: Int, columnIndex: Int)(newPlot: Plot): GridFigure = {
     val ref = subplotRef(rowIndex, columnIndex)
