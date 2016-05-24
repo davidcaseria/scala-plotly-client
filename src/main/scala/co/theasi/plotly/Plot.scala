@@ -119,8 +119,7 @@ extends Plot {
     * @param xs The 'xs' series. This can be an iterable of any type T,
     *   provided an instance of the typeclass 'Writable[T]' exists.
     * @param ys The 'ys' series.
-    * @param options (optional) Options controlling which subplot
-    *   the scatter plot is plotted on, the marker style etc.
+    * @param options (optional) Options controlling the plot style.
     *
     * @return Copy of this plot with the scatter series added.
     */
@@ -255,6 +254,17 @@ object CartesianPlot {
   * pattern: it is a variant of the common
   * [[https://en.wikipedia.org/wiki/Builder_pattern builder pattern]]
   * adapted for immutable objects.
+  *
+  * @define axisOptionsExample @example {{{
+  * val zs = Vector.tabulate(3, 4) { (i, j) => util.Random.nextDouble }
+  *
+  * val p = ThreeDPlot()
+  *   .withSurface(zs)
+  *   .xAxisOptions(AxisOptions().title("x-axis").noZeroLine)
+  *   .yAxisOptions(AxisOptions().title("y-axis").titleColor(255, 0, 0))
+  *   .zAxisOptions(AxisOptions().title("z-axis").noGrid)
+  * }}}
+  * 
   */
 case class ThreeDPlot(
   series: Vector[Series],
@@ -263,6 +273,32 @@ extends Plot {
 
   type OptionType = ThreeDPlotOptions
 
+  /** Add a surface plot to this plot.
+    *
+    * @usecase def withSurface[Z](zs: Iterable[Iterable[Z]], options: SurfaceOptions): ThreeDPlot
+    *   @inheritdoc
+    *
+    * @example {{{
+    * val zs = Vector(
+    *   Vector(1.0, 2.0, 1.0),
+    *   Vector(5.0, 4.0, 5.0),
+    *   Vector(3.0, 2.0, 3.0),
+    *   Vector(1.0, 2.0, 1.0)
+    * )
+    *
+    * val p = ThreeDPlot()
+    *   .withSurface(zs, SurfaceOptions().name("series-1"))
+    * }}}
+    *
+    * @param zs The values of z. This is an iterable of iterables of any
+    *   type T, provided an instance of the typeclass 'Writable[T]' exists.
+    *   The values of `zs` are oriented such that `zs(0)(1)` corresponds to
+    *   the value of z at x = 0 and y = 1.
+    * @param options (optional) Options controlling the style in which the
+    *   surface is drawn.
+    *
+    * @return Copy of this plot with the surface series added.
+    */
   def withSurface[Z: Writable](
     zs: Iterable[Iterable[Z]],
     options: SurfaceOptions = SurfaceOptions()
@@ -274,16 +310,40 @@ extends Plot {
 
   }
 
+  /** Set options for the x-axis
+    *
+    * $axisOptionsExample
+    *
+    * @param newAxisOptions The new option values.
+    *
+    * @return Copy of this plot with the new axis options set.
+    */
   def xAxisOptions(newAxisOptions: AxisOptions): ThreeDPlot = {
     val newOptions = options.copy(xAxisOptions = newAxisOptions)
     copy(options = newOptions)
   }
 
+  /** Set options for the y-axis
+    *
+    * $axisOptionsExample
+    *
+    * @param newAxisOptions The new option values.
+    *
+    * @return Copy of this plot with the new axis options set.
+    */
   def yAxisOptions(newAxisOptions: AxisOptions): ThreeDPlot = {
     val newOptions = options.copy(yAxisOptions = newAxisOptions)
     copy(options = newOptions)
   }
 
+  /** Set options for the z-axis
+    *
+    * $axisOptionsExample
+    *
+    * @param newAxisOptions The new option values.
+    *
+    * @return Copy of this plot with the new axis options set.
+    */
   def zAxisOptions(newAxisOptions: AxisOptions): ThreeDPlot = {
     val newOptions = options.copy(zAxisOptions = newAxisOptions)
     copy(options = newOptions)
