@@ -1,6 +1,6 @@
 package co.theasi.plotly.writer
 
-import co.theasi.plotly.{Plot, Grid}
+import co.theasi.plotly.{Plot, Grid, Figure, SinglePlotFigure, FigureOptions}
 
 trait ServerWriterWithDefaultCredentials extends ServerWriter {
   implicit val server = ServerWithDefaultCredentials
@@ -10,7 +10,24 @@ trait ServerWriter {
   implicit val server: Server
 
   def draw(
-      plot: Plot[_],
+      figure: Figure,
+      fileName: String)
+      (implicit server: Server)
+  : PlotFile = {
+    draw(figure, fileName, FileOptions())
+  }
+
+  def draw(
+    figure: Figure,
+    fileName: String,
+    fileOptions: FileOptions)
+    (implicit server: Server)
+  : PlotFile = {
+    FigureWriter.draw(figure, fileName, fileOptions)
+  }
+
+  def draw(
+      plot: Plot,
       fileName: String)
       (implicit server: Server)
   : PlotFile = {
@@ -18,12 +35,13 @@ trait ServerWriter {
   }
 
   def draw(
-      plot: Plot[_],
+      plot: Plot,
       fileName: String,
       fileOptions: FileOptions)
       (implicit server: Server)
   : PlotFile = {
-    PlotWriter.draw(plot, fileName, fileOptions)
+    val figure = SinglePlotFigure(plot, FigureOptions())
+    draw(figure, fileName, fileOptions)
   }
 
   def draw(
@@ -42,7 +60,5 @@ trait ServerWriter {
   : GridFile = {
     GridWriter.draw(grid, fileName, fileOptions)
   }
-
-
 
 }

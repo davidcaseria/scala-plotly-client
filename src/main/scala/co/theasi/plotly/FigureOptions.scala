@@ -1,6 +1,6 @@
 package co.theasi.plotly
 
-case class LayoutOptions(
+case class FigureOptions(
   title: Option[String],
   legendOptions: LegendOptions,
   margins: Margins,
@@ -10,8 +10,9 @@ case class LayoutOptions(
   plotBackgroundColor: Option[Color]
 )
 
-object LayoutOptions {
-  def apply(): LayoutOptions = LayoutOptions(
+
+object FigureOptions {
+  def apply(): FigureOptions = FigureOptions(
     title = None,
     legendOptions = LegendOptions(),
     margins = Margins(),

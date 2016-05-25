@@ -3,35 +3,14 @@ package co.theasi.plotly
 /** Options controlling how scatter and line plots are plotted. */
 case class ScatterOptions(
   name: Option[String],
-  xAxis: Option[Int],
-  yAxis: Option[Int],
   mode: Seq[ScatterMode.Value],
   text: Option[TextValue],
   marker: MarkerOptions
-) extends SeriesOptions[ScatterOptions] {
+) extends SeriesOptions {
 
   /** Set the name of the series */
-  def name(newName: String) = copy(name = Some(newName))
-  def xAxis(newXAxis: Int) = copy(xAxis = Some(newXAxis))
-  def yAxis(newYAxis: Int): ScatterOptions = copy(yAxis = Some(newYAxis))
-
-  /** Set the axis pair on which this scatter is plotted.
-    *
-    * This should be used in conjunction with the
-    * `.ref` method of the plot's layout.
-    *
-    * @example {{{
-    * // layout with three subplots
-    * val layout = RowLayout(3)
-    *
-    * // plot on middle subplot
-    * val options = ScatterOptions().onAxes(layout.ref(1))
-    * }}}
-    */
-  def onAxes(axesRef: (Int, Int)): ScatterOptions = {
-    val (xAxisRef, yAxisRef) = axesRef
-    copy(xAxis = Some(xAxisRef), yAxis = Some(yAxisRef))
-  }
+  def name(newName: String): ScatterOptions =
+    copy(name = Some(newName))
 
   /** Set the line mode.
     *
@@ -97,8 +76,8 @@ case class ScatterOptions(
     *
     * val xs = (1 to 10)
     * val ys = (1 to 10)
-    * val p = Plot().withScatter(xs, ys, ScatterOptions()
-    *   .textSrc(textSrc))
+    * val p = CartesianPlot()
+    *   .withScatter(xs, ys, ScatterOptions().textSrc(textSrc))
     *
     * draw(p, "text-src-example")
     * }}}
@@ -123,7 +102,7 @@ case class ScatterOptions(
     * val xs = (1 to 10)
     * val ys = (1 to 10)
     *
-    * val p = Plot()
+    * val p = CartesianPlot()
     *   .withScatter(xs, ys, ScatterOptions()
     *     .updatedMarker(_.size(10).symbol("x")))
     * }}}
@@ -139,8 +118,6 @@ case class ScatterOptions(
 object ScatterOptions {
   def apply(): ScatterOptions = ScatterOptions(
     name = None,
-    xAxis = None,
-    yAxis = None,
     mode = Seq.empty,
     text = None,
     marker = MarkerOptions()

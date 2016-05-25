@@ -21,7 +21,10 @@ package co.theasi
   * ==Useful links==
   *
   * For more information on how to build complex plot objects,
-  * read the documentation for [[Plot]].
+  * read the documentation for [[CartesianPlot]] and [[ThreeDPlot]].
+  *
+  * For information on structuring complex figures with subplots,
+  * read the documentation for [[RowFigure]] and [[GridFigure]].
   *
   * To control how the client deals with existing files with
   * the same name on the Plotly server, and to control the

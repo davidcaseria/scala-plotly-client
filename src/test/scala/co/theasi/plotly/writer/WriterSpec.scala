@@ -8,7 +8,7 @@ import org.scalatest._
 import co.theasi.plotly._
 
 @Slow
-class PlotWriterSpec extends FlatSpec with Matchers {
+class WriterSpec extends FlatSpec with Matchers {
 
   implicit val testServer = new Server {
     override val credentials = Credentials("PlotlyImageTest", "786r5mecv0")
@@ -18,6 +18,7 @@ class PlotWriterSpec extends FlatSpec with Matchers {
   val testX2 = Vector(1, 2, 3)
   val testY1 = Vector(4.0, 5.0, 7.0)
   val testText1 = Vector("A", "B", "C")
+  val testZData = Vector(Vector(1.0, 2.0, 3.0), Vector(1.0, 4.0, 3.0))
 
   def checkTestX1(arr: JValue) = {
     val JArray(response) = arr
@@ -39,6 +40,17 @@ class PlotWriterSpec extends FlatSpec with Matchers {
     response.toVector shouldEqual testText1.map { JString }
   }
 
+  def checkTestZData(arr: JValue) = {
+    val JArray(response) = arr
+    val responseVector = response.toVector
+    val rows = response.toVector.map {
+      case JArray(row) => row.toVector
+      case _ => fail("Not a 2D array")
+    }
+    rows(0) shouldEqual Vector(1.0, 2.0, 3.0).map { JDouble }
+    rows(1) shouldEqual Vector(1.0, 4.0, 3.0).map { JDouble }
+  }
+
   def getJsonForPlotFile(plotFile: PlotFile): JValue = {
     val endPoint = s"plots/${plotFile.fileId}/content"
     val req = Api.get(endPoint, Seq("inline_data" -> "true"))
@@ -47,7 +59,7 @@ class PlotWriterSpec extends FlatSpec with Matchers {
 
   "draw" should "draw a basic scatter plot" in {
     val p = Plot().withScatter(testX1, testY1)
-    val plotFile = PlotWriter.draw(p, "test-123")
+    val plotFile = draw(p, "test-123")
 
     // Verify that the plot is correct
     val jsonResponse = getJsonForPlotFile(plotFile)
@@ -58,7 +70,7 @@ class PlotWriterSpec extends FlatSpec with Matchers {
 
   it should "draw a scatter plot with mixed Int/Double" in {
     val p = Plot().withScatter(testX2, testY1)
-    val plotFile = PlotWriter.draw(p, "test-124")
+    val plotFile = draw(p, "test-124")
 
     val jsonResponse = getJsonForPlotFile(plotFile)
     val series = (jsonResponse \ "data")(0)
@@ -73,7 +85,7 @@ class PlotWriterSpec extends FlatSpec with Matchers {
     val p = Plot()
       .withScatter(testX1, testY1, options0)
       .withScatter(testX1, testY1, options1)
-    val plotFile = PlotWriter.draw(p, "test-125")
+    val plotFile = draw(p, "test-125")
 
     val jsonResponse = getJsonForPlotFile(plotFile)
     val series0 = (jsonResponse \ "data")(0)
@@ -94,7 +106,7 @@ class PlotWriterSpec extends FlatSpec with Matchers {
         .symbol("circle")
     )
     val p = Plot().withScatter(testX1, testY1, options0)
-    val plotFile = PlotWriter.draw(p, "test-126")
+    val plotFile = draw(p, "test-126")
 
     val jsonResponse = getJsonForPlotFile(plotFile)
     val series0 = (jsonResponse \ "data")(0)
@@ -116,11 +128,21 @@ class PlotWriterSpec extends FlatSpec with Matchers {
       .withScatter(testX1, testY1, options0)
       .withScatter(testX1, testY1, options1)
 
-    val plotFile = PlotWriter.draw(p, "test-127")
+    val plotFile = draw(p, "test-127")
     val jsonResponse = getJsonForPlotFile(plotFile)
     val series0 = (jsonResponse \ "data")(0)
     checkTestText1(series0 \ "text")
     val series1 = (jsonResponse \ "data")(1)
     (series1 \ "text") shouldEqual JString("hello")
+  }
+
+  it should "draw a 3D plot" in {
+    val p = ThreeDPlot()
+      .withSurface(testZData)
+    val plotFile = draw(p, "test-128")
+    val jsonResponse = getJsonForPlotFile(plotFile)
+    val series0 = (jsonResponse \ "data")(0)
+    checkTestZData(series0 \ "z")
+    series0 \ "type" shouldEqual JString("surface")
   }
 }
