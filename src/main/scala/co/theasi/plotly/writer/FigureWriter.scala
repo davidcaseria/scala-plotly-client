@@ -246,6 +246,7 @@ object FigureWriter {
       writeInfo = options match {
         case o: ScatterOptions => ScatterWriteInfo(srcs, plotIndex, o)
         case o: SurfaceOptions => SurfaceWriteInfo(srcs, plotIndex, o)
+        case o: BarOptions => BarWriteInfo(srcs, plotIndex, o)
       }
     } yield writeInfo
 
