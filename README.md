@@ -1,5 +1,5 @@
 
-[![Build Status](https://travis-ci.org/scalaj/scalaj-http.png)](https://travis-ci.org/ASIDataScience/scala-plotly-client)
+[![Build Status](https://travis-ci.org/ASIDataScience/scala-plotly-client.svg)](https://travis-ci.org/ASIDataScience/scala-plotly-client)
 
 # Plotly client
 
