@@ -10,6 +10,9 @@ object Api {
   def get(endPoint: String)(implicit server: Server): HttpRequest = {
     val request = Http(server.url + endPoint.stripPrefix("/"))
       .auth(server.credentials.username, server.credentials.key)
+      .timeout(
+        connTimeoutMs=server.connTimeoutMs,
+        readTimeoutMs=server.readTimeoutMs)
       .headers(Seq(
         "Plotly-Client-Platform" -> "scala",
         "Accept" -> "application/json"

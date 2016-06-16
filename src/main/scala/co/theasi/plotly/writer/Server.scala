@@ -8,4 +8,6 @@ case object ServerWithDefaultCredentials extends Server {
 trait Server {
   def credentials: Credentials
   def url: String
+  def connTimeoutMs: Int = 2000
+  def readTimeoutMs: Int = 10000
 }
