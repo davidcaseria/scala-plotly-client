@@ -152,4 +152,17 @@ class WriterSpec extends FlatSpec with Matchers {
     checkTestZData(series0 \ "z")
     series0 \ "type" shouldEqual JString("surface")
   }
+
+  it should "draw a basic bar chart" in {
+    val p = Plot().withBar(testX1, testY1)
+    val plotFile = draw(p, randomFileName)
+
+    val jsonResponse = getJsonForPlotFile(plotFile)
+    // test values
+    val series0 = (jsonResponse \ "data")(0)
+    checkTestX1(series0 \ "x")
+    checkTestY1(series0 \ "y")
+    // test type is bar
+    (series0 \ "type") shouldEqual JString("bar")
+  }
 }
