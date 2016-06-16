@@ -1,7 +1,8 @@
 package co.theasi.plotly.writer
 
+import scala.util.Random
+
 import org.json4s._
-import org.json4s.native.JsonMethods._
 
 import org.scalatest._
 
@@ -20,6 +21,11 @@ class WriterSpec extends FlatSpec with Matchers {
   val testY1 = Vector(4.0, 5.0, 7.0)
   val testText1 = Vector("A", "B", "C")
   val testZData = Vector(Vector(1.0, 2.0, 3.0), Vector(1.0, 4.0, 3.0))
+
+  def randomFileName: String = {
+    val randomString = Random.alphanumeric.take(10).mkString("")
+    s"test-scala-$randomString"
+  }
 
   def checkTestX1(arr: JValue) = {
     val JArray(response) = arr
@@ -60,7 +66,7 @@ class WriterSpec extends FlatSpec with Matchers {
 
   "draw" should "draw a basic scatter plot" in {
     val p = Plot().withScatter(testX1, testY1)
-    val plotFile = draw(p, "test-123")
+    val plotFile = draw(p, randomFileName)
 
     // Verify that the plot is correct
     val jsonResponse = getJsonForPlotFile(plotFile)
@@ -71,7 +77,7 @@ class WriterSpec extends FlatSpec with Matchers {
 
   it should "draw a scatter plot with mixed Int/Double" in {
     val p = Plot().withScatter(testX2, testY1)
-    val plotFile = draw(p, "test-124")
+    val plotFile = draw(p, randomFileName)
 
     val jsonResponse = getJsonForPlotFile(plotFile)
     val series = (jsonResponse \ "data")(0)
@@ -86,7 +92,7 @@ class WriterSpec extends FlatSpec with Matchers {
     val p = Plot()
       .withScatter(testX1, testY1, options0)
       .withScatter(testX1, testY1, options1)
-    val plotFile = draw(p, "test-125")
+    val plotFile = draw(p, randomFileName)
 
     val jsonResponse = getJsonForPlotFile(plotFile)
     val series0 = (jsonResponse \ "data")(0)
@@ -107,7 +113,7 @@ class WriterSpec extends FlatSpec with Matchers {
         .symbol("circle")
     )
     val p = Plot().withScatter(testX1, testY1, options0)
-    val plotFile = draw(p, "test-126")
+    val plotFile = draw(p, randomFileName)
 
     val jsonResponse = getJsonForPlotFile(plotFile)
     val series0 = (jsonResponse \ "data")(0)
@@ -129,7 +135,7 @@ class WriterSpec extends FlatSpec with Matchers {
       .withScatter(testX1, testY1, options0)
       .withScatter(testX1, testY1, options1)
 
-    val plotFile = draw(p, "test-127")
+    val plotFile = draw(p, randomFileName)
     val jsonResponse = getJsonForPlotFile(plotFile)
     val series0 = (jsonResponse \ "data")(0)
     checkTestText1(series0 \ "text")
@@ -140,7 +146,7 @@ class WriterSpec extends FlatSpec with Matchers {
   it should "draw a 3D plot" in {
     val p = ThreeDPlot()
       .withSurface(testZData)
-    val plotFile = draw(p, "test-128")
+    val plotFile = draw(p, randomFileName)
     val jsonResponse = getJsonForPlotFile(plotFile)
     val series0 = (jsonResponse \ "data")(0)
     checkTestZData(series0 \ "z")
