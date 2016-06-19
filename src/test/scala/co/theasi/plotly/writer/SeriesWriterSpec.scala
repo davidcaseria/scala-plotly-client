@@ -12,7 +12,7 @@ class SeriesWriterSpec extends FlatSpec with Matchers {
     val srcs = List("src1")
     val sceneIndex = 2
     val options = SurfaceOptions()
-    val writeInfo = SurfaceWriteInfo(srcs, sceneIndex, options)
+    val writeInfo = SurfaceZWriteInfo(srcs, sceneIndex, options)
 
     val jobj = SeriesWriter.toJson(writeInfo)
     (jobj \ "zsrc") shouldEqual JString("src1")

@@ -253,11 +253,15 @@ object FigureWriter {
       srcs = srcsFromDrawnGrid(drawnGrid, series, index)
     } yield srcs
 
-    val seriesOptions = for {
+    val seriesToSrcs = allSeries.zip(seriesSrcs).toMap
+
+    val updatedOptions = for {
       (series, index) <- allSeries.zipWithIndex
-      newOptions = updateOptionsFromDrawnGrid(
+      updatedOption = updateOptionsFromDrawnGrid(
         drawnGrid, series.options, index)
-    } yield newOptions
+    } yield updatedOption
+
+    val seriesToUpdatedOptions = allSeries.zip(updatedOptions).toMap
 
     val plotIndices = indicesFromPlots(figure.plots)
 
@@ -267,12 +271,17 @@ object FigureWriter {
     } yield plotIndex
 
     val writeInfos = for {
-      (series, srcs, plotIndex) <- (allSeries, seriesSrcs, seriesPlotIndex).zipped
+      (series, plotIndex) <- (allSeries, seriesPlotIndex).zipped
+      updatedOptions = seriesToUpdatedOptions(series)
+      srcs = seriesToSrcs(series)
+      // The casts are really ugly. There must be a better way
       writeInfo = series match {
-        case s: Scatter[_, _] => ScatterWriteInfo(srcs, plotIndex, s.options)
-        case s: SurfaceZ[_] => SurfaceZWriteInfo(srcs, plotIndex, s.options)
-        case s: SurfaceXYZ[_, _, _] => SurfaceXYZWriteInfo(
-          srcs, plotIndex, s.options)
+        case s: Scatter[_, _] =>
+          ScatterWriteInfo(srcs, plotIndex, updatedOptions.asInstanceOf[ScatterOptions])
+        case s: SurfaceZ[_] =>
+          SurfaceZWriteInfo(srcs, plotIndex, updatedOptions.asInstanceOf[SurfaceOptions])
+        case s: SurfaceXYZ[_, _, _] =>
+          SurfaceXYZWriteInfo(srcs, plotIndex, updatedOptions.asInstanceOf[SurfaceOptions])
       }
     } yield writeInfo
 
