@@ -1,5 +1,13 @@
 package co.theasi.plotly
 
+/** Options controlling how surface plots are drawn.
+  *
+  * {{{
+  * val surfaceOptions = SurfaceOptions().opacity(0.9).colorscale("Electric")
+  *
+  * val plot = ThreeDPlot().withSurface(xs, ys, zs, surfaceOptions)
+  * }}}
+  */
 case class SurfaceOptions(
   name: Option[String],
   opacity: Option[Double],
