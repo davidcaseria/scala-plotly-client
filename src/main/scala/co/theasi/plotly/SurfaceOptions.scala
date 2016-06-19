@@ -29,6 +29,8 @@ case class SurfaceOptions(
   def noScale(): SurfaceOptions = copy(showScale = Some(false))
 
   /** Set the colorscale.
+    *  A list of predefined colorscales is available at
+    * [[https://github.com/plotly/plotly.js/blob/master/src/components/colorscale/scales.js]]
     *
     * @param newColorscale Colorscale name
     */
