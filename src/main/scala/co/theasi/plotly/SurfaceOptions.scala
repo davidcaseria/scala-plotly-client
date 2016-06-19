@@ -3,7 +3,8 @@ package co.theasi.plotly
 case class SurfaceOptions(
   name: Option[String],
   opacity: Option[Double],
-  showScale: Option[Boolean]
+  showScale: Option[Boolean],
+  colorscale: Option[Colorscale]
 ) extends SeriesOptions {
   def name(newName: String): SurfaceOptions =
     copy(name = Some(newName))
@@ -17,6 +18,9 @@ case class SurfaceOptions(
 
   def withScale(): SurfaceOptions = copy(showScale = Some(true))
   def noScale(): SurfaceOptions = copy(showScale = Some(false))
+
+  def colorscale(newColorscale: String) =
+    copy(colorscale = Some(ColorscalePredef(newColorscale)))
 }
 
 
@@ -24,6 +28,8 @@ object SurfaceOptions {
   def apply(): SurfaceOptions = SurfaceOptions(
     name = None,
     opacity = None,
-    showScale = None
+    showScale = None,
+    colorscale = None
   )
 }
+ 

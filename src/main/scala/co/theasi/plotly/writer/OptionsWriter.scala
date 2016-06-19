@@ -18,7 +18,8 @@ object OptionsWriter {
   def surfaceOptionsToJson(options: SurfaceOptions): JObject = (
     ("name" -> options.name) ~
     ("opacity" -> options.opacity) ~
-    ("showscale" -> options.showScale)
+    ("showscale" -> options.showScale) ~
+    ("colorscale" -> options.colorscale.map { ColorscaleWriter.toJson })
   )
 
   private def scatterModeToJson(mode: Seq[ScatterMode.Value])
