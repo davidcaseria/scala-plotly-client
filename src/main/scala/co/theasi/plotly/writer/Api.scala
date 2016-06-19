@@ -55,7 +55,6 @@ object Api {
     val response = request.asString
     if (!response.is2xx) {
       val responseBody = parse(response.body)
-      println(compact(render(responseBody)))
       val JString(msg) = responseBody \ "detail"
       throw new PlotlyException(msg)
     }
