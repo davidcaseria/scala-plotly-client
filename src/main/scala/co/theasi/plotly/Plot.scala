@@ -301,14 +301,37 @@ extends Plot {
     */
   def withSurface[Z: Writable](
     zs: Iterable[Iterable[Z]],
-    options: SurfaceOptions = SurfaceOptions()
+    options: SurfaceOptions
   ): ThreeDPlot = {
     val zsAsPType = zs.map { zRow =>
       zRow.map { implicitly[Writable[Z]].toPType }
     }
     copy(series = series :+ SurfaceZ(zsAsPType, options))
-
   }
+
+  def withSurface[Z: Writable](zs: Iterable[Iterable[Z]]): ThreeDPlot =
+    withSurface(zs, SurfaceOptions())
+
+  def withSurface[X: Writable, Y: Writable, Z: Writable](
+    xs: Iterable[X],
+    ys: Iterable[Y],
+    zs: Iterable[Iterable[Z]],
+    options: SurfaceOptions
+  ): ThreeDPlot = {
+    val xsAsPType = xs.map { implicitly[Writable[X]].toPType }
+    val ysAsPType = ys.map { implicitly[Writable[Y]].toPType }
+    val zsAsPType = zs.map { zRow =>
+      zRow.map { implicitly[Writable[Z]].toPType }
+    }
+    copy(series = series :+ SurfaceXYZ(xsAsPType, ysAsPType, zsAsPType, options))
+  }
+
+  def withSurface[X: Writable, Y: Writable, Z: Writable](
+    xs: Iterable[X],
+    ys: Iterable[Y],
+    zs: Iterable[Iterable[Z]]
+  ): ThreeDPlot =
+    withSurface(xs, ys, zs, SurfaceOptions())
 
   /** Set options for the x-axis
     *

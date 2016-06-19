@@ -99,3 +99,16 @@ case class SurfaceZ[Z <: PType](
   def options(newOptions: SurfaceOptions): SurfaceZ[Z] =
     copy(options = newOptions)
 }
+
+case class SurfaceXYZ[X <: PType, Y <: PType, Z <: PType](
+  val xs: Iterable[X],
+  val ys: Iterable[Y],
+  val zs: Iterable[Iterable[Z]],
+  val options: SurfaceOptions
+) extends ThreeDSeries {
+  type Self = SurfaceXYZ[X, Y, Z]
+  type OptionType = SurfaceOptions
+
+  def options(newOptions: SurfaceOptions): SurfaceXYZ[X, Y, Z] =
+    copy(options = newOptions)
+}
