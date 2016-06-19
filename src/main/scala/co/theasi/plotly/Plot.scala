@@ -102,7 +102,7 @@ extends Plot {
   type OptionType = CartesianPlotOptions
 
   /** Add a scatter plot to this plot.
-    * 
+    *
     * @usecase def withScatter[X, Y](xs: Iterable[X], ys: Iterable[Y], options: ScatterOptions): CartesianPlot
     *   @inheritdoc
     *
@@ -213,6 +213,38 @@ object CartesianPlot {
   * draw(figure, "3d-subplots")
   * }}}
   *
+  * ==Surface plots==
+  *
+  * Add a surface plot with the `withSurface` method:
+  * {{{
+  * val xs = Vector(-1.0, 0.0, 1.0)
+  * val ys = Vector(0.0, 10.0)
+  *
+  * val zs = Vector(
+  *   Vector(1.0, 2.0, 1.0),
+  *   Vector(5,0, 4.0, 5.0)
+  * )
+  *
+  * val p = ThreeDPlot().withSurface(xs, ys, zs)
+  * }}}
+  *
+  * The ''z''-values are assumed to be nested iterables, oriented such that
+  * `zs(0)(1)` is the value of ''z'' at `xs(1)` and `ys(0)`.
+  *
+  * You can also pass in options to control how the surface is represented:
+  *
+  * {{{
+  * val p = ThreeDPlot().withSurface(xs, ys, zs, SurfaceOptions().opacity(0.4))
+  * }}}
+  *
+  * See the documentation for [[SurfaceOptions]] for a list of available
+  * options.
+  *
+  * `.withSurface` also supports passing a `zs` iterable
+  *  without `xs` and `ys`.
+  *  This is equivalent to having `xs = (0 to zs(0).size)` and
+  * `ys = (0 to zs.size)`.
+  *
   * ==Multiple surfaces==
   *
   * `ThreeDPlot` instances support multiple surfaces:
@@ -229,6 +261,7 @@ object CartesianPlot {
   *   .withSurface(zs1, SurfaceOptions().name("top"))
   *   .withSurface(zs2, SurfaceOptions().name("bottom"))
   * }}}
+  *
   *
   * ==The immutable builder pattern==
   *
@@ -264,7 +297,22 @@ object CartesianPlot {
   *   .yAxisOptions(AxisOptions().title("y-axis").titleColor(255, 0, 0))
   *   .zAxisOptions(AxisOptions().title("z-axis").noGrid)
   * }}}
-  * 
+  *
+  *
+  * @define zsurfacedefnoxy The values of z. This is an iterable of iterables of
+  * any type `T`, provided an instance of the typeclass `Writable[T]` exists.
+  * The values of `zs` are oriented such that `zs(0)(1)` corresponds to
+  * the value of ''z'' at ''x = 1'' and ''y = 0''.
+
+  * @define zsurfacedefxy The values of z. This is an iterable of iterables of
+  * any type `T`, provided an instance of the typeclass `Writable[T]` exists.
+  * The values of `zs` are oriented such that `zs(0)(1)` corresponds to
+  * the value of z at `xs(1)` and ``ys(0)``.
+  *
+  * @define optionsurface Options controlling the style in which the
+  *   surface is drawn.
+  *
+  * @define surfaceretval Copy of this plot with the surface added.
   */
 case class ThreeDPlot(
   series: Vector[Series],
@@ -273,31 +321,18 @@ extends Plot {
 
   type OptionType = ThreeDPlotOptions
 
-  /** Add a surface plot to this plot.
+  /** Add a surface plot to this plot with default x and y.
+    *
+    * This adds a surface plot where x and y values are assumed to range from
+    * 0 to `zs(0).size` and 0 to `zs.size` respectively.
     *
     * @usecase def withSurface[Z](zs: Iterable[Iterable[Z]], options: SurfaceOptions): ThreeDPlot
     *   @inheritdoc
     *
-    * @example {{{
-    * val zs = Vector(
-    *   Vector(1.0, 2.0, 1.0),
-    *   Vector(5.0, 4.0, 5.0),
-    *   Vector(3.0, 2.0, 3.0),
-    *   Vector(1.0, 2.0, 1.0)
-    * )
+    * @param zs $zsurfacedefnoxy
+    * @param options $optionsurface
     *
-    * val p = ThreeDPlot()
-    *   .withSurface(zs, SurfaceOptions().name("series-1"))
-    * }}}
-    *
-    * @param zs The values of z. This is an iterable of iterables of any
-    *   type T, provided an instance of the typeclass 'Writable[T]' exists.
-    *   The values of `zs` are oriented such that `zs(0)(1)` corresponds to
-    *   the value of z at x = 0 and y = 1.
-    * @param options (optional) Options controlling the style in which the
-    *   surface is drawn.
-    *
-    * @return Copy of this plot with the surface series added.
+    * @return $surfaceretval
     */
   def withSurface[Z: Writable](
     zs: Iterable[Iterable[Z]],
@@ -309,9 +344,31 @@ extends Plot {
     copy(series = series :+ SurfaceZ(zsAsPType, options))
   }
 
+  /** Add a surface plot to this plot with default x and y.
+    *
+    * This adds a surface plot where x and y values are assumed to range from
+    * 0 to `zs(0).size` and 0 to `zs.size` respectively.
+    *
+    * @usecase def withSurface[Z](zs: Iterable[Iterable[Z]]): ThreeDPlot
+    *   @inheritdoc
+    *
+    * @param zs $zsurfacedefnoxy
+    *
+    * @return $surfaceretval
+    */
   def withSurface[Z: Writable](zs: Iterable[Iterable[Z]]): ThreeDPlot =
     withSurface(zs, SurfaceOptions())
 
+  /** Add a surface plot to this plot.
+    *
+    * @usecase def withSurface[X, Y, Z](xs: Iterable[X], ys: Iterable[Y], zs: Iterable[Iterable[Z]], options: SurfaceOptions): ThreeDPlot
+    *   @inheritdoc
+    *
+    * @param zs $zsurfacedefxy
+    * @param options $optionsurface
+    *
+    * @return $surfaceretval
+    */
   def withSurface[X: Writable, Y: Writable, Z: Writable](
     xs: Iterable[X],
     ys: Iterable[Y],
@@ -326,6 +383,15 @@ extends Plot {
     copy(series = series :+ SurfaceXYZ(xsAsPType, ysAsPType, zsAsPType, options))
   }
 
+  /** Add a surface plot to this plot.
+    *
+    * @usecase def withSurface[X, Y, Z](xs: Iterable[X], ys: Iterable[Y], zs: Iterable[Iterable[Z]]): ThreeDPlot
+    *   @inheritdoc
+    *
+    * @param zs $zsurfacedefxy
+    *
+    * @return $surfaceretval
+    */
   def withSurface[X: Writable, Y: Writable, Z: Writable](
     xs: Iterable[X],
     ys: Iterable[Y],
