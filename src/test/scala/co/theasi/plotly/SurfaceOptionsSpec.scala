@@ -9,4 +9,10 @@ class SurfaceOptionsSpec extends FlatSpec with Matchers {
     opts0.opacity shouldEqual(Some(0.4))
   }
 
+  it should "support setting the scale" in {
+    val opts = SurfaceOptions()
+    opts.withScale().showScale shouldEqual Some(true)
+    opts.noScale().showScale shouldEqual Some(false)
+  }
+
 }

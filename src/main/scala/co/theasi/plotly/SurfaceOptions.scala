@@ -2,7 +2,8 @@ package co.theasi.plotly
 
 case class SurfaceOptions(
   name: Option[String],
-  opacity: Option[Double]
+  opacity: Option[Double],
+  showScale: Option[Boolean]
 ) extends SeriesOptions {
   def name(newName: String): SurfaceOptions =
     copy(name = Some(newName))
@@ -14,12 +15,15 @@ case class SurfaceOptions(
     copy(opacity = Some(newOpacity))
   }
 
+  def withScale(): SurfaceOptions = copy(showScale = Some(true))
+  def noScale(): SurfaceOptions = copy(showScale = Some(false))
 }
 
 
 object SurfaceOptions {
   def apply(): SurfaceOptions = SurfaceOptions(
     name = None,
-    opacity = None
+    opacity = None,
+    showScale = None
   )
 }
