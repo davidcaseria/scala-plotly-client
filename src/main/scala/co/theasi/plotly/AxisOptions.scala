@@ -12,7 +12,8 @@ case class AxisOptions(
   tickFont: Font,
   autoTick: Option[Boolean],
   tickSpacing: Option[Double],
-  tickColor: Option[Color]
+  tickColor: Option[Color],
+  tickLabels: Option[Boolean]
 ) {
   def title(newTitle: String): AxisOptions = copy(title = Some(newTitle))
 
@@ -64,6 +65,9 @@ case class AxisOptions(
     tickColor(Color.rgba(r, g, b, a))
   def tickColor(r: Int, g: Int, b: Int): AxisOptions =
     tickColor(Color.rgb(r, g, b))
+
+  def withTickLabels: AxisOptions = copy(tickLabels = Some(true))
+  def noTickLabels: AxisOptions = copy(tickLabels = Some(false))
 }
 
 object AxisOptions {
@@ -79,6 +83,7 @@ object AxisOptions {
     tickFont = Font(),
     autoTick = None,
     tickSpacing = None,
-    tickColor = None
+    tickColor = None,
+    tickLabels = None
   )
 }
