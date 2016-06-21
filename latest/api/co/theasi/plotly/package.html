@@ -56,7 +56,8 @@ plot to the Plotly servers with <a href="#draw(grid:co.theasi.plotly.Grid,fileNa
 
 <span class="kw">val</span> p = Plot().withScatter(xs, ys)
 draw(p, <span class="lit">"my-first-plot"</span>)</pre><h4>Useful links</h4><p>For more information on how to build complex plot objects,
-read the documentation for <a href="Plot.html" class="extype" name="co.theasi.plotly.Plot">Plot</a>.</p><p>To control how the client deals with existing files with
+read the documentation for <a href="CartesianPlot.html" class="extype" name="co.theasi.plotly.CartesianPlot">CartesianPlot</a> and <a href="ThreeDPlot.html" class="extype" name="co.theasi.plotly.ThreeDPlot">ThreeDPlot</a>.</p><p>For information on structuring complex figures with subplots,
+read the documentation for <a href="RowFigure.html" class="extype" name="co.theasi.plotly.RowFigure">RowFigure</a> and <a href="GridFigure.html" class="extype" name="co.theasi.plotly.GridFigure">GridFigure</a>.</p><p>To control how the client deals with existing files with
 the same name on the Plotly server, and to control the
 privacy options, read the documentation
 for <a href="writer/FileOptions.html" class="extype" name="co.theasi.plotly.writer.FileOptions">writer.FileOptions</a>
@@ -110,7 +111,7 @@ for <a href="writer/FileOptions.html" class="extype" name="co.theasi.plotly.writ
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="Axis.html"><span class="name">Axis</span></a><span class="params">(<span name="domain">domain: (<span class="extype" name="scala.Double">Double</span>, <span class="extype" name="scala.Double">Double</span>)</span>, <span name="anchor">anchor: <span class="extype" name="scala.Int">Int</span></span>, <span name="options">options: <a href="AxisOptions.html" class="extype" name="co.theasi.plotly.AxisOptions">AxisOptions</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="Axis.html"><span class="name">Axis</span></a><span class="params">(<span name="options">options: <a href="AxisOptions.html" class="extype" name="co.theasi.plotly.AxisOptions">AxisOptions</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#co.theasi.plotly.package@AxisextendsProductwithSerializable" title="Permalink" target="_top">
@@ -127,7 +128,7 @@ for <a href="writer/FileOptions.html" class="extype" name="co.theasi.plotly.writ
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="AxisOptions.html"><span class="name">AxisOptions</span></a><span class="params">(<span name="title">title: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="tickLength">tickLength: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="zeroLine">zeroLine: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>, <span name="gridWidth">gridWidth: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="grid">grid: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>, <span name="line">line: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>, <span name="lineColor">lineColor: <span class="extype" name="scala.Option">Option</span>[<a href="Color.html" class="extype" name="co.theasi.plotly.Color">Color</a>]</span>, <span name="titleFont">titleFont: <a href="Font.html" class="extype" name="co.theasi.plotly.Font">Font</a></span>, <span name="tickFont">tickFont: <a href="Font.html" class="extype" name="co.theasi.plotly.Font">Font</a></span>, <span name="autoTick">autoTick: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>, <span name="tickSpacing">tickSpacing: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Double">Double</span>]</span>, <span name="tickColor">tickColor: <span class="extype" name="scala.Option">Option</span>[<a href="Color.html" class="extype" name="co.theasi.plotly.Color">Color</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="AxisOptions.html"><span class="name">AxisOptions</span></a><span class="params">(<span name="title">title: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="tickLength">tickLength: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="zeroLine">zeroLine: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>, <span name="gridWidth">gridWidth: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="grid">grid: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>, <span name="line">line: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>, <span name="lineColor">lineColor: <span class="extype" name="scala.Option">Option</span>[<a href="Color.html" class="extype" name="co.theasi.plotly.Color">Color</a>]</span>, <span name="titleFont">titleFont: <a href="Font.html" class="extype" name="co.theasi.plotly.Font">Font</a></span>, <span name="tickFont">tickFont: <a href="Font.html" class="extype" name="co.theasi.plotly.Font">Font</a></span>, <span name="autoTick">autoTick: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>, <span name="tickSpacing">tickSpacing: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Double">Double</span>]</span>, <span name="tickColor">tickColor: <span class="extype" name="scala.Option">Option</span>[<a href="Color.html" class="extype" name="co.theasi.plotly.Color">Color</a>]</span>, <span name="tickLabels">tickLabels: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#co.theasi.plotly.package@AxisOptionsextendsProductwithSerializable" title="Permalink" target="_top">
@@ -136,7 +137,7 @@ for <a href="writer/FileOptions.html" class="extype" name="co.theasi.plotly.writ
     </span>
       
     </li><li name="co.theasi.plotly.Bar" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Bar[X&lt;:co.theasi.plotly.PType,Y&lt;:co.theasi.plotly.PType]extendsSeries2D[X,Y]withProductwithSerializable"></a>
+      <a id="Bar[X&lt;:co.theasi.plotly.PType,Y&lt;:co.theasi.plotly.PType]extendsCartesianSeries2D[X,Y]withProductwithSerializable"></a>
       <a id="Bar[X&lt;:PType,Y&lt;:PType]:Bar[X,Y]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -144,16 +145,16 @@ for <a href="writer/FileOptions.html" class="extype" name="co.theasi.plotly.writ
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="Bar.html"><span class="name">Bar</span></a><span class="tparams">[<span name="X">X &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>, <span name="Y">Y &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>]</span><span class="params">(<span name="xs">xs: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.Bar.X">X</span>]</span>, <span name="ys">ys: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.Bar.Y">Y</span>]</span>, <span name="options">options: <a href="BarOptions.html" class="extype" name="co.theasi.plotly.BarOptions">BarOptions</a></span>)</span><span class="result"> extends <a href="Series2D.html" class="extype" name="co.theasi.plotly.Series2D">Series2D</a>[<span class="extype" name="co.theasi.plotly.Bar.X">X</span>, <span class="extype" name="co.theasi.plotly.Bar.Y">Y</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="Bar.html"><span class="name">Bar</span></a><span class="tparams">[<span name="X">X &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>, <span name="Y">Y &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>]</span><span class="params">(<span name="xs">xs: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.Bar.X">X</span>]</span>, <span name="ys">ys: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.Bar.Y">Y</span>]</span>, <span name="options">options: <a href="BarOptions.html" class="extype" name="co.theasi.plotly.BarOptions">BarOptions</a></span>)</span><span class="result"> extends <a href="CartesianSeries2D.html" class="extype" name="co.theasi.plotly.CartesianSeries2D">CartesianSeries2D</a>[<span class="extype" name="co.theasi.plotly.Bar.X">X</span>, <span class="extype" name="co.theasi.plotly.Bar.Y">Y</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@Bar[X&lt;:co.theasi.plotly.PType,Y&lt;:co.theasi.plotly.PType]extendsSeries2D[X,Y]withProductwithSerializable" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.package@Bar[X&lt;:co.theasi.plotly.PType,Y&lt;:co.theasi.plotly.PType]extendsCartesianSeries2D[X,Y]withProductwithSerializable" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="co.theasi.plotly.BarOptions" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="BarOptionsextendsSeriesOptions[co.theasi.plotly.BarOptions]withProductwithSerializable"></a>
+      <a id="BarOptionsextendsSeriesOptionswithProductwithSerializable"></a>
       <a id="BarOptions:BarOptions"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -161,16 +162,16 @@ for <a href="writer/FileOptions.html" class="extype" name="co.theasi.plotly.writ
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="BarOptions.html"><span class="name">BarOptions</span></a><span class="params">(<span name="name">name: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="xAxis">xAxis: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>, <span name="yAxis">yAxis: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="SeriesOptions.html" class="extype" name="co.theasi.plotly.SeriesOptions">SeriesOptions</a>[<a href="BarOptions.html" class="extype" name="co.theasi.plotly.BarOptions">BarOptions</a>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="BarOptions.html"><span class="name">BarOptions</span></a><span class="params">(<span name="name">name: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="SeriesOptions.html" class="extype" name="co.theasi.plotly.SeriesOptions">SeriesOptions</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@BarOptionsextendsSeriesOptions[co.theasi.plotly.BarOptions]withProductwithSerializable" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.package@BarOptionsextendsSeriesOptionswithProductwithSerializable" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="co.theasi.plotly.Box" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Box[X&lt;:co.theasi.plotly.PType]extendsSeries1D[X]withProductwithSerializable"></a>
+      <a id="Box[X&lt;:co.theasi.plotly.PType]extendsCartesianSeries1D[X]withProductwithSerializable"></a>
       <a id="Box[X&lt;:PType]:Box[X]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -178,16 +179,16 @@ for <a href="writer/FileOptions.html" class="extype" name="co.theasi.plotly.writ
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="Box.html"><span class="name">Box</span></a><span class="tparams">[<span name="X">X &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>]</span><span class="params">(<span name="xs">xs: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.Box.X">X</span>]</span>, <span name="options">options: <a href="BoxOptions.html" class="extype" name="co.theasi.plotly.BoxOptions">BoxOptions</a></span>)</span><span class="result"> extends <a href="Series1D.html" class="extype" name="co.theasi.plotly.Series1D">Series1D</a>[<span class="extype" name="co.theasi.plotly.Box.X">X</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="Box.html"><span class="name">Box</span></a><span class="tparams">[<span name="X">X &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>]</span><span class="params">(<span name="xs">xs: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.Box.X">X</span>]</span>, <span name="options">options: <a href="BoxOptions.html" class="extype" name="co.theasi.plotly.BoxOptions">BoxOptions</a></span>)</span><span class="result"> extends <a href="CartesianSeries1D.html" class="extype" name="co.theasi.plotly.CartesianSeries1D">CartesianSeries1D</a>[<span class="extype" name="co.theasi.plotly.Box.X">X</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@Box[X&lt;:co.theasi.plotly.PType]extendsSeries1D[X]withProductwithSerializable" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.package@Box[X&lt;:co.theasi.plotly.PType]extendsCartesianSeries1D[X]withProductwithSerializable" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="co.theasi.plotly.BoxOptions" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="BoxOptionsextendsSeriesOptions[co.theasi.plotly.BoxOptions]withProductwithSerializable"></a>
+      <a id="BoxOptionsextendsSeriesOptionswithProductwithSerializable"></a>
       <a id="BoxOptions:BoxOptions"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -195,10 +196,136 @@ for <a href="writer/FileOptions.html" class="extype" name="co.theasi.plotly.writ
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="BoxOptions.html"><span class="name">BoxOptions</span></a><span class="params">(<span name="name">name: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="xAxis">xAxis: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>, <span name="yAxis">yAxis: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="SeriesOptions.html" class="extype" name="co.theasi.plotly.SeriesOptions">SeriesOptions</a>[<a href="BoxOptions.html" class="extype" name="co.theasi.plotly.BoxOptions">BoxOptions</a>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="BoxOptions.html"><span class="name">BoxOptions</span></a><span class="params">(<span name="name">name: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="SeriesOptions.html" class="extype" name="co.theasi.plotly.SeriesOptions">SeriesOptions</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@BoxOptionsextendsSeriesOptions[co.theasi.plotly.BoxOptions]withProductwithSerializable" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.package@BoxOptionsextendsSeriesOptionswithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.CartesianPlot" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CartesianPlotextendsPlotwithProductwithSerializable"></a>
+      <a id="CartesianPlot:CartesianPlot"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="CartesianPlot.html"><span class="name">CartesianPlot</span></a><span class="params">(<span name="series">series: <span class="extype" name="scala.Vector">Vector</span>[<a href="CartesianSeries.html" class="extype" name="co.theasi.plotly.CartesianSeries">CartesianSeries</a>]</span>, <span name="options">options: <a href="CartesianPlotOptions.html" class="extype" name="co.theasi.plotly.CartesianPlotOptions">CartesianPlotOptions</a></span>)</span><span class="result"> extends <a href="Plot.html" class="extype" name="co.theasi.plotly.Plot">Plot</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@CartesianPlotextendsPlotwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Plot with Cartesian axes</p><div class="fullcomment"><div class="comment cmt"><p>Plot with Cartesian axes</p><h4>Example usage</h4><p>This class draws a sub-plot on Cartesian axes. This can be used
+to draw bar charts, scatter plots, box plots, contour plots etc.:
+anything that has an x- and a y-axis.</p><p><code>CartesianPlot</code> instances can be sent directly to Plotly:</p><pre><span class="kw">val</span> xs = Vector(<span class="num">1</span>, <span class="num">2</span>, <span class="num">5</span>)
+<span class="kw">val</span> ys = Vector(<span class="num">2</span>, <span class="num">4</span>, <span class="num">9</span>)
+<span class="kw">val</span> plot = CartesianPlot().withScatter(xs, ys)
+draw(plot, <span class="lit">"my-scatter-plot"</span>)</pre><p>They can also be embedded in <a href="Figure.html" class="extype" name="co.theasi.plotly.Figure">Figure</a> instances for more complex
+plot layouts:</p><pre><span class="kw">val</span> xs = Vector(<span class="num">1</span>, <span class="num">2</span>, <span class="num">5</span>)
+<span class="kw">val</span> ys1 = Vector(<span class="num">2</span>, <span class="num">4</span>, <span class="num">9</span>)
+<span class="kw">val</span> ys2 = Vector(<span class="num">2</span>, <span class="num">6</span>, <span class="num">12</span>)
+
+<span class="kw">val</span> figure = RowFigure(<span class="num">2</span>) <span class="cmt">// 2 sub-plots next to each other</span>
+  .plot(<span class="num">0</span>) { CartesianPlot().withScatter(xs, ys1) } <span class="cmt">// left subplot</span>
+  .plot(<span class="num">1</span>) { CartesianPlot().withScatter(xs, ys2) } <span class="cmt">// right subplot</span>
+
+draw(figure, <span class="lit">"multiple-plots"</span>)</pre><h4>Multiple lines</h4><p><code>CartesianPlot</code> instances support multiple series:</p><pre><span class="kw">val</span> xs = Vector(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)
+<span class="kw">val</span> ys1 = xs.map { <span class="num">2</span> * _ }
+<span class="kw">val</span> ys2 = xs.map { -<span class="num">2</span> * _ }
+
+<span class="kw">val</span> p = CartesianPlot()
+  .withScatter(xs, ys1, ScatterOptions().name(<span class="lit">"series-1"</span>))
+  .withScatter(xs, ys2, ScatterOptions().name(<span class="lit">"series-2"</span>))
+
+draw(p, <span class="lit">"multiple-series"</span>)</pre><h4>The immutable builder pattern</h4><p>When you call the <code>.withScatter</code> method on a <code>CartesianPlot</code> object, it
+returns a <b>new</b> plot with the new data series added.
+<code>CartesianPlot</code> instances are immutable. Thus, the following will <b>not</b>
+work:</p><pre><span class="cmt">// Not what you want!</span>
+<span class="kw">val</span> p = CartesianPlot().withScatter(xs, ys1)
+p.withScatter(xs, ys2) <span class="cmt">// No: this does not modify 'p' in place!</span>
+
+draw(p, <span class="lit">"my-other-plot"</span>)</pre><p>Do this instead:</p><pre><span class="kw">val</span> p = CartesianPlot().withScatter(xs, ys1)
+<span class="kw">val</span> newPlot = p.withScatter(xs, ys2)
+
+draw(newPlot, <span class="lit">"my-other-plot"</span>)</pre><p>Or, better yet, use chaining to avoid creating temporary variables:</p><pre><span class="kw">val</span> p = CartesianPlot()
+  .withScatter(xs, ys1)
+  .withScatter(xs, ys2)
+
+draw(p, <span class="lit">"another-plot"</span>)</pre><p>All methods in this class work in the same way: they return a new
+instance of <code>CartesianPlot</code>. This pattern is called the immutable builder
+pattern: it is a variant of the common
+<a href="https://en.wikipedia.org/wiki/Builder_pattern" target="_blank">builder pattern</a>
+adapted for immutable objects.
+</p></div></div>
+    </li><li name="co.theasi.plotly.CartesianPlotOptions" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CartesianPlotOptionsextendsProductwithSerializable"></a>
+      <a id="CartesianPlotOptions:CartesianPlotOptions"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="CartesianPlotOptions.html"><span class="name">CartesianPlotOptions</span></a><span class="params">(<span name="xAxis">xAxis: <a href="Axis.html" class="extype" name="co.theasi.plotly.Axis">Axis</a></span>, <span name="yAxis">yAxis: <a href="Axis.html" class="extype" name="co.theasi.plotly.Axis">Axis</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@CartesianPlotOptionsextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.CartesianSeries" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="CartesianSeriesextendsSeries"></a>
+      <a id="CartesianSeries:CartesianSeries"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="CartesianSeries.html"><span class="name">CartesianSeries</span></a><span class="result"> extends <a href="Series.html" class="extype" name="co.theasi.plotly.Series">Series</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@CartesianSeriesextendsSeries" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.CartesianSeries1D" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="CartesianSeries1D[X&lt;:co.theasi.plotly.PType]extendsCartesianSeries"></a>
+      <a id="CartesianSeries1D[X&lt;:PType]:CartesianSeries1D[X]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="CartesianSeries1D.html"><span class="name">CartesianSeries1D</span></a><span class="tparams">[<span name="X">X &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>]</span><span class="result"> extends <a href="CartesianSeries.html" class="extype" name="co.theasi.plotly.CartesianSeries">CartesianSeries</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@CartesianSeries1D[X&lt;:co.theasi.plotly.PType]extendsCartesianSeries" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.CartesianSeries2D" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="CartesianSeries2D[X&lt;:co.theasi.plotly.PType,Y&lt;:co.theasi.plotly.PType]extendsCartesianSeries"></a>
+      <a id="CartesianSeries2D[X&lt;:PType,Y&lt;:PType]:CartesianSeries2D[X,Y]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="CartesianSeries2D.html"><span class="name">CartesianSeries2D</span></a><span class="tparams">[<span name="X">X &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>, <span name="Y">Y &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>]</span><span class="result"> extends <a href="CartesianSeries.html" class="extype" name="co.theasi.plotly.CartesianSeries">CartesianSeries</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@CartesianSeries2D[X&lt;:co.theasi.plotly.PType,Y&lt;:co.theasi.plotly.PType]extendsCartesianSeries" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -216,6 +343,74 @@ for <a href="writer/FileOptions.html" class="extype" name="co.theasi.plotly.writ
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#co.theasi.plotly.package@ColorextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.Colorscale" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ColorscaleextendsAnyRef"></a>
+      <a id="Colorscale:Colorscale"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Colorscale.html"><span class="name">Colorscale</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@ColorscaleextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.ColorscalePredef" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ColorscalePredefextendsColorscalewithProductwithSerializable"></a>
+      <a id="ColorscalePredef:ColorscalePredef"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ColorscalePredef.html"><span class="name">ColorscalePredef</span></a><span class="params">(<span name="s">s: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="Colorscale.html" class="extype" name="co.theasi.plotly.Colorscale">Colorscale</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@ColorscalePredefextendsColorscalewithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Colorscale predefined by Plotly</p>
+    </li><li name="co.theasi.plotly.Figure" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="FigureextendsAnyRef"></a>
+      <a id="Figure:Figure"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Figure.html"><span class="name">Figure</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@FigureextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.FigureOptions" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="FigureOptionsextendsProductwithSerializable"></a>
+      <a id="FigureOptions:FigureOptions"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="FigureOptions.html"><span class="name">FigureOptions</span></a><span class="params">(<span name="title">title: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="legendOptions">legendOptions: <a href="LegendOptions.html" class="extype" name="co.theasi.plotly.LegendOptions">LegendOptions</a></span>, <span name="margins">margins: <a href="Margins.html" class="extype" name="co.theasi.plotly.Margins">Margins</a></span>, <span name="width">width: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="height">height: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="paperBackgroundColor">paperBackgroundColor: <span class="extype" name="scala.Option">Option</span>[<a href="Color.html" class="extype" name="co.theasi.plotly.Color">Color</a>]</span>, <span name="plotBackgroundColor">plotBackgroundColor: <span class="extype" name="scala.Option">Option</span>[<a href="Color.html" class="extype" name="co.theasi.plotly.Color">Color</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@FigureOptionsextendsProductwithSerializable" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -254,33 +449,40 @@ for <a href="writer/FileOptions.html" class="extype" name="co.theasi.plotly.writ
       </a>
     </span>
       
-    </li><li name="co.theasi.plotly.GridLayout" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="GridLayoutextendsLayout[co.theasi.plotly.GridLayout]withProductwithSerializable"></a>
-      <a id="GridLayout:GridLayout"></a>
+    </li><li name="co.theasi.plotly.GridFigure" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="GridFigureextendsFigurewithProductwithSerializable"></a>
+      <a id="GridFigure:GridFigure"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="GridLayout.html"><span class="name">GridLayout</span></a><span class="params">(<span name="xAxes">xAxes: <span class="extype" name="scala.Vector">Vector</span>[<a href="Axis.html" class="extype" name="co.theasi.plotly.Axis">Axis</a>]</span>, <span name="yAxes">yAxes: <span class="extype" name="scala.Vector">Vector</span>[<a href="Axis.html" class="extype" name="co.theasi.plotly.Axis">Axis</a>]</span>, <span name="numberRows">numberRows: <span class="extype" name="scala.Int">Int</span></span>, <span name="numberColumns">numberColumns: <span class="extype" name="scala.Int">Int</span></span>, <span name="options">options: <a href="LayoutOptions.html" class="extype" name="co.theasi.plotly.LayoutOptions">LayoutOptions</a></span>)</span><span class="result"> extends <a href="Layout.html" class="extype" name="co.theasi.plotly.Layout">Layout</a>[<a href="GridLayout.html" class="extype" name="co.theasi.plotly.GridLayout">GridLayout</a>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="GridFigure.html"><span class="name">GridFigure</span></a><span class="params">(<span name="plots">plots: <span class="extype" name="scala.Vector">Vector</span>[<a href="Plot.html" class="extype" name="co.theasi.plotly.Plot">Plot</a>]</span>, <span name="viewPorts">viewPorts: <span class="extype" name="scala.Vector">Vector</span>[<a href="ViewPort.html" class="extype" name="co.theasi.plotly.ViewPort">ViewPort</a>]</span>, <span name="numberRows">numberRows: <span class="extype" name="scala.Int">Int</span></span>, <span name="numberColumns">numberColumns: <span class="extype" name="scala.Int">Int</span></span>, <span name="options">options: <a href="FigureOptions.html" class="extype" name="co.theasi.plotly.FigureOptions">FigureOptions</a></span>)</span><span class="result"> extends <a href="Figure.html" class="extype" name="co.theasi.plotly.Figure">Figure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@GridLayoutextendsLayout[co.theasi.plotly.GridLayout]withProductwithSerializable" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.package@GridFigureextendsFigurewithProductwithSerializable" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Layout with a grid of sub-plots.</p><div class="fullcomment"><div class="comment cmt"><p>Layout with a grid of sub-plots.</p><p>This creates a grid of subplots arranged in rows and columns.</p><h4>Example Usage</h4><p>Let's draw six scatter plots on a grid.</p><pre><span class="kw">import</span> util.Random
-
+      <p class="shortcomment cmt">Figure containing plots arranged on a grid.</p><div class="fullcomment"><div class="comment cmt"><p>Figure containing plots arranged on a grid.</p><p>This <a href="Figure.html" class="extype" name="co.theasi.plotly.Figure">Figure</a> subclass is designed for equally spaced subplots on a grid.
+Use the companion object's <code>apply</code> method to construct a new instance,
+specifying the number of rows and columns. For instance,
+<code>val figure = GridFigure(2, 3)</code> will build a new figure with 6 subplots,
+arranged in a grid with two rows and three columns. You can then use
+the <a href="GridFigure.html#plot(rowIndex:Int,columnIndex:Int)(newPlot:co.theasi.plotly.Plot):co.theasi.plotly.GridFigure" class="extmbr" name="co.theasi.plotly.GridFigure#plot">plot</a> method to set the content of specific sub-plots.</p><pre><span class="kw">import</span> util.Random
 <span class="kw">val</span> xs = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
-<span class="kw">def</span> ys = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
+<span class="kw">val</span> ys = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
+<span class="kw">val</span> ys2 = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
+<span class="kw">val</span> ys3 = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
 
-<span class="cmt">// 2 rows, 3 columns</span>
-<span class="kw">val</span> layout = GridLayout(<span class="num">2</span>, <span class="num">3</span>)</pre><p>To create a new plot with this layout, we use the <a href="Plot.html#layout[B&lt;:co.theasi.plotly.Layout[B]](newLayout:co.theasi.plotly.Layout[B]):co.theasi.plotly.Plot[B]" class="extmbr" name="co.theasi.plotly.Plot#layout">Plot.layout</a> method:</p><pre><span class="kw">val</span> p = Plot().layout(layout)</pre><p>We can specify which subplot a new data series will be plotted to using
-the 'onAxes' series option.</p><pre><span class="kw">val</span> p = Plot()
-  .layout(layout)
-  .withScatter(xs, ys, ScatterOptions().onAxes(layout.ref(<span class="num">0</span>, <span class="num">1</span>))) <span class="cmt">// top middle</span></pre><p>The <code>.ref</code> method takes a (row, column) pair as arguments and returns a single
-axis index that can be passed to <code>.onAxes</code>.</p></div></div>
+<span class="kw">val</span> figure = GridFigure(<span class="num">2</span>, <span class="num">3</span>) <span class="cmt">// 2 rows, 3 columns</span>
+  .plot(<span class="num">0</span>, <span class="num">0</span>) { CartesianPlot().withScatter(xs, ys) } <span class="cmt">// top left</span>
+  .plot(<span class="num">0</span>, <span class="num">1</span>) { CartesianPlot().withScatter(xs, ys2) } <span class="cmt">// top middle</span>
+  .plot(<span class="num">1</span>, <span class="num">2</span>) { CartesianPlot().withScatter(xs, ys3) } <span class="cmt">// bottom right</span>
+  .title(<span class="lit">"My grid figure"</span>)
+
+draw(figure, <span class="lit">"grid-figure"</span>)</pre></div></div>
     </li><li name="co.theasi.plotly.IterableText" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="IterableText[T&lt;:co.theasi.plotly.PType]extendsTextValuewithProductwithSerializable"></a>
       <a id="IterableText[T&lt;:PType]:IterableText[T]"></a>
@@ -294,41 +496,6 @@ axis index that can be passed to <code>.onAxes</code>.</p></div></div>
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#co.theasi.plotly.package@IterableText[T&lt;:co.theasi.plotly.PType]extendsTextValuewithProductwithSerializable" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="co.theasi.plotly.Layout" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="Layout[A&lt;:co.theasi.plotly.Layout[A]]extendsAnyRef"></a>
-      <a id="Layout[A&lt;:Layout[A]]:Layout[A]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">sealed </span>
-        <span class="kind">trait</span>
-      </span>
-      <span class="symbol">
-        <a href="Layout.html"><span class="name">Layout</span></a><span class="tparams">[<span name="A">A &lt;: <a href="Layout.html" class="extype" name="co.theasi.plotly.Layout">Layout</a>[<span class="extype" name="co.theasi.plotly.Layout.A">A</span>]</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@Layout[A&lt;:co.theasi.plotly.Layout[A]]extendsAnyRef" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Base class for plot layouts.</p><div class="fullcomment"><div class="comment cmt"><p>Base class for plot layouts.</p><p>Do not construct this class directly. Use one of the sub-classes instead:</p><ul><li><a href="SingleAxisLayout.html" class="extype" name="co.theasi.plotly.SingleAxisLayout">SingleAxisLayout</a> to have a single pair of axes on the figure</li><li><a href="RowLayout.html" class="extype" name="co.theasi.plotly.RowLayout">RowLayout</a> for subplots equally distributed in a single line</li><li><a href="GridLayout.html" class="extype" name="co.theasi.plotly.GridLayout">GridLayout</a> for subplots distributed on a grid.
-</li></ul></div></div>
-    </li><li name="co.theasi.plotly.LayoutOptions" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="LayoutOptionsextendsProductwithSerializable"></a>
-      <a id="LayoutOptions:LayoutOptions"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">case class</span>
-      </span>
-      <span class="symbol">
-        <a href="LayoutOptions.html"><span class="name">LayoutOptions</span></a><span class="params">(<span name="title">title: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="legendOptions">legendOptions: <a href="LegendOptions.html" class="extype" name="co.theasi.plotly.LegendOptions">LegendOptions</a></span>, <span name="margins">margins: <a href="Margins.html" class="extype" name="co.theasi.plotly.Margins">Margins</a></span>, <span name="width">width: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="height">height: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="paperBackgroundColor">paperBackgroundColor: <span class="extype" name="scala.Option">Option</span>[<a href="Color.html" class="extype" name="co.theasi.plotly.Color">Color</a>]</span>, <span name="plotBackgroundColor">plotBackgroundColor: <span class="extype" name="scala.Option">Option</span>[<a href="Color.html" class="extype" name="co.theasi.plotly.Color">Color</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@LayoutOptionsextendsProductwithSerializable" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -452,56 +619,23 @@ axis index that can be passed to <code>.onAxes</code>.</p></div></div>
       </a>
     </span>
       
-    </li><li name="co.theasi.plotly.Plot" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="Plot[A&lt;:co.theasi.plotly.Layout[A]]extendsProductwithSerializable"></a>
-      <a id="Plot[A&lt;:Layout[A]]:Plot[A]"></a>
+    </li><li name="co.theasi.plotly.Plot" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="PlotextendsAnyRef"></a>
+      <a id="Plot:Plot"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">case class</span>
+        <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="Plot.html"><span class="name">Plot</span></a><span class="tparams">[<span name="A">A &lt;: <a href="Layout.html" class="extype" name="co.theasi.plotly.Layout">Layout</a>[<span class="extype" name="co.theasi.plotly.Plot.A">A</span>]</span>]</span><span class="params">(<span name="series">series: <span class="extype" name="scala.Vector">Vector</span>[<a href="Series.html" class="extype" name="co.theasi.plotly.Series">Series</a>] = <span class="symbol">Vector.empty</span></span>, <span name="layout">layout: <a href="Layout.html" class="extype" name="co.theasi.plotly.Layout">Layout</a>[<span class="extype" name="co.theasi.plotly.Plot.A">A</span>] = <span class="symbol"><span class="name"><a href="SingleAxisLayout$.html">SingleAxisLayout()</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="Plot.html"><span class="name">Plot</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@Plot[A&lt;:co.theasi.plotly.Layout[A]]extendsProductwithSerializable" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.package@PlotextendsAnyRef" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Immutable builder for creating plot instances.</p><div class="fullcomment"><div class="comment cmt"><p>Immutable builder for creating plot instances.</p><h4>Example usage</h4><p>Let's start with a simple scatter plot:</p><pre><span class="kw">import</span> co.theasi.plotly._
-
-<span class="kw">val</span> xs = Vector(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)
-<span class="kw">val</span> ys = Vector(<span class="num">4.5</span>, <span class="num">8.5</span>, <span class="num">21.0</span>)
-
-<span class="kw">val</span> p = Plot().withScatter(xs, ys)
-draw(p, <span class="lit">"my-first-plot"</span>)</pre><p>What if we want to have several lines on our plot:</p><pre><span class="kw">import</span> co.theasi.plotly._
-
-<span class="kw">val</span> xs = Vector(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)
-<span class="kw">val</span> ys1 = xs.map { <span class="num">2</span> * _ }
-<span class="kw">val</span> ys2 = xs.map { -<span class="num">2</span> * _ }
-
-<span class="kw">val</span> p = Plot()
-  .withScatter(xs, ys1)
-  .withScatter(xs, ys2)
-
-draw(p, <span class="lit">"my-second-plot"</span>)</pre><h4>The immutable builder pattern</h4><p>When you call the <code>.withScatter</code> method on a <code>Plot</code> object, it
-returns a <b>new</b> plot with the new data series added.
-<code>Plot</code> instances are immutable. Thus, the following will <b>not</b>
-work:</p><pre><span class="kw">val</span> p = Plot().withScatter(xs, ys1)
-p.withScatter(xs, ys2) <span class="cmt">// No: this does not modify 'p' in place!</span>
-
-draw(p, <span class="lit">"my-other-plot"</span>)</pre><p>Do this instead:</p><pre><span class="kw">val</span> p = Plot().withScatter(xs, ys1)
-<span class="kw">val</span> newPlot = p.withScatter(xs, ys2)
-
-draw(newPlot, <span class="lit">"my-other-plot"</span>)</pre><p>Or, better yet, use chaining to avoid creating temporary variables:</p><pre><span class="kw">val</span> p = Plot()
-  .withScatter(xs, ys1)
-  .withScatter(xs, ys2)
-
-draw(p, <span class="lit">"another-plot"</span>)</pre><p>All methods in this class work in the same way: they return a new
-instance of <code>Plot</code>. This pattern is called the immutable builder
-pattern: it is a variant of the common
-<a href="https://en.wikipedia.org/wiki/Builder_pattern" target="_blank">builder pattern</a>
-adapted for immutable objects.</p></div></div>
+      
     </li><li name="co.theasi.plotly.Readable" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="Readable[T]extendsAnyRef"></a>
       <a id="Readable[T]:Readable[T]"></a>
@@ -536,45 +670,41 @@ adapted for immutable objects.</p></div></div>
       </a>
     </span>
       
-    </li><li name="co.theasi.plotly.RowLayout" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="RowLayoutextendsLayout[co.theasi.plotly.RowLayout]withProductwithSerializable"></a>
-      <a id="RowLayout:RowLayout"></a>
+    </li><li name="co.theasi.plotly.RowFigure" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="RowFigureextendsFigurewithProductwithSerializable"></a>
+      <a id="RowFigure:RowFigure"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="RowLayout.html"><span class="name">RowLayout</span></a><span class="params">(<span name="impl">impl: <a href="GridLayout.html" class="extype" name="co.theasi.plotly.GridLayout">GridLayout</a></span>)</span><span class="result"> extends <a href="Layout.html" class="extype" name="co.theasi.plotly.Layout">Layout</a>[<a href="RowLayout.html" class="extype" name="co.theasi.plotly.RowLayout">RowLayout</a>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="RowFigure.html"><span class="name">RowFigure</span></a><span class="params">(<span name="impl">impl: <a href="GridFigure.html" class="extype" name="co.theasi.plotly.GridFigure">GridFigure</a></span>)</span><span class="result"> extends <a href="Figure.html" class="extype" name="co.theasi.plotly.Figure">Figure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@RowLayoutextendsLayout[co.theasi.plotly.RowLayout]withProductwithSerializable" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.package@RowFigureextendsFigurewithProductwithSerializable" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Layout with a row of subplots.</p><div class="fullcomment"><div class="comment cmt"><p>Layout with a row of subplots.</p><h4>Example Usage</h4><p>Let's draw 2 scatter plots.</p><pre><span class="kw">import</span> util.Random
+      <p class="shortcomment cmt">Figure containing plots arranged in a row.</p><div class="fullcomment"><div class="comment cmt"><p>Figure containing plots arranged in a row.</p><p>This <a href="Figure.html" class="extype" name="co.theasi.plotly.Figure">Figure</a> subclass is designed for equally spaced subplots
+in a row.
+Use the companion object's <code>apply</code> method to construct a new
+instance, specifying the number of subplots. For instance,
+<code>val figure = RowFigure(2)</code> will build a new figure with two
+subplots in a row. You can then use the <a href="RowFigure.html#plot(index:Int)(newPlot:co.theasi.plotly.Plot):co.theasi.plotly.RowFigure" class="extmbr" name="co.theasi.plotly.RowFigure#plot">plot</a> method to
+ set the content of specific sub-plots.</p><pre><span class="kw">import</span> util.Random
+<span class="kw">val</span> xs = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
+<span class="kw">val</span> ys = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
+<span class="kw">val</span> ys2 = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
 
-<span class="kw">val</span> xsLeft = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
-<span class="kw">val</span> ysLeft = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextGaussian }
+<span class="kw">val</span> figure = RowFigure(<span class="num">2</span>) <span class="cmt">// 2 subplots</span>
+  .plot(<span class="num">0</span>) { CartesianPlot().withScatter(xs, ys) } <span class="cmt">// left</span>
+  .plot(<span class="num">1</span>) { CartesianPlot().withScatter(xs, ys2) } <span class="cmt">// right</span>
+  .title(<span class="lit">"My row figure"</span>)
 
-<span class="kw">val</span> xsRight = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextDouble }
-<span class="kw">val</span> ysRight = (<span class="num">0</span> to <span class="num">100</span>).map { i <span class="kw">=&gt;</span> Random.nextDouble }
-
-<span class="cmt">// 2 subplots</span>
-<span class="kw">val</span> layout = RowLayout(<span class="num">2</span>)</pre><p>To create a new plot with this layout, we use the <a href="Plot.html#layout[B&lt;:co.theasi.plotly.Layout[B]](newLayout:co.theasi.plotly.Layout[B]):co.theasi.plotly.Plot[B]" class="extmbr" name="co.theasi.plotly.Plot#layout">Plot.layout</a> method:</p><pre><span class="kw">val</span> p = Plot().layout(layout)</pre><p>We can specify which subplot a new data series will be plotted to using the 'onAxes'
-series option.</p><pre><span class="kw">val</span> p = Plot().layout(layout)
-  .withScatter(xsLeft, ysLeft,
-    ScatterOptions()
-      .onAxes(layout.ref(<span class="num">0</span>)) <span class="cmt">// left subplot</span>
-      .mode(ScatterMode.Marker))
-  .withScatter(xsRight, ysRight,
-    ScatterOptions()
-      .onAxes(layout.ref(<span class="num">1</span>)) <span class="cmt">// right subplot</span>
-      .mode(ScatterMode.Marker))</pre><p>The <code>.ref</code> method takes a single index denoting which subplot to plot on, and
-returns an index that can be passed to <code>.onAxes</code>.
-</p></div></div>
+draw(figure, <span class="lit">"row-figure"</span>)</pre></div></div>
     </li><li name="co.theasi.plotly.Scatter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Scatter[X&lt;:co.theasi.plotly.PType,Y&lt;:co.theasi.plotly.PType]extendsSeries2D[X,Y]withProductwithSerializable"></a>
+      <a id="Scatter[X&lt;:co.theasi.plotly.PType,Y&lt;:co.theasi.plotly.PType]extendsCartesianSeries2D[X,Y]withProductwithSerializable"></a>
       <a id="Scatter[X&lt;:PType,Y&lt;:PType]:Scatter[X,Y]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -582,16 +712,16 @@ returns an index that can be passed to <code>.onAxes</code>.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="Scatter.html"><span class="name">Scatter</span></a><span class="tparams">[<span name="X">X &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>, <span name="Y">Y &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>]</span><span class="params">(<span name="xs">xs: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.Scatter.X">X</span>]</span>, <span name="ys">ys: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.Scatter.Y">Y</span>]</span>, <span name="options">options: <a href="ScatterOptions.html" class="extype" name="co.theasi.plotly.ScatterOptions">ScatterOptions</a></span>)</span><span class="result"> extends <a href="Series2D.html" class="extype" name="co.theasi.plotly.Series2D">Series2D</a>[<span class="extype" name="co.theasi.plotly.Scatter.X">X</span>, <span class="extype" name="co.theasi.plotly.Scatter.Y">Y</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="Scatter.html"><span class="name">Scatter</span></a><span class="tparams">[<span name="X">X &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>, <span name="Y">Y &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>]</span><span class="params">(<span name="xs">xs: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.Scatter.X">X</span>]</span>, <span name="ys">ys: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.Scatter.Y">Y</span>]</span>, <span name="options">options: <a href="ScatterOptions.html" class="extype" name="co.theasi.plotly.ScatterOptions">ScatterOptions</a></span>)</span><span class="result"> extends <a href="CartesianSeries2D.html" class="extype" name="co.theasi.plotly.CartesianSeries2D">CartesianSeries2D</a>[<span class="extype" name="co.theasi.plotly.Scatter.X">X</span>, <span class="extype" name="co.theasi.plotly.Scatter.Y">Y</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@Scatter[X&lt;:co.theasi.plotly.PType,Y&lt;:co.theasi.plotly.PType]extendsSeries2D[X,Y]withProductwithSerializable" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.package@Scatter[X&lt;:co.theasi.plotly.PType,Y&lt;:co.theasi.plotly.PType]extendsCartesianSeries2D[X,Y]withProductwithSerializable" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="co.theasi.plotly.ScatterOptions" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="ScatterOptionsextendsSeriesOptions[co.theasi.plotly.ScatterOptions]withProductwithSerializable"></a>
+      <a id="ScatterOptionsextendsSeriesOptionswithProductwithSerializable"></a>
       <a id="ScatterOptions:ScatterOptions"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -599,10 +729,10 @@ returns an index that can be passed to <code>.onAxes</code>.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="ScatterOptions.html"><span class="name">ScatterOptions</span></a><span class="params">(<span name="name">name: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="xAxis">xAxis: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="yAxis">yAxis: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="mode">mode: <span class="extype" name="scala.Seq">Seq</span>[<a href="ScatterMode$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="co.theasi.plotly.ScatterMode.Value">ScatterMode.Value</a>]</span>, <span name="text">text: <span class="extype" name="scala.Option">Option</span>[<a href="TextValue.html" class="extype" name="co.theasi.plotly.TextValue">TextValue</a>]</span>, <span name="marker">marker: <a href="MarkerOptions.html" class="extype" name="co.theasi.plotly.MarkerOptions">MarkerOptions</a></span>)</span><span class="result"> extends <a href="SeriesOptions.html" class="extype" name="co.theasi.plotly.SeriesOptions">SeriesOptions</a>[<a href="ScatterOptions.html" class="extype" name="co.theasi.plotly.ScatterOptions">ScatterOptions</a>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="ScatterOptions.html"><span class="name">ScatterOptions</span></a><span class="params">(<span name="name">name: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="mode">mode: <span class="extype" name="scala.Seq">Seq</span>[<a href="ScatterMode$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="co.theasi.plotly.ScatterMode.Value">ScatterMode.Value</a>]</span>, <span name="text">text: <span class="extype" name="scala.Option">Option</span>[<a href="TextValue.html" class="extype" name="co.theasi.plotly.TextValue">TextValue</a>]</span>, <span name="marker">marker: <a href="MarkerOptions.html" class="extype" name="co.theasi.plotly.MarkerOptions">MarkerOptions</a></span>)</span><span class="result"> extends <a href="SeriesOptions.html" class="extype" name="co.theasi.plotly.SeriesOptions">SeriesOptions</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@ScatterOptionsextendsSeriesOptions[co.theasi.plotly.ScatterOptions]withProductwithSerializable" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.package@ScatterOptionsextendsSeriesOptionswithProductwithSerializable" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -624,85 +754,52 @@ returns an index that can be passed to <code>.onAxes</code>.
       </a>
     </span>
       
-    </li><li name="co.theasi.plotly.Series1D" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="Series1D[X&lt;:co.theasi.plotly.PType]extendsSeries"></a>
-      <a id="Series1D[X&lt;:PType]:Series1D[X]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">sealed abstract </span>
-        <span class="kind">class</span>
-      </span>
-      <span class="symbol">
-        <a href="Series1D.html"><span class="name">Series1D</span></a><span class="tparams">[<span name="X">X &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>]</span><span class="result"> extends <a href="Series.html" class="extype" name="co.theasi.plotly.Series">Series</a></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@Series1D[X&lt;:co.theasi.plotly.PType]extendsSeries" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="co.theasi.plotly.Series2D" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="Series2D[X&lt;:co.theasi.plotly.PType,Y&lt;:co.theasi.plotly.PType]extendsSeries"></a>
-      <a id="Series2D[X&lt;:PType,Y&lt;:PType]:Series2D[X,Y]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">sealed abstract </span>
-        <span class="kind">class</span>
-      </span>
-      <span class="symbol">
-        <a href="Series2D.html"><span class="name">Series2D</span></a><span class="tparams">[<span name="X">X &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>, <span name="Y">Y &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>]</span><span class="result"> extends <a href="Series.html" class="extype" name="co.theasi.plotly.Series">Series</a></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@Series2D[X&lt;:co.theasi.plotly.PType,Y&lt;:co.theasi.plotly.PType]extendsSeries" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
     </li><li name="co.theasi.plotly.SeriesOptions" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="SeriesOptions[T&lt;:co.theasi.plotly.SeriesOptions[T]]extendsAnyRef"></a>
-      <a id="SeriesOptions[T&lt;:SeriesOptions[T]]:SeriesOptions[T]"></a>
+      <a id="SeriesOptionsextendsAnyRef"></a>
+      <a id="SeriesOptions:SeriesOptions"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="SeriesOptions.html"><span class="name">SeriesOptions</span></a><span class="tparams">[<span name="T">T &lt;: <a href="SeriesOptions.html" class="extype" name="co.theasi.plotly.SeriesOptions">SeriesOptions</a>[<span class="extype" name="co.theasi.plotly.SeriesOptions.T">T</span>]</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a href="SeriesOptions.html"><span class="name">SeriesOptions</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@SeriesOptions[T&lt;:co.theasi.plotly.SeriesOptions[T]]extendsAnyRef" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.package@SeriesOptionsextendsAnyRef" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
-    </li><li name="co.theasi.plotly.SingleAxisLayout" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="SingleAxisLayoutextendsLayout[co.theasi.plotly.SingleAxisLayout]withProductwithSerializable"></a>
-      <a id="SingleAxisLayout:SingleAxisLayout"></a>
+    </li><li name="co.theasi.plotly.SinglePlotFigure" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="SinglePlotFigureextendsFigurewithProductwithSerializable"></a>
+      <a id="SinglePlotFigure:SinglePlotFigure"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="SingleAxisLayout.html"><span class="name">SingleAxisLayout</span></a><span class="params">(<span name="xAxis">xAxis: <a href="Axis.html" class="extype" name="co.theasi.plotly.Axis">Axis</a></span>, <span name="yAxis">yAxis: <a href="Axis.html" class="extype" name="co.theasi.plotly.Axis">Axis</a></span>, <span name="options">options: <a href="LayoutOptions.html" class="extype" name="co.theasi.plotly.LayoutOptions">LayoutOptions</a></span>)</span><span class="result"> extends <a href="Layout.html" class="extype" name="co.theasi.plotly.Layout">Layout</a>[<a href="SingleAxisLayout.html" class="extype" name="co.theasi.plotly.SingleAxisLayout">SingleAxisLayout</a>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="SinglePlotFigure.html"><span class="name">SinglePlotFigure</span></a><span class="params">(<span name="plot">plot: <a href="Plot.html" class="extype" name="co.theasi.plotly.Plot">Plot</a></span>, <span name="options">options: <a href="FigureOptions.html" class="extype" name="co.theasi.plotly.FigureOptions">FigureOptions</a></span>)</span><span class="result"> extends <a href="Figure.html" class="extype" name="co.theasi.plotly.Figure">Figure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@SingleAxisLayoutextendsLayout[co.theasi.plotly.SingleAxisLayout]withProductwithSerializable" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.package@SinglePlotFigureextendsFigurewithProductwithSerializable" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Layout with a single plot.</p><div class="fullcomment"><div class="comment cmt"><p>Layout with a single plot.</p><h4>Example usage</h4><pre><span class="kw">val</span> xs = Vector(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)
-<span class="kw">val</span> ys = Vector(<span class="num">4.5</span>, <span class="num">8.5</span>, <span class="num">21.0</span>)
+      <p class="shortcomment cmt">Figure containing a single plot</p><div class="fullcomment"><div class="comment cmt"><p>Figure containing a single plot</p><pre><span class="kw">val</span> xs = Vector(<span class="num">1</span>, <span class="num">2</span>, <span class="num">5</span>)
+<span class="kw">val</span> ys = Vector(<span class="num">5</span>, <span class="num">9</span>, <span class="num">11</span>)
 
-<span class="kw">val</span> layout = SingleAxisLayout()
-  .leftMargin(<span class="num">140</span>)
-  .paperBackgroundColor(<span class="num">254</span>, <span class="num">247</span>, <span class="num">234</span>)
-  .plotBackgroundColor(<span class="num">254</span>, <span class="num">247</span>, <span class="num">234</span>)
-  .xAxisOptions(AxisOptions()
-    .titleColor(<span class="num">204</span>, <span class="num">204</span>, <span class="num">204</span>)
-    .noAutoTick)
+<span class="kw">val</span> figure = SinglePlotFigure()
+  .plot { CartesianPlot().withScatter(xs, ys) }
+  .title(<span class="lit">"My awesome plot"</span>)
 
-<span class="kw">val</span> plot = Plot().layout(layout).withScatter(xs, ys)</pre></div></div>
+draw(figure, <span class="lit">"test-plot"</span>)</pre><p>Use the companion object's <code>apply</code> method to construct
+a new figure. Set the content of the plot on the figure
+with the <a href="SinglePlotFigure.html#plot(newPlot:co.theasi.plotly.Plot):co.theasi.plotly.SinglePlotFigure" class="extmbr" name="co.theasi.plotly.SinglePlotFigure#plot">plot</a> method.</p><p><b>Note</b> that all the methods on this class return a
+<i>copy</i> of the current instance. They do not modify the
+ instance in place. Instances of <code>SinglePlotFigure</code>
+ are immutable.</p></div></div>
     </li><li name="co.theasi.plotly.SrcText" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="SrcTextextendsTextValuewithProductwithSerializable"></a>
       <a id="SrcText:SrcText"></a>
@@ -737,6 +834,59 @@ returns an index that can be passed to <code>.onAxes</code>.
       </a>
     </span>
       
+    </li><li name="co.theasi.plotly.SurfaceOptions" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="SurfaceOptionsextendsSeriesOptionswithProductwithSerializable"></a>
+      <a id="SurfaceOptions:SurfaceOptions"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="SurfaceOptions.html"><span class="name">SurfaceOptions</span></a><span class="params">(<span name="name">name: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="opacity">opacity: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Double">Double</span>]</span>, <span name="showScale">showScale: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>, <span name="colorscale">colorscale: <span class="extype" name="scala.Option">Option</span>[<a href="Colorscale.html" class="extype" name="co.theasi.plotly.Colorscale">Colorscale</a>]</span>)</span><span class="result"> extends <a href="SeriesOptions.html" class="extype" name="co.theasi.plotly.SeriesOptions">SeriesOptions</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@SurfaceOptionsextendsSeriesOptionswithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Options controlling how surface plots are drawn.</p><div class="fullcomment"><div class="comment cmt"><p>Options controlling how surface plots are drawn.</p><pre><span class="kw">val</span> surfaceOptions = SurfaceOptions().opacity(<span class="num">0.9</span>).colorscale(<span class="lit">"Electric"</span>)
+
+<span class="kw">val</span> plot = ThreeDPlot().withSurface(xs, ys, zs, surfaceOptions)</pre></div></div>
+    </li><li name="co.theasi.plotly.SurfaceXYZ" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SurfaceXYZ[X&lt;:co.theasi.plotly.PType,Y&lt;:co.theasi.plotly.PType,Z&lt;:co.theasi.plotly.PType]extendsThreeDSerieswithProductwithSerializable"></a>
+      <a id="SurfaceXYZ[X&lt;:PType,Y&lt;:PType,Z&lt;:PType]:SurfaceXYZ[X,Y,Z]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="SurfaceXYZ.html"><span class="name">SurfaceXYZ</span></a><span class="tparams">[<span name="X">X &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>, <span name="Y">Y &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>, <span name="Z">Z &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>]</span><span class="params">(<span name="xs">xs: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.SurfaceXYZ.X">X</span>]</span>, <span name="ys">ys: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.SurfaceXYZ.Y">Y</span>]</span>, <span name="zs">zs: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.SurfaceXYZ.Z">Z</span>]]</span>, <span name="options">options: <a href="SurfaceOptions.html" class="extype" name="co.theasi.plotly.SurfaceOptions">SurfaceOptions</a></span>)</span><span class="result"> extends <a href="ThreeDSeries.html" class="extype" name="co.theasi.plotly.ThreeDSeries">ThreeDSeries</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@SurfaceXYZ[X&lt;:co.theasi.plotly.PType,Y&lt;:co.theasi.plotly.PType,Z&lt;:co.theasi.plotly.PType]extendsThreeDSerieswithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.SurfaceZ" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SurfaceZ[Z&lt;:co.theasi.plotly.PType]extendsThreeDSerieswithProductwithSerializable"></a>
+      <a id="SurfaceZ[Z&lt;:PType]:SurfaceZ[Z]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="SurfaceZ.html"><span class="name">SurfaceZ</span></a><span class="tparams">[<span name="Z">Z &lt;: <a href="package$$PType.html" class="extype" name="co.theasi.plotly.PType">PType</a></span>]</span><span class="params">(<span name="zs">zs: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.SurfaceZ.Z">Z</span>]]</span>, <span name="options">options: <a href="SurfaceOptions.html" class="extype" name="co.theasi.plotly.SurfaceOptions">SurfaceOptions</a></span>)</span><span class="result"> extends <a href="ThreeDSeries.html" class="extype" name="co.theasi.plotly.ThreeDSeries">ThreeDSeries</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@SurfaceZ[Z&lt;:co.theasi.plotly.PType]extendsThreeDSerieswithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="co.theasi.plotly.TextValue" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="TextValueextendsAnyRef"></a>
       <a id="TextValue:TextValue"></a>
@@ -750,6 +900,128 @@ returns an index that can be passed to <code>.onAxes</code>.
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#co.theasi.plotly.package@TextValueextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.ThreeDPlot" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ThreeDPlotextendsPlotwithProductwithSerializable"></a>
+      <a id="ThreeDPlot:ThreeDPlot"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ThreeDPlot.html"><span class="name">ThreeDPlot</span></a><span class="params">(<span name="series">series: <span class="extype" name="scala.Vector">Vector</span>[<a href="Series.html" class="extype" name="co.theasi.plotly.Series">Series</a>]</span>, <span name="options">options: <a href="ThreeDPlotOptions.html" class="extype" name="co.theasi.plotly.ThreeDPlotOptions">ThreeDPlotOptions</a></span>)</span><span class="result"> extends <a href="Plot.html" class="extype" name="co.theasi.plotly.Plot">Plot</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@ThreeDPlotextendsPlotwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Plot with 3D axes</p><div class="fullcomment"><div class="comment cmt"><p>Plot with 3D axes</p><h4>Example usage</h4><p>This class represents plots with 3D Cartesian axes. This can
+be used to draw 3D surface plots.</p><p><code>ThreeDPlot</code> instances can be sent directly to Plotly:</p><pre><span class="kw">val</span> zs = Vector(
+  Vector(<span class="num">1.0</span>, <span class="num">2.0</span>, <span class="num">1.0</span>),
+  Vector(<span class="num">5.0</span>, <span class="num">4.0</span>, <span class="num">5.0</span>),
+  Vector(<span class="num">1.0</span>, <span class="num">2.0</span>, <span class="num">1.0</span>)
+)
+
+<span class="kw">val</span> plot = ThreeDPlot().withSurface(zs)
+draw(plot, <span class="lit">"my-3d-plot"</span>)</pre><p>They can also be embedded in <a href="Figure.html" class="extype" name="co.theasi.plotly.Figure">Figure</a> instances for
+more complex plot layouts:</p><pre><span class="kw">val</span> zs1 = Vector(
+  Vector(<span class="num">1.0</span>, <span class="num">2.0</span>, <span class="num">1.0</span>),
+  Vector(<span class="num">5.0</span>, <span class="num">4.0</span>, <span class="num">5.0</span>),
+  Vector(<span class="num">1.0</span>, <span class="num">2.0</span>, <span class="num">1.0</span>)
+)
+
+<span class="kw">val</span> zs2 = zs1.map { row <span class="kw">=&gt;</span> row.map { _ - <span class="num">2.0</span> } }
+
+<span class="kw">val</span> figure = RowFigure(<span class="num">2</span>) <span class="cmt">// 2 sub-plots next to each other</span>
+  .plot(<span class="num">0</span>) { ThreeDPlot().withSurface(zs1) } <span class="cmt">// left sub-plot</span>
+  .plot(<span class="num">1</span>) { ThreeDPlot().withSurface(zs2) } <span class="cmt">// right sub-plot</span>
+
+draw(figure, <span class="lit">"3d-subplots"</span>)</pre><h4>Surface plots</h4><p>Add a surface plot with the <code>withSurface</code> method:</p><pre><span class="kw">val</span> xs = Vector(-<span class="num">1.0</span>, <span class="num">0.0</span>, <span class="num">1.0</span>)
+<span class="kw">val</span> ys = Vector(<span class="num">0.0</span>, <span class="num">10.0</span>)
+
+<span class="kw">val</span> zs = Vector(
+  Vector(<span class="num">1.0</span>, <span class="num">2.0</span>, <span class="num">1.0</span>),
+  Vector(<span class="num">5</span>,<span class="num">0</span>, <span class="num">4.0</span>, <span class="num">5.0</span>)
+)
+
+<span class="kw">val</span> p = ThreeDPlot().withSurface(xs, ys, zs)</pre><p>The <i>z</i>-values are assumed to be nested iterables, oriented such that
+<code>zs(0)(1)</code> is the value of <i>z</i> at <code>xs(1)</code> and <code>ys(0)</code>.</p><p>You can also pass in options to control how the surface is represented:</p><pre><span class="kw">val</span> p = ThreeDPlot().withSurface(xs, ys, zs, SurfaceOptions().opacity(<span class="num">0.4</span>))</pre><p>See the documentation for <a href="SurfaceOptions.html" class="extype" name="co.theasi.plotly.SurfaceOptions">SurfaceOptions</a> for a list of available
+options.</p><p><code>.withSurface</code> also supports passing a <code>zs</code> iterable
+ without <code>xs</code> and <code>ys</code>.
+ This is equivalent to having <code>xs = (0 to zs(0).size)</code> and
+<code>ys = (0 to zs.size)</code>.</p><h4>Multiple surfaces</h4><p><code>ThreeDPlot</code> instances support multiple surfaces:</p><pre><span class="kw">val</span> zs1 = Vector(
+  Vector(<span class="num">1.0</span>, <span class="num">2.0</span>, <span class="num">1.0</span>),
+  Vector(<span class="num">5.0</span>, <span class="num">4.0</span>, <span class="num">5.0</span>),
+  Vector(<span class="num">1.0</span>, <span class="num">2.0</span>, <span class="num">1.0</span>)
+)
+
+<span class="kw">val</span> zs2 = zs1.map { row <span class="kw">=&gt;</span> row.map { _ - <span class="num">2.0</span> } }
+
+<span class="kw">val</span> p = ThreeDPlot()
+  .withSurface(zs1, SurfaceOptions().name(<span class="lit">"top"</span>))
+  .withSurface(zs2, SurfaceOptions().name(<span class="lit">"bottom"</span>))</pre><h4>The immutable builder pattern</h4><p>When you call the <code>.withSurface</code> method on a <code>ThreeDPlot</code> object, it
+returns a <b>new</b> plot with the series added. <code>ThreeDPlot</code> instances
+are immutable. Thus, the following does <b>not</b> work as expected:</p><pre><span class="cmt">// Not what you want!</span>
+<span class="kw">val</span> plot = ThreeDPlot().withSurface(zs)
+plot.withSurface(zs2) <span class="cmt">// No: this does not modify 'plot' in place!</span></pre><p>You should chain calls to <code>withSurface</code> instead:</p><pre><span class="kw">val</span> plot = ThreeDPlot()
+  .withSurface(zs1)
+  .withSurface(zs2)</pre><p>All methods in this class work in the same way: they return a new
+instance of <code>ThreeDPlot</code>. This pattern is called the immutable builder
+pattern: it is a variant of the common
+<a href="https://en.wikipedia.org/wiki/Builder_pattern" target="_blank">builder pattern</a>
+adapted for immutable objects.</p></div></div>
+    </li><li name="co.theasi.plotly.ThreeDPlotOptions" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ThreeDPlotOptionsextendsProductwithSerializable"></a>
+      <a id="ThreeDPlotOptions:ThreeDPlotOptions"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ThreeDPlotOptions.html"><span class="name">ThreeDPlotOptions</span></a><span class="params">(<span name="xAxisOptions">xAxisOptions: <a href="AxisOptions.html" class="extype" name="co.theasi.plotly.AxisOptions">AxisOptions</a></span>, <span name="yAxisOptions">yAxisOptions: <a href="AxisOptions.html" class="extype" name="co.theasi.plotly.AxisOptions">AxisOptions</a></span>, <span name="zAxisOptions">zAxisOptions: <a href="AxisOptions.html" class="extype" name="co.theasi.plotly.AxisOptions">AxisOptions</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@ThreeDPlotOptionsextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.ThreeDSeries" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ThreeDSeriesextendsSeries"></a>
+      <a id="ThreeDSeries:ThreeDSeries"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="ThreeDSeries.html"><span class="name">ThreeDSeries</span></a><span class="result"> extends <a href="Series.html" class="extype" name="co.theasi.plotly.Series">Series</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@ThreeDSeriesextendsSeries" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.ViewPort" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ViewPortextendsProductwithSerializable"></a>
+      <a id="ViewPort:ViewPort"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ViewPort.html"><span class="name">ViewPort</span></a><span class="params">(<span name="xDomain">xDomain: (<span class="extype" name="scala.Double">Double</span>, <span class="extype" name="scala.Double">Double</span>)</span>, <span name="yDomain">yDomain: (<span class="extype" name="scala.Double">Double</span>, <span class="extype" name="scala.Double">Double</span>)</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@ViewPortextendsProductwithSerializable" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -849,6 +1121,40 @@ returns an index that can be passed to <code>.onAxes</code>.
       </a>
     </span>
       
+    </li><li name="co.theasi.plotly.CartesianPlot" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CartesianPlot"></a>
+      <a id="CartesianPlot:CartesianPlot"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="CartesianPlot$.html"><span class="name">CartesianPlot</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@CartesianPlot" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.CartesianPlotOptions" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CartesianPlotOptions"></a>
+      <a id="CartesianPlotOptions:CartesianPlotOptions"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="CartesianPlotOptions$.html"><span class="name">CartesianPlotOptions</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@CartesianPlotOptions" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="co.theasi.plotly.Color" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="Color"></a>
       <a id="Color:Color"></a>
@@ -862,6 +1168,40 @@ returns an index that can be passed to <code>.onAxes</code>.
       </span>
       </h4><span class="permalink">
       <a href="../../../index.html#co.theasi.plotly.package@Color" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.Figure" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Figure"></a>
+      <a id="Figure:Figure"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Figure$.html"><span class="name">Figure</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@Figure" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.FigureOptions" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="FigureOptions"></a>
+      <a id="FigureOptions:FigureOptions"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="FigureOptions$.html"><span class="name">FigureOptions</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@FigureOptions" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -883,40 +1223,23 @@ returns an index that can be passed to <code>.onAxes</code>.
       </a>
     </span>
       
-    </li><li name="co.theasi.plotly.GridLayout" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="GridLayout"></a>
-      <a id="GridLayout:GridLayout"></a>
+    </li><li name="co.theasi.plotly.GridFigure" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="GridFigure"></a>
+      <a id="GridFigure:GridFigure"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a href="GridLayout$.html"><span class="name">GridLayout</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="GridFigure$.html"><span class="name">GridFigure</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@GridLayout" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.package@GridFigure" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
-    </li><li name="co.theasi.plotly.LayoutOptions" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="LayoutOptions"></a>
-      <a id="LayoutOptions:LayoutOptions"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a href="LayoutOptions$.html"><span class="name">LayoutOptions</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@LayoutOptions" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
+      <p class="shortcomment cmt">Factory methods for building instances of <code>GridFigure</code>.</p>
     </li><li name="co.theasi.plotly.LegendOptions" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="LegendOptions"></a>
       <a id="LegendOptions:LegendOptions"></a>
@@ -951,6 +1274,23 @@ returns an index that can be passed to <code>.onAxes</code>.
       </a>
     </span>
       
+    </li><li name="co.theasi.plotly.Plot" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Plot"></a>
+      <a id="Plot:Plot"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Plot$.html"><span class="name">Plot</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@Plot" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="co.theasi.plotly.ReadableImplicits.ReadableDouble" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ReadableDouble"></a>
       <a id="ReadableDouble:ReadableDouble"></a>
@@ -968,19 +1308,19 @@ returns an index that can be passed to <code>.onAxes</code>.
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ReadableImplicits.html" class="extype" name="co.theasi.plotly.ReadableImplicits">ReadableImplicits</a></dd></dl></div>
-    </li><li name="co.theasi.plotly.RowLayout" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="RowLayout"></a>
-      <a id="RowLayout:RowLayout"></a>
+    </li><li name="co.theasi.plotly.RowFigure" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="RowFigure"></a>
+      <a id="RowFigure:RowFigure"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a href="RowLayout$.html"><span class="name">RowLayout</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="RowFigure$.html"><span class="name">RowFigure</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@RowLayout" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.package@RowFigure" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -1019,19 +1359,87 @@ returns an index that can be passed to <code>.onAxes</code>.
       </a>
     </span>
       
-    </li><li name="co.theasi.plotly.SingleAxisLayout" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="SingleAxisLayout"></a>
-      <a id="SingleAxisLayout:SingleAxisLayout"></a>
+    </li><li name="co.theasi.plotly.SinglePlotFigure" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SinglePlotFigure"></a>
+      <a id="SinglePlotFigure:SinglePlotFigure"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a href="SingleAxisLayout$.html"><span class="name">SingleAxisLayout</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="SinglePlotFigure$.html"><span class="name">SinglePlotFigure</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@SingleAxisLayout" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.package@SinglePlotFigure" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Factory methods for building instances of <code>SinglePlotFigure</code>.</p>
+    </li><li name="co.theasi.plotly.SurfaceOptions" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SurfaceOptions"></a>
+      <a id="SurfaceOptions:SurfaceOptions"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="SurfaceOptions$.html"><span class="name">SurfaceOptions</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@SurfaceOptions" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.ThreeDPlot" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ThreeDPlot"></a>
+      <a id="ThreeDPlot:ThreeDPlot"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ThreeDPlot$.html"><span class="name">ThreeDPlot</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@ThreeDPlot" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.ThreeDPlotOptions" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ThreeDPlotOptions"></a>
+      <a id="ThreeDPlotOptions:ThreeDPlotOptions"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ThreeDPlotOptions$.html"><span class="name">ThreeDPlotOptions</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@ThreeDPlotOptions" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.ViewPort" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ViewPort"></a>
+      <a id="ViewPort:ViewPort"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ViewPort$.html"><span class="name">ViewPort</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@ViewPort" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -1156,35 +1564,69 @@ returns an index that can be passed to <code>.onAxes</code>.
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="writer/ServerWriter.html" class="extype" name="co.theasi.plotly.writer.ServerWriter">ServerWriter</a></dd></dl></div>
     </li><li name="co.theasi.plotly.writer.ServerWriter#draw" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="draw(plot:co.theasi.plotly.Plot[_],fileName:String,fileOptions:co.theasi.plotly.writer.FileOptions)(implicitserver:co.theasi.plotly.writer.Server):co.theasi.plotly.writer.PlotFile"></a>
-      <a id="draw(Plot[_],String,FileOptions)(Server):PlotFile"></a>
+      <a id="draw(plot:co.theasi.plotly.Plot,fileName:String,fileOptions:co.theasi.plotly.writer.FileOptions)(implicitserver:co.theasi.plotly.writer.Server):co.theasi.plotly.writer.PlotFile"></a>
+      <a id="draw(Plot,String,FileOptions)(Server):PlotFile"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">draw</span><span class="params">(<span name="plot">plot: <a href="Plot.html" class="extype" name="co.theasi.plotly.Plot">Plot</a>[_]</span>, <span name="fileName">fileName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="fileOptions">fileOptions: <a href="writer/FileOptions.html" class="extype" name="co.theasi.plotly.writer.FileOptions">FileOptions</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="server">server: <a href="writer/Server.html" class="extype" name="co.theasi.plotly.writer.Server">Server</a></span>)</span><span class="result">: <a href="writer/PlotFile.html" class="extype" name="co.theasi.plotly.writer.PlotFile">PlotFile</a></span>
+        <span class="name">draw</span><span class="params">(<span name="plot">plot: <a href="Plot.html" class="extype" name="co.theasi.plotly.Plot">Plot</a></span>, <span name="fileName">fileName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="fileOptions">fileOptions: <a href="writer/FileOptions.html" class="extype" name="co.theasi.plotly.writer.FileOptions">FileOptions</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="server">server: <a href="writer/Server.html" class="extype" name="co.theasi.plotly.writer.Server">Server</a></span>)</span><span class="result">: <a href="writer/PlotFile.html" class="extype" name="co.theasi.plotly.writer.PlotFile">PlotFile</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@draw(plot:co.theasi.plotly.Plot[_],fileName:String,fileOptions:co.theasi.plotly.writer.FileOptions)(implicitserver:co.theasi.plotly.writer.Server):co.theasi.plotly.writer.PlotFile" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.package@draw(plot:co.theasi.plotly.Plot,fileName:String,fileOptions:co.theasi.plotly.writer.FileOptions)(implicitserver:co.theasi.plotly.writer.Server):co.theasi.plotly.writer.PlotFile" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="writer/ServerWriter.html" class="extype" name="co.theasi.plotly.writer.ServerWriter">ServerWriter</a></dd></dl></div>
     </li><li name="co.theasi.plotly.writer.ServerWriter#draw" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="draw(plot:co.theasi.plotly.Plot[_],fileName:String)(implicitserver:co.theasi.plotly.writer.Server):co.theasi.plotly.writer.PlotFile"></a>
-      <a id="draw(Plot[_],String)(Server):PlotFile"></a>
+      <a id="draw(plot:co.theasi.plotly.Plot,fileName:String)(implicitserver:co.theasi.plotly.writer.Server):co.theasi.plotly.writer.PlotFile"></a>
+      <a id="draw(Plot,String)(Server):PlotFile"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">draw</span><span class="params">(<span name="plot">plot: <a href="Plot.html" class="extype" name="co.theasi.plotly.Plot">Plot</a>[_]</span>, <span name="fileName">fileName: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="server">server: <a href="writer/Server.html" class="extype" name="co.theasi.plotly.writer.Server">Server</a></span>)</span><span class="result">: <a href="writer/PlotFile.html" class="extype" name="co.theasi.plotly.writer.PlotFile">PlotFile</a></span>
+        <span class="name">draw</span><span class="params">(<span name="plot">plot: <a href="Plot.html" class="extype" name="co.theasi.plotly.Plot">Plot</a></span>, <span name="fileName">fileName: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="server">server: <a href="writer/Server.html" class="extype" name="co.theasi.plotly.writer.Server">Server</a></span>)</span><span class="result">: <a href="writer/PlotFile.html" class="extype" name="co.theasi.plotly.writer.PlotFile">PlotFile</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.package@draw(plot:co.theasi.plotly.Plot[_],fileName:String)(implicitserver:co.theasi.plotly.writer.Server):co.theasi.plotly.writer.PlotFile" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.package@draw(plot:co.theasi.plotly.Plot,fileName:String)(implicitserver:co.theasi.plotly.writer.Server):co.theasi.plotly.writer.PlotFile" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="writer/ServerWriter.html" class="extype" name="co.theasi.plotly.writer.ServerWriter">ServerWriter</a></dd></dl></div>
+    </li><li name="co.theasi.plotly.writer.ServerWriter#draw" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="draw(figure:co.theasi.plotly.Figure,fileName:String,fileOptions:co.theasi.plotly.writer.FileOptions)(implicitserver:co.theasi.plotly.writer.Server):co.theasi.plotly.writer.PlotFile"></a>
+      <a id="draw(Figure,String,FileOptions)(Server):PlotFile"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">draw</span><span class="params">(<span name="figure">figure: <a href="Figure.html" class="extype" name="co.theasi.plotly.Figure">Figure</a></span>, <span name="fileName">fileName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="fileOptions">fileOptions: <a href="writer/FileOptions.html" class="extype" name="co.theasi.plotly.writer.FileOptions">FileOptions</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="server">server: <a href="writer/Server.html" class="extype" name="co.theasi.plotly.writer.Server">Server</a></span>)</span><span class="result">: <a href="writer/PlotFile.html" class="extype" name="co.theasi.plotly.writer.PlotFile">PlotFile</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@draw(figure:co.theasi.plotly.Figure,fileName:String,fileOptions:co.theasi.plotly.writer.FileOptions)(implicitserver:co.theasi.plotly.writer.Server):co.theasi.plotly.writer.PlotFile" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="writer/ServerWriter.html" class="extype" name="co.theasi.plotly.writer.ServerWriter">ServerWriter</a></dd></dl></div>
+    </li><li name="co.theasi.plotly.writer.ServerWriter#draw" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="draw(figure:co.theasi.plotly.Figure,fileName:String)(implicitserver:co.theasi.plotly.writer.Server):co.theasi.plotly.writer.PlotFile"></a>
+      <a id="draw(Figure,String)(Server):PlotFile"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">draw</span><span class="params">(<span name="figure">figure: <a href="Figure.html" class="extype" name="co.theasi.plotly.Figure">Figure</a></span>, <span name="fileName">fileName: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="server">server: <a href="writer/Server.html" class="extype" name="co.theasi.plotly.writer.Server">Server</a></span>)</span><span class="result">: <a href="writer/PlotFile.html" class="extype" name="co.theasi.plotly.writer.PlotFile">PlotFile</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.package@draw(figure:co.theasi.plotly.Figure,fileName:String)(implicitserver:co.theasi.plotly.writer.Server):co.theasi.plotly.writer.PlotFile" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>

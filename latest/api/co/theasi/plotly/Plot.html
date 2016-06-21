@@ -28,10 +28,12 @@
         </head>
         <body class="type">
       <div id="definition">
-        <img alt="Class" src="../../../lib/class_big.png" />
+        <a href="Plot$.html" title="See companion object"><img alt="Trait/Object" src="../../../lib/trait_to_object_big.png" /></a>
         <p id="owner"><a href="../../package.html" class="extype" name="co">co</a>.<a href="../package.html" class="extype" name="co.theasi">theasi</a>.<a href="package.html" class="extype" name="co.theasi.plotly">plotly</a></p>
-        <h1>Plot</h1><h3><span class="morelinks"><div>Related Doc:
-            <a href="package.html" class="extype" name="co.theasi.plotly">package plotly</a>
+        <h1><a href="Plot$.html" title="See companion object">Plot</a></h1><h3><span class="morelinks"><div>
+            Related Docs:
+            <a href="Plot$.html" title="See companion object">object Plot</a>
+            | <a href="package.html" class="extype" name="co.theasi.plotly">package plotly</a>
           </div></span></h3><span class="permalink">
       <a href="../../../index.html#co.theasi.plotly.Plot" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
@@ -42,50 +44,20 @@
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">case class</span>
+        <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">Plot</span><span class="tparams">[<span name="A">A &lt;: <a href="Layout.html" class="extype" name="co.theasi.plotly.Layout">Layout</a>[<span class="extype" name="co.theasi.plotly.Plot.A">A</span>]</span>]</span><span class="params">(<span name="series">series: <span class="extype" name="scala.Vector">Vector</span>[<a href="Series.html" class="extype" name="co.theasi.plotly.Series">Series</a>] = <span class="symbol">Vector.empty</span></span>, <span name="layout">layout: <a href="Layout.html" class="extype" name="co.theasi.plotly.Layout">Layout</a>[<span class="extype" name="co.theasi.plotly.Plot.A">A</span>] = <span class="symbol"><span class="name"><a href="SingleAxisLayout$.html">SingleAxisLayout()</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">Plot</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Immutable builder for creating plot instances.</p><h4>Example usage</h4><p>Let's start with a simple scatter plot:</p><pre><span class="kw">import</span> co.theasi.plotly._
-
-<span class="kw">val</span> xs = Vector(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)
-<span class="kw">val</span> ys = Vector(<span class="num">4.5</span>, <span class="num">8.5</span>, <span class="num">21.0</span>)
-
-<span class="kw">val</span> p = Plot().withScatter(xs, ys)
-draw(p, <span class="lit">"my-first-plot"</span>)</pre><p>What if we want to have several lines on our plot:</p><pre><span class="kw">import</span> co.theasi.plotly._
-
-<span class="kw">val</span> xs = Vector(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)
-<span class="kw">val</span> ys1 = xs.map { <span class="num">2</span> * _ }
-<span class="kw">val</span> ys2 = xs.map { -<span class="num">2</span> * _ }
-
-<span class="kw">val</span> p = Plot()
-  .withScatter(xs, ys1)
-  .withScatter(xs, ys2)
-
-draw(p, <span class="lit">"my-second-plot"</span>)</pre><h4>The immutable builder pattern</h4><p>When you call the <code>.withScatter</code> method on a <code>Plot</code> object, it
-returns a <b>new</b> plot with the new data series added.
-<code>Plot</code> instances are immutable. Thus, the following will <b>not</b>
-work:</p><pre><span class="kw">val</span> p = Plot().withScatter(xs, ys1)
-p.withScatter(xs, ys2) <span class="cmt">// No: this does not modify 'p' in place!</span>
-
-draw(p, <span class="lit">"my-other-plot"</span>)</pre><p>Do this instead:</p><pre><span class="kw">val</span> p = Plot().withScatter(xs, ys1)
-<span class="kw">val</span> newPlot = p.withScatter(xs, ys2)
-
-draw(newPlot, <span class="lit">"my-other-plot"</span>)</pre><p>Or, better yet, use chaining to avoid creating temporary variables:</p><pre><span class="kw">val</span> p = Plot()
-  .withScatter(xs, ys1)
-  .withScatter(xs, ys2)
-
-draw(p, <span class="lit">"another-plot"</span>)</pre><p>All methods in this class work in the same way: they return a new
-instance of <code>Plot</code>. This pattern is called the immutable builder
-pattern: it is a variant of the common
-<a href="https://en.wikipedia.org/wiki/Builder_pattern" target="_blank">builder pattern</a>
-adapted for immutable objects.</p></div><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
-        </div></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div><div class="toggleContainer block">
+            <span class="toggle">Known Subclasses</span>
+            <div class="subClasses hiddenContent"><a href="CartesianPlot.html" class="extype" name="co.theasi.plotly.CartesianPlot">CartesianPlot</a>, <a href="ThreeDPlot.html" class="extype" name="co.theasi.plotly.ThreeDPlot">ThreeDPlot</a></div>
+          </div></div>
         
 
       <div id="mbrsel">
@@ -102,7 +74,7 @@ adapted for immutable objects.</p></div><div class="toggleContainer block">
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="co.theasi.plotly.Plot"><span>Plot</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.Product"><span>Product</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="co.theasi.plotly.Plot"><span>Plot</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -119,21 +91,23 @@ adapted for immutable objects.</p></div><div class="toggleContainer block">
 
       <div id="template">
         <div id="allMembers">
-        <div id="constructors" class="members">
-              <h3>Instance Constructors</h3>
-              <ol><li name="co.theasi.plotly.Plot#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(series:Vector[co.theasi.plotly.Series],layout:co.theasi.plotly.Layout[A]):co.theasi.plotly.Plot[A]"></a>
-      <a id="&lt;init&gt;:Plot[A]"></a>
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="co.theasi.plotly.Plot.OptionType" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="OptionType"></a>
+      <a id="OptionType:OptionType"></a>
       <h4 class="signature">
       <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">new</span>
+        <span class="modifier">abstract </span>
+        <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">Plot</span><span class="params">(<span name="series">series: <span class="extype" name="scala.Vector">Vector</span>[<a href="Series.html" class="extype" name="co.theasi.plotly.Series">Series</a>] = <span class="symbol">Vector.empty</span></span>, <span name="layout">layout: <a href="Layout.html" class="extype" name="co.theasi.plotly.Layout">Layout</a>[<span class="extype" name="co.theasi.plotly.Plot.A">A</span>] = <span class="symbol"><span class="name"><a href="SingleAxisLayout$.html">SingleAxisLayout()</a></span></span></span>)</span>
+        <span class="name">OptionType</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.Plot@&lt;init&gt;(series:Vector[co.theasi.plotly.Series],layout:co.theasi.plotly.Layout[A]):co.theasi.plotly.Plot[A]" title="Permalink" target="_top">
+      <a href="../../../index.html#co.theasi.plotly.Plot@OptionType" title="Permalink" target="_top">
         <img src="../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -141,12 +115,47 @@ adapted for immutable objects.</p></div><div class="toggleContainer block">
     </li></ol>
             </div>
 
-        
-
-        
+        <div id="values" class="values members">
+              <h3>Abstract Value Members</h3>
+              <ol><li name="co.theasi.plotly.Plot#options" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="options:Plot.this.OptionType"></a>
+      <a id="options:OptionType"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">options</span><span class="result">: <a href="#OptionType" class="extmbr" name="co.theasi.plotly.Plot.OptionType">OptionType</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Plot@options:Plot.this.OptionType" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="co.theasi.plotly.Plot#series" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="series:Vector[co.theasi.plotly.Series]"></a>
+      <a id="series:Vector[Series]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">series</span><span class="result">: <span class="extype" name="scala.Vector">Vector</span>[<a href="Series.html" class="extype" name="co.theasi.plotly.Series">Series</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Plot@series:Vector[co.theasi.plotly.Series]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
 
         <div id="values" class="values members">
-              <h3>Value Members</h3>
+              <h3>Concrete Value Members</h3>
               <ol><li name="scala.AnyRef#!=" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="!=(x$1:Any):Boolean"></a>
       <a id="!=(Any):Boolean"></a>
@@ -255,6 +264,23 @@ adapted for immutable objects.</p></div><div class="toggleContainer block">
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#equals" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(x$1:Any):Boolean"></a>
+      <a id="equals(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Plot@equals(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <a id="finalize():Unit"></a>
@@ -295,6 +321,23 @@ adapted for immutable objects.</p></div><div class="toggleContainer block">
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hashCode():Int"></a>
+      <a id="hashCode():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Plot@hashCode():Int" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -312,40 +355,6 @@ adapted for immutable objects.</p></div><div class="toggleContainer block">
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="co.theasi.plotly.Plot#layout" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="layout[B&lt;:co.theasi.plotly.Layout[B]](newLayout:co.theasi.plotly.Layout[B]):co.theasi.plotly.Plot[B]"></a>
-      <a id="layout[B&lt;:Layout[B]](Layout[B]):Plot[B]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">layout</span><span class="tparams">[<span name="B">B &lt;: <a href="Layout.html" class="extype" name="co.theasi.plotly.Layout">Layout</a>[<span class="extype" name="co.theasi.plotly.Plot.layout.B">B</span>]</span>]</span><span class="params">(<span name="newLayout">newLayout: <a href="Layout.html" class="extype" name="co.theasi.plotly.Layout">Layout</a>[<span class="extype" name="co.theasi.plotly.Plot.layout.B">B</span>]</span>)</span><span class="result">: <a href="" class="extype" name="co.theasi.plotly.Plot">Plot</a>[<span class="extype" name="co.theasi.plotly.Plot.layout.B">B</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.Plot@layout[B&lt;:co.theasi.plotly.Layout[B]](newLayout:co.theasi.plotly.Layout[B]):co.theasi.plotly.Plot[B]" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Set the plot layout</p>
-    </li><li name="co.theasi.plotly.Plot#layout" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="layout:co.theasi.plotly.Layout[A]"></a>
-      <a id="layout:Layout[A]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">layout</span><span class="result">: <a href="Layout.html" class="extype" name="co.theasi.plotly.Layout">Layout</a>[<span class="extype" name="co.theasi.plotly.Plot.A">A</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.Plot@layout:co.theasi.plotly.Layout[A]" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>
@@ -397,23 +406,6 @@ adapted for immutable objects.</p></div><div class="toggleContainer block">
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="co.theasi.plotly.Plot#series" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="series:Vector[co.theasi.plotly.Series]"></a>
-      <a id="series:Vector[Series]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">series</span><span class="result">: <span class="extype" name="scala.Vector">Vector</span>[<a href="Series.html" class="extype" name="co.theasi.plotly.Series">Series</a>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.Plot@series:Vector[co.theasi.plotly.Series]" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
@@ -431,6 +423,23 @@ adapted for immutable objects.</p></div><div class="toggleContainer block">
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toString():String"></a>
+      <a id="toString():String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#co.theasi.plotly.Plot@toString():String" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>
@@ -500,77 +509,6 @@ adapted for immutable objects.</p></div><div class="toggleContainer block">
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="co.theasi.plotly.Plot#withBar" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="withBar[X,Y](xs:Iterable[X],ys:Iterable[Y])(implicitevidence$3:co.theasi.plotly.Writable[X],implicitevidence$4:co.theasi.plotly.Writable[Y]):co.theasi.plotly.Plot[A]"></a>
-      <a id="withBar[X,Y](Iterable[X],Iterable[Y])(Writable[X],Writable[Y]):Plot[A]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">withBar</span><span class="tparams">[<span name="X">X</span>, <span name="Y">Y</span>]</span><span class="params">(<span name="xs">xs: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.Plot.withBar.X">X</span>]</span>, <span name="ys">ys: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.Plot.withBar.Y">Y</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="Writable.html" class="extype" name="co.theasi.plotly.Writable">Writable</a>[<span class="extype" name="co.theasi.plotly.Plot.withBar.X">X</span>]</span>, <span name="arg1">arg1: <a href="Writable.html" class="extype" name="co.theasi.plotly.Writable">Writable</a>[<span class="extype" name="co.theasi.plotly.Plot.withBar.Y">Y</span>]</span>)</span><span class="result">: <a href="" class="extype" name="co.theasi.plotly.Plot">Plot</a>[<span class="extype" name="co.theasi.plotly.Plot.A">A</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.Plot@withBar[X,Y](xs:Iterable[X],ys:Iterable[Y])(implicitevidence$3:co.theasi.plotly.Writable[X],implicitevidence$4:co.theasi.plotly.Writable[Y]):co.theasi.plotly.Plot[A]" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Add a bar series to this plot.</p>
-    </li><li name="co.theasi.plotly.Plot#withBox" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="withBox[X](xs:Iterable[X])(implicitevidence$5:co.theasi.plotly.Writable[X]):co.theasi.plotly.Plot[A]"></a>
-      <a id="withBox[X](Iterable[X])(Writable[X]):Plot[A]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">withBox</span><span class="tparams">[<span name="X">X</span>]</span><span class="params">(<span name="xs">xs: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.Plot.withBox.X">X</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="Writable.html" class="extype" name="co.theasi.plotly.Writable">Writable</a>[<span class="extype" name="co.theasi.plotly.Plot.withBox.X">X</span>]</span>)</span><span class="result">: <a href="" class="extype" name="co.theasi.plotly.Plot">Plot</a>[<span class="extype" name="co.theasi.plotly.Plot.A">A</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.Plot@withBox[X](xs:Iterable[X])(implicitevidence$5:co.theasi.plotly.Writable[X]):co.theasi.plotly.Plot[A]" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="co.theasi.plotly.Plot#withScatter" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="withScatter[X,Y](xs:Iterable[X],ys:Iterable[Y],options:co.theasi.plotly.ScatterOptions):co.theasi.plotly.Plot[A]"></a>
-      <a id="withScatter[X,Y](Iterable[X],Iterable[Y],ScatterOptions):Plot[A]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">withScatter</span><span class="tparams">[<span name="X">X</span>, <span name="Y">Y</span>]</span><span class="params">(<span name="xs">xs: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.Plot.withScatter.X">X</span>]</span>, <span name="ys">ys: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.Plot.withScatter.Y">Y</span>]</span>, <span name="options">options: <a href="ScatterOptions.html" class="extype" name="co.theasi.plotly.ScatterOptions">ScatterOptions</a></span>)</span><span class="result">: <a href="" class="extype" name="co.theasi.plotly.Plot">Plot</a>[<span class="extype" name="co.theasi.plotly.Plot.A">A</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#co.theasi.plotly.Plot@withScatter[X,Y](xs:Iterable[X],ys:Iterable[Y],options:co.theasi.plotly.ScatterOptions):co.theasi.plotly.Plot[A]" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">[use case]  Add a scatter or line series to this plot</p><div class="fullcomment">[use case] <div class="comment cmt"><p> Add a scatter or line series to this plot</p></div><dl class="paramcmts block"><dt class="param">xs</dt><dd class="cmt"><p>The 'xs' series. This can be an iterable of any type T,
-  provided an instance of the typeclass 'Writable[T]' exists.</p></dd><dt class="param">ys</dt><dd class="cmt"><p>The 'ys' series.</p></dd><dt class="param">options</dt><dd class="cmt"><p>(optional) Options controlling which subplot
-  the scatter plot is plotted on, the marker style etc.</p></dd><dt>returns</dt><dd class="cmt"><p>This plot with the scatter series added.</p></dd></dl><dl class="attributes block"> <div class="full-signature-block toggleContainer">
-            <span class="toggle">Full Signature</span>
-            <div class="hiddenContent full-signature-usecase"><h4 id="signature" class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">withScatter</span><span class="tparams">[<span name="X">X</span>, <span name="Y">Y</span>]</span><span class="params">(<span name="xs">xs: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.Plot.withScatter.X">X</span>]</span>, <span name="ys">ys: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="co.theasi.plotly.Plot.withScatter.Y">Y</span>]</span>, <span name="options">options: <a href="ScatterOptions.html" class="extype" name="co.theasi.plotly.ScatterOptions">ScatterOptions</a> = <span class="symbol"><span class="name"><a href="ScatterOptions$.html">ScatterOptions()</a></span></span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="Writable.html" class="extype" name="co.theasi.plotly.Writable">Writable</a>[<span class="extype" name="co.theasi.plotly.Plot.withScatter.X">X</span>]</span>, <span name="arg1">arg1: <a href="Writable.html" class="extype" name="co.theasi.plotly.Writable">Writable</a>[<span class="extype" name="co.theasi.plotly.Plot.withScatter.Y">Y</span>]</span>)</span><span class="result">: <a href="" class="extype" name="co.theasi.plotly.Plot">Plot</a>[<span class="extype" name="co.theasi.plotly.Plot.A">A</span>]</span>
-      </span>
-      </h4></div>
-          </div><div class="block">Example:
-               <ol><li class="cmt"><p></p><pre><span class="kw">val</span> xs = Vector(<span class="num">1.0</span>, <span class="num">2.0</span>, <span class="num">3.0</span>)
-<span class="kw">val</span> ys1 = xs.map { _ * <span class="num">2.0</span> }
-<span class="kw">val</span> ys2 = xs.map { _ * (-<span class="num">2.0</span>) }
-<span class="kw">val</span> p = Plot()
-  .withScatter(xs, ys1)
-  .withScatter(xs, ys2, ScatterOptions().name(<span class="lit">"series-2"</span>))</pre></li></ol>
-            </div></dl></div>
     </li></ol>
             </div>
 
@@ -580,15 +518,7 @@ adapted for immutable objects.</p></div><div class="toggleContainer block">
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.Serializable">
-              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
-            </div><div class="parent" name="java.io.Serializable">
-              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
-            </div><div class="parent" name="scala.Product">
-              <h3>Inherited from <span class="extype" name="scala.Product">Product</span></h3>
-            </div><div class="parent" name="scala.Equals">
-              <h3>Inherited from <span class="extype" name="scala.Equals">Equals</span></h3>
-            </div><div class="parent" name="scala.AnyRef">
+        <div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
