@@ -16,7 +16,7 @@ To install the bleeding edge version, add this instead:
 ```
 resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 
-libraryDependencies += "co.theasi" %% "plotly" % "0.1.1-SNAPSHOT"
+libraryDependencies += "co.theasi" %% "plotly" % "0.2.0-SNAPSHOT"
 ```
 
 ## Documentation
