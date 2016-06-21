@@ -4,9 +4,9 @@ version := "0.2.0-SNAPSHOT"
 
 organization := "co.theasi"
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.8"
 
-crossScalaVersions := Seq("2.11.7", "2.10.6")
+crossScalaVersions := Seq("2.11.8", "2.10.6")
 
 libraryDependencies ++= Seq(
   "org.scalaj" %% "scalaj-http" % "2.2.1",
