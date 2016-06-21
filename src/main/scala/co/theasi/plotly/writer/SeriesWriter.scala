@@ -1,10 +1,9 @@
 package co.theasi.plotly.writer
 
 import org.json4s._
-import org.json4s.native.JsonMethods._
 import org.json4s.JsonDSL._
 
-import co.theasi.plotly.{SeriesOptions, ScatterOptions, BarOptions, BoxOptions}
+import co.theasi.plotly.{SeriesOptions, SurfaceOptions}
 
 object SeriesWriter {
   def toJson(seriesWriteInfo: SeriesWriteInfo)
@@ -13,7 +12,8 @@ object SeriesWriter {
       case s: ScatterWriteInfo => scatterToJson(s)
       case s: BarWriteInfo => barToJson(s)
       case s: BoxWriteInfo => boxToJson(s)
-      case s: SurfaceWriteInfo => surfaceToJson(s)
+      case s: SurfaceZWriteInfo => surfaceZToJson(s)
+      case s: SurfaceXYZWriteInfo => surfaceXYZToJson(s)
     }
   }
 
@@ -42,13 +42,25 @@ object SeriesWriter {
     ("ysrc" -> xsrc) ~ axisToJson(info.axisIndex) ~ ("type" -> "box")
   }
 
-  private def surfaceToJson(info: SurfaceWriteInfo)
+  private def surfaceZToJson(info: SurfaceZWriteInfo)
   : JValue = {
     val List(zsrc) = info.srcs
     ("zsrc" -> zsrc) ~
+    surfaceToJsonHelper(info.sceneIndex, info.options)
+  }
+
+  private def surfaceXYZToJson(info: SurfaceXYZWriteInfo): JValue = {
+    val List(xsrc, ysrc, zsrc) = info.srcs
+    ("xsrc" -> xsrc) ~
+    ("ysrc" -> ysrc) ~
+    ("zsrc" -> zsrc) ~
+    surfaceToJsonHelper(info.sceneIndex, info.options)
+  }
+
+  private def surfaceToJsonHelper(plotIndex: Int, options: SurfaceOptions) = {
     ("type" -> "surface") ~
-    sceneToJson(info.sceneIndex) ~
-    OptionsWriter.surfaceOptionsToJson(info.options)
+    sceneToJson(plotIndex) ~
+    OptionsWriter.surfaceOptionsToJson(options)
   }
 
   private def axisToJson(axisIndex: Int): JObject =

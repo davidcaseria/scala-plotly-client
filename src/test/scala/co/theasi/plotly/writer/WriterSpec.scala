@@ -19,6 +19,7 @@ class WriterSpec extends FlatSpec with Matchers {
   val testX1 = Vector(1.0, 2.0, 3.0)
   val testX2 = Vector(1, 2, 3)
   val testY1 = Vector(4.0, 5.0, 7.0)
+  val testY2 = Vector(5, 10)
   val testText1 = Vector("A", "B", "C")
   val testZData = Vector(Vector(1.0, 2.0, 3.0), Vector(1.0, 4.0, 3.0))
 
@@ -151,5 +152,14 @@ class WriterSpec extends FlatSpec with Matchers {
     val series0 = (jsonResponse \ "data")(0)
     checkTestZData(series0 \ "z")
     series0 \ "type" shouldEqual JString("surface")
+  }
+
+  it should "draw a 3D plot with x, y and z" in {
+    val p = ThreeDPlot()
+      .withSurface(testX1, testY2, testZData)
+    val plotFile = draw(p, randomFileName)
+    val jsonResponse = getJsonForPlotFile(plotFile)
+    val series0 = (jsonResponse \ "data")(0)
+    checkTestZData(series0 \ "z")
   }
 }

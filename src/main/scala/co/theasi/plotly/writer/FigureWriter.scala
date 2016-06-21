@@ -90,6 +90,16 @@ object FigureWriter {
         s.zs.transpose.zipWithIndex.map { case (row, rowIndex) =>
           s"z-$index-$rowIndex" -> row
         }.toList
+      case s: SurfaceXYZ[_, _, _] =>
+        val firstRow = List(PString("")) ++ s.xs.toList
+        val otherRows = s.ys.zip(s.zs).map {
+          case (y, zRow) => List(y) ++ zRow.toList
+        }
+        val rows = List(firstRow) ++ otherRows.toList
+        rows.transpose.zipWithIndex.map {
+          case (row, 0) => s"y-$index" -> row
+          case (row, rowIndex) => s"z-$index-$rowIndex" -> row
+        }
     }
 
     val optionColumns = series match {
@@ -165,25 +175,42 @@ object FigureWriter {
         }
         val uidString = s"${drawnGrid.fileId}:${uids.mkString(",")}"
         List(uidString)
+      case s: SurfaceXYZ[_, _, _] =>
+        val yColumnName = s"y-$index"
+        val yUid = drawnGrid.columnUids(yColumnName)
+        val zPrefix = s"z-$index"
+        val zColumnNames = s.zs.transpose.zipWithIndex.map {
+          case (row, rowIndex) => zPrefix + s"-${rowIndex+1}"
+        }
+        val zUids = zColumnNames.map { colName =>
+          drawnGrid.columnUids(colName)
+        }
+        val fileId = drawnGrid.fileId
+        val yUidString = s"$fileId:$yUid?rows=1-"
+        val zUidString = s"$fileId:${zUids.mkString(",")}?rows=1-"
+        val xUidString = s"$fileId:${zUids.mkString(",")}?row=0"
+        List(xUidString, yUidString, zUidString)
     }
     srcs
   }
 
-  private def updateOptionsFromDrawnGrid(
+  private def updateSeriesFromDrawnGrid(
     drawnGrid: GridFile,
-    options: SeriesOptions,
+    series: Series,
     index: Int
-  ): SeriesOptions = {
-    options match {
-      case o: ScatterOptions =>
-        updateScatterOptionsFromDrawnGrid(drawnGrid, o, index)
-      case o: BarOptions =>
-        updateBarOptionsFromDrawnGrid(drawnGrid, o, index)
-      case o: BoxOptions =>
-        updateBoxOptionsFromDrawnGrid(drawnGrid, o, index)
+  ): Series =
+    series match {
+      case s: Scatter[_, _] =>
+        val newOptions = updateScatterOptionsFromDrawnGrid(drawnGrid, s.options, index)
+        s.copy(options = newOptions)
+      case s: Bar[_, _] =>
+        val newOptions = updateBarOptionsFromDrawnGrid(drawnGrid, s.options, index)
+        s.copy(options = newOptions)
+      case s: Box[_] =>
+        val newOptions = updateBoxOptionsFromDrawnGrid(drawnGrid, s.options, index)
+        s.copy(options = newOptions)
       case o => o
     }
-  }
 
   private def updateScatterOptionsFromDrawnGrid(
     drawnGrid: GridFile,
@@ -228,11 +255,11 @@ object FigureWriter {
       srcs = srcsFromDrawnGrid(drawnGrid, series, index)
     } yield srcs
 
-    val seriesOptions = for {
+    val allUpdatedSeries = for {
       (series, index) <- allSeries.zipWithIndex
-      newOptions = updateOptionsFromDrawnGrid(
-        drawnGrid, series.options, index)
-    } yield newOptions
+      updatedSeries = updateSeriesFromDrawnGrid(
+        drawnGrid, series, index)
+    } yield updatedSeries
 
     val plotIndices = indicesFromPlots(figure.plots)
 
@@ -242,10 +269,12 @@ object FigureWriter {
     } yield plotIndex
 
     val writeInfos = for {
-      (srcs, options, plotIndex) <- (seriesSrcs, seriesOptions, seriesPlotIndex).zipped
-      writeInfo = options match {
-        case o: ScatterOptions => ScatterWriteInfo(srcs, plotIndex, o)
-        case o: SurfaceOptions => SurfaceWriteInfo(srcs, plotIndex, o)
+      (series, srcs, plotIndex) <- (allUpdatedSeries, seriesSrcs, seriesPlotIndex).zipped
+      // The casts are really ugly. There must be a better way
+      writeInfo = series match {
+        case s: Scatter[_, _] => ScatterWriteInfo(srcs, plotIndex, s.options)
+        case s: SurfaceZ[_] => SurfaceZWriteInfo(srcs, plotIndex, s.options)
+        case s: SurfaceXYZ[_, _, _] => SurfaceXYZWriteInfo(srcs, plotIndex, s.options)
       }
     } yield writeInfo
 

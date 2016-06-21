@@ -18,6 +18,7 @@ object AxisOptionsWriter {
     ("tickfont" -> FontWriter.toJson(options.tickFont)) ~
     ("autotick" -> options.autoTick) ~
     ("dtick" -> options.tickSpacing) ~
-    ("tickcolor" -> options.tickColor.map(ColorWriter.toJson _))
+    ("tickcolor" -> options.tickColor.map(ColorWriter.toJson _)) ~
+    ("showticklabels" -> options.tickLabels)
   )
 }
