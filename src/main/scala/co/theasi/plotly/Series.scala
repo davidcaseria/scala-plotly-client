@@ -24,7 +24,7 @@ sealed trait CartesianSeries extends Series {
   def ysAs[T : Readable]: Iterable[T] = {
     this match {
       case s: CartesianSeries2D[_, _] =>
-        s.xs.map { implicitly[Readable[T]].fromPType(_) }
+        s.ys.map { implicitly[Readable[T]].fromPType(_) }
       case _ =>
         throw new IllegalArgumentException(
           "Cannot extract ys from 1D series")
