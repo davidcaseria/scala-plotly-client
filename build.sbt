@@ -10,8 +10,8 @@ crossScalaVersions := Seq("2.11.8", "2.10.6")
 
 libraryDependencies ++= Seq(
   "org.scalaj" %% "scalaj-http" % "2.2.1",
-  "org.json4s" %% "json4s-native" % "3.3.0",
-  "org.scalatest" %% "scalatest" % "2.2.4" % "test"
+  "org.json4s" %% "json4s-native" % "3.4.1",
+  "org.scalatest" %% "scalatest" % "3.0.0" % "test"
 )
 
 initialCommands := """
@@ -33,7 +33,6 @@ publishTo <<= version { (v: String) =>
 parallelExecution in Test := false
 
 logBuffered in Test := false
-
 
 // Documentation
 enablePlugins(SiteScaladocPlugin)
