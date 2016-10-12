@@ -1,4 +1,3 @@
-
 [![Build Status](https://travis-ci.org/ASIDataScience/scala-plotly-client.svg)](https://travis-ci.org/ASIDataScience/scala-plotly-client)
 
 # Plotly client
@@ -7,13 +6,13 @@
 
 To add the plotly client to your code, add the following lines to your `build.sbt`:
 
-```
+```scala
 libraryDependencies += "co.theasi" %% "plotly" % "0.2.0"
 ```
 
 To install the bleeding edge version, add this instead:
 
-```
+```scala
 resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 
 libraryDependencies += "co.theasi" %% "plotly" % "0.2.1-SNAPSHOT"
@@ -29,7 +28,7 @@ libraryDependencies += "co.theasi" %% "plotly" % "0.2.1-SNAPSHOT"
 
 To create a graph on Plotly, start by opening an account with the web UI. Then create an API key by clicking on your username in the top right hand corner of the screen and selecting *SETTINGS > API KEYS*. Create the file `~/.plotly/.credentials` in your home directory. The file should look like:
 
-```
+```json
 {
   "username": "pbugnion",
   "api_key": "l233fgfdsjk"
@@ -42,13 +41,13 @@ Note that if you have already used another Plotly client, you probably do not ne
 
 To create a graph on the Plotly servers, start by importing the client:
 
-```
+```scala
 import co.theasi.plotly._
 ```
 
 Then, just pass the *x*, *y* series that you want to plot:
 
-```
+```scala
 scala> val x = Vector(1.0, 2.0, 3.0)
 
 scala> val y = Vector(1.0, 4.0, 9.0)
@@ -65,7 +64,7 @@ This will create a graph called `hello-plotly` in your account!
 
 Sometimes, creating a `~/.plotly/.credentials` file isn't practical. In that case, you can pass credentials to Plotly programatically by defining a custom server.
 
-```
+```scala
 import co.theasi.plotly._
 
 implicit val server = new writer.Server {
@@ -76,7 +75,7 @@ implicit val server = new writer.Server {
 
 You can then use Plotly commands normally:
 
-```
+```scala
 scala> val p = Plot().withScatter(Vector(1, 2, 3), Vector(1, 4, 9))
 
 scala> draw(p, "custom-credentials")
