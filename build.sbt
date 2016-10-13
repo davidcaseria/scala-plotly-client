@@ -6,6 +6,8 @@ organization := "co.theasi"
 
 scalaVersion := "2.11.8"
 
+scalacOptions += "-Ywarn-unused-import"
+
 crossScalaVersions := Seq("2.11.8", "2.10.6")
 
 libraryDependencies ++= Seq(
@@ -33,7 +35,6 @@ publishTo <<= version { (v: String) =>
 parallelExecution in Test := false
 
 logBuffered in Test := false
-
 
 // Documentation
 enablePlugins(SiteScaladocPlugin)
