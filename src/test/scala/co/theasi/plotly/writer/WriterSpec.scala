@@ -43,6 +43,11 @@ class WriterSpec extends FlatSpec with Matchers {
     response.toVector shouldEqual testY1.map { JDouble }
   }
 
+  def checkTestY2(arr: JValue) = {
+    val JArray(response) = arr
+    response.toVector shouldEqual testY2.map { JInt(_) }
+  }
+
   def checkTestText1(arr: JValue) = {
     val JArray(response) = arr
     response.toVector shouldEqual testText1.map { JString }
@@ -161,5 +166,7 @@ class WriterSpec extends FlatSpec with Matchers {
     val jsonResponse = getJsonForPlotFile(plotFile)
     val series0 = (jsonResponse \ "data")(0)
     checkTestZData(series0 \ "z")
+    checkTestX1(series0 \ "x")
+    checkTestY2(series0 \ "y")
   }
 }
