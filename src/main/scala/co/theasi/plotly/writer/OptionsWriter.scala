@@ -4,7 +4,7 @@ import org.json4s._
 import org.json4s.JsonDSL._
 
 import co.theasi.plotly.{ScatterOptions, ScatterMode, MarkerOptions,
-  Color, TextValue, StringText, IterableText, SrcText, SurfaceOptions}
+  TextValue, StringText, IterableText, SrcText, SurfaceOptions}
 
 object OptionsWriter {
 
@@ -49,6 +49,5 @@ object OptionsWriter {
         // text series are replaced by textSrc in PlotWriter
       case None => JObject()
     }
-
 
 }

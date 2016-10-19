@@ -6,6 +6,14 @@ organization := "co.theasi"
 
 scalaVersion := "2.11.8"
 
+def scalacOptionsForVersion(version: String) =
+  CrossVersion.partialVersion(version) match {
+    case Some((2, minor)) if minor >= 11 => "-Ywarn-unused-import"
+    case _ => ""
+  }
+
+scalacOptions += scalacOptionsForVersion(scalaVersion.value)
+
 crossScalaVersions := Seq("2.11.8", "2.10.6")
 
 libraryDependencies ++= Seq(
